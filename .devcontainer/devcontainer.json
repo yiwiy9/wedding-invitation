@@ -1,0 +1,33 @@
+{
+  "name": "${localWorkspaceFolderBasename}",
+
+  "build": { "dockerfile": "Dockerfile" },
+
+  "runArgs": ["--env-file", ".devcontainer/.env"],
+
+  "forwardPorts": [3000],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "EditorConfig.EditorConfig",
+        "mosapride.zenkaku",
+        "christian-kohler.path-intellisense",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-close-tag",
+        "dsznajder.es7-react-js-snippets",
+        "dbaeumer.vscode-eslint",
+        "ecmel.vscode-html-css",
+        "xabikos.JavaScriptSnippets",
+        "bradlc.vscode-tailwindcss",
+        "bierner.markdown-preview-github-styles",
+        "DavidAnson.vscode-markdownlint",
+        "mikestead.dotenv"
+      ]
+    }
+  }
+}
