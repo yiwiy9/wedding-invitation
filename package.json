@@ -1,0 +1,11 @@
+{
+  "name": "wedding-invitation-app",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "serverless-offline": "^11.2.1",
+    "serverless-plugin-typescript": "^2.1.4",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {}
+}
