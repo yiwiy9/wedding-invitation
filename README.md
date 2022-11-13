@@ -2,11 +2,11 @@
 
 Web App of our wedding invitation
 
-## Serverless Framework with TypeScript
+## 環境構築
 
 ### Backend
 
-#### 環境構築
+#### Serverless Framework with TypeScript
 
 1. [serverless/serverless-plugin-typescript](https://github.com/serverless/serverless-plugin-typescript), [dherault/serverless-offline](https://github.com/dherault/serverless-offline) をインストール
     - `yarn add -D typescript serverless-plugin-typescript serverless-offline`
@@ -28,5 +28,13 @@ Web App of our wedding invitation
 
 ### Frontend
 
-1. react入れる
+#### React with TypeScript
+
+1. [Create React App - Adding TypeScript](https://create-react-app.dev/docs/adding-typescript)の実行
+    - `yarn create react-app frontend --template typescript`
+
+### TODO
+
+1. [k1LoW/serverless-s3-sync](https://github.com/k1LoW/serverless-s3-sync), [【AWS】ServerlessFrameworkでS3静的ホスティングを設定する](https://zenn.dev/daisu0925/articles/c55a4b44b8e093)
 1. linter見る
+1. OpenAPIで型作成

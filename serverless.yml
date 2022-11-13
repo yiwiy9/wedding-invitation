@@ -23,7 +23,7 @@ plugins:
 
 package:
   patterns:
-    - '!frontend/**'
+    - '!frontend/**' # フロントエンドのコードはLambda関数に含めない
 
 functions:
   hello:
