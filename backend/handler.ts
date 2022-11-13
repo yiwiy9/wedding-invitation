@@ -1,21 +1,13 @@
-import * as _ from 'lodash'
+import { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 
-// modern module syntax
-export async function hello(event, context, callback) {
-
-  // dependencies work as expected
-  console.log(_.VERSION)
-
-  // async/await also works out of the box
-  await new Promise((resolve, reject) => setTimeout(resolve, 500))
-
-  const response = {
+export const hello = async (event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> => {
+  console.log(`Event: ${JSON.stringify(event, null, 2)}`);
+  console.log(`Context: ${JSON.stringify(context, null, 2)}`);
+  // throw new Error('Some exception');
+  return {
     statusCode: 200,
     body: JSON.stringify({
-      message: 'Go Serverless v3.0! Your function executed successfully!',
-      input: event,
+      message: 'hello world',
     }),
   };
-
-  callback(null, response);
-}
+};
