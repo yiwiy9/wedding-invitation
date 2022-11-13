@@ -1,9 +1,28 @@
 service: ${self:custom.appName}-app
 frameworkVersion: '3'
 
+plugins:
+  - serverless-offline
+  - serverless-plugin-typescript
+  - serverless-s3-sync
+
 custom:
   appName: wedding-invitation
   defaultStage: dev
+
+  deletionPolicy:
+    dev: Delete
+    prod: Retain
+
+  appDomain: 1nichi1shoku.jp
+  frontDomain:
+    dev: dev-wedding.${self:custom.appDomain}
+    prod: wedding.${self:custom.appDomain}
+
+  # serverless-s3-sync
+  s3Sync:
+    - bucketName: !Ref S3Bucket
+      localDir: frontend/build
 
 provider:
   name: aws
@@ -17,10 +36,6 @@ provider:
   environment:
     NODE_OPTIONS: --enable-source-maps # ソースマップを有効にする
 
-plugins:
-  - serverless-plugin-typescript
-  - serverless-offline
-
 package:
   patterns:
     - '!frontend/**' # フロントエンドのコードはLambda関数に含めない
@@ -32,3 +47,9 @@ functions:
       - httpApi:
           path: /
           method: get
+
+resources:
+  - ${file(./resources/bucket.yml)}
+  - ${file(./resources/oac.yml)}
+  - ${file(./resources/distribution.yml)}
+  - ${file(./resources/domain.yml)}

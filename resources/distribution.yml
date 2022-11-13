@@ -1,0 +1,37 @@
+Resources:
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
+    Properties:
+      DistributionConfig:
+        Origins:
+          - Id: !GetAtt S3Bucket.DomainName
+            DomainName: !GetAtt S3Bucket.DomainName
+            OriginAccessControlId: !GetAtt CloudFrontOAC.Id
+            # S3OriginConfig:
+            #   OriginAccessIdentity: ''
+        # 以下を確認する
+        DefaultCacheBehavior:
+          TargetOriginId: !GetAtt S3Bucket.DomainName
+          Compress: true
+          ViewerProtocolPolicy: https-only
+          AllowedMethods:
+            - GET
+            - HEAD
+          # Managed-CachingOptimized
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+        PriceClass: PriceClass_200
+        Aliases:
+          - ${self:custom.frontDomain.${self:provider.stage}}
+        ViewerCertificate:
+          AcmCertificateArn: ${env:us_east_certificate_arn}
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        HttpVersion: http2
+        IPV6Enabled: true
+        Enabled: true
+      Tags:
+        - Key: APP_NAME
+          Value: ${self:custom.appName}
+        - Key: CREATED_BY
+          Value: Serverless Framework

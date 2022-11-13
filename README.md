@@ -4,7 +4,7 @@ Web App of our wedding invitation
 
 ## 環境構築
 
-### Backend
+### Backend (Tag: v0.1.0)
 
 #### Serverless Framework with TypeScript
 
@@ -26,15 +26,34 @@ Web App of our wedding invitation
 - デプロイ：`sls deploy --verbose`
 - ローカル：`sls offline`
 
-### Frontend
+### Backend Custom Domain (Tag: v0.1.2)
+
+- TODO
+
+### Frontend (Tag: v0.1.1)
 
 #### React with TypeScript
 
 1. [Create React App - Adding TypeScript](https://create-react-app.dev/docs/adding-typescript)の実行
     - `yarn create react-app frontend --template typescript`
+1. React App をビルドする（`frontend/build`が作成されるので、これをS3にホスティングする。）
+    - `cd frontend/`
+    - `yarn build`
+1. [k1LoW/serverless-s3-sync](https://github.com/k1LoW/serverless-s3-sync)のインストール
+    - `yarn add -D serverless-s3-sync`
+1. `resources/`配下を用意する
+    - Amazon S3 ウェブサイトエンドポイントは HTTPS またはアクセスポイントをサポートしていません。HTTPS を使用する場合は、Amazon CloudFront を使用して Amazon S3 でホストされている静的ウェブサイトを提供できます。
+      - [CloudFront を使用して、Amazon S3 でホストされた静的ウェブサイトを公開するにはどうすればよいですか?](https://aws.amazon.com/jp/premiumsupport/knowledge-center/cloudfront-serve-static-website/)
+      - OAIは非推奨なので、OACを使う。参考：[Amazon S3 オリジンへのアクセスの制限](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
+        - [オリジンアクセスコントロールの詳細設定](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html#oac-advanced-settings)
+    - CloudFormation
+      - [AWS::S3::Bucket](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html)
+      - [AWS::CloudFront::OriginAccessControl](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-originaccesscontrol.html)
+      - [AWS::S3::BucketPolicy](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-properties-s3-policy.html)
+      - [AWS::CloudFront::Distribution](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distribution.html)
+      - [CloudFront ディストリビューションのエイリアスリソースレコードセット](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/quickref-route53.html#w2aac27c21c80c11)
 
 ### TODO
 
-1. [k1LoW/serverless-s3-sync](https://github.com/k1LoW/serverless-s3-sync), [【AWS】ServerlessFrameworkでS3静的ホスティングを設定する](https://zenn.dev/daisu0925/articles/c55a4b44b8e093)
 1. linter見る
 1. OpenAPIで型作成

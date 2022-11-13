@@ -1,0 +1,19 @@
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
+    Properties:
+      BucketName: ${self:provider.stage}-${self:custom.appName}-app
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: APP_NAME
+          Value: ${self:custom.appName}
+        - Key: CREATED_BY
+          Value: Serverless Framework
