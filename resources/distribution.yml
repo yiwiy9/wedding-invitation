@@ -8,26 +8,26 @@ Resources:
           - Id: !GetAtt S3Bucket.DomainName
             DomainName: !GetAtt S3Bucket.DomainName
             OriginAccessControlId: !GetAtt CloudFrontOAC.Id
-            # S3OriginConfig:
-            #   OriginAccessIdentity: ''
-        # 以下を確認する
+            S3OriginConfig:
+              OriginAccessIdentity: ''
         DefaultCacheBehavior:
           TargetOriginId: !GetAtt S3Bucket.DomainName
           Compress: true
-          ViewerProtocolPolicy: https-only
+          ViewerProtocolPolicy: redirect-to-https
           AllowedMethods:
             - GET
             - HEAD
           # Managed-CachingOptimized
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+        DefaultRootObject: index.html
         PriceClass: PriceClass_200
         Aliases:
-          - ${self:custom.frontDomain.${self:provider.stage}}
+          - ${self:custom.frontFQDN.${self:provider.stage}}
         ViewerCertificate:
-          AcmCertificateArn: ${env:us_east_certificate_arn}
+          AcmCertificateArn: ${env:US_EAST_CERTIFICATE_ARN}
           SslSupportMethod: sni-only
           MinimumProtocolVersion: TLSv1.2_2021
-        HttpVersion: http2
+        HttpVersion: http2and3
         IPV6Enabled: true
         Enabled: true
       Tags:

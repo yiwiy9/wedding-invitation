@@ -1,28 +1,29 @@
-service: ${self:custom.appName}-app
+service: ${self:custom.appName}
 frameworkVersion: '3'
+
+useDotenv: true
 
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
-  - serverless-s3-sync
+  # - serverless-s3-sync
 
 custom:
-  appName: wedding-invitation
+  appName: wedding-invitation-app
   defaultStage: dev
 
   deletionPolicy:
     dev: Delete
-    prod: Retain
+    prod: Delete #Retain
 
-  appDomain: 1nichi1shoku.jp
-  frontDomain:
-    dev: dev-wedding.${self:custom.appDomain}
-    prod: wedding.${self:custom.appDomain}
+  frontFQDN:
+    dev: dev-wedding.${env:APP_DOMAIN_NAME}
+    prod: wedding.${env:APP_DOMAIN_NAME}
 
-  # serverless-s3-sync
-  s3Sync:
-    - bucketName: !Ref S3Bucket
-      localDir: frontend/build
+  # # serverless-s3-sync
+  # s3Sync:
+  #   - bucketName: !Ref S3Bucket
+  #     localDir: frontend/build
 
 provider:
   name: aws

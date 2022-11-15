@@ -3,7 +3,7 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
     Properties:
-      BucketName: ${self:provider.stage}-${self:custom.appName}-app
+      BucketName: ${self:provider.stage}-${self:custom.appName}
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerEnforced

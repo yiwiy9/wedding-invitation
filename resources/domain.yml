@@ -3,8 +3,8 @@ Resources:
     Type: AWS::Route53::RecordSet
     DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
     Properties:
-      HostedZoneName: ${self:custom.appDomain}.
-      Name: ${self:custom.frontDomain.${self:provider.stage}}
+      HostedZoneName: ${env:APP_DOMAIN_NAME}.
+      Name: ${self:custom.frontFQDN.${self:provider.stage}}
       Type: A
       AliasTarget:
         HostedZoneId: Z2FDTNDATAQYW2
@@ -14,8 +14,8 @@ Resources:
     Type: AWS::Route53::RecordSet
     DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
     Properties:
-      HostedZoneName: ${self:custom.appDomain}.
-      Name: ${self:custom.frontDomain.${self:provider.stage}}
+      HostedZoneName: ${env:APP_DOMAIN_NAME}.
+      Name: ${self:custom.frontFQDN.${self:provider.stage}}
       Type: AAAA
       AliasTarget:
         HostedZoneId: Z2FDTNDATAQYW2
