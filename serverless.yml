@@ -6,7 +6,7 @@ useDotenv: true
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
-  # - serverless-s3-sync
+  - serverless-s3-sync
 
 custom:
   appName: wedding-invitation-app
@@ -20,10 +20,11 @@ custom:
     dev: dev-wedding.${env:APP_DOMAIN_NAME}
     prod: wedding.${env:APP_DOMAIN_NAME}
 
-  # # serverless-s3-sync
-  # s3Sync:
-  #   - bucketName: !Ref S3Bucket
-  #     localDir: frontend/build
+  # serverless-s3-sync
+  s3Sync:
+    # `bucketName: !Ref S3Bucket`だと変数展開されず、上手くいかないのでスタックの出力を参照する
+    - bucketNameKey: BucketNameOutputKey
+      localDir: frontend/build
 
 provider:
   name: aws

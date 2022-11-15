@@ -17,3 +17,7 @@ Resources:
           Value: ${self:custom.appName}
         - Key: CREATED_BY
           Value: Serverless Framework
+
+Outputs:
+  BucketNameOutputKey:
+    Value: !Ref S3Bucket
