@@ -28,7 +28,11 @@ Web App of our wedding invitation
 
 ### Backend Custom Domain (Tag: v0.1.2)
 
-- TODO
+- [amplify-education/serverless-domain-manager](https://github.com/amplify-education/serverless-domain-manager)のインストール
+  - `yarn add -D serverless-domain-manager`
+- `api.wedding.example.com`ってできなかったので、`api-wedding.example.com`
+  - > ワイルドカード証明書をリクエストする場合、アスタリスク (*) はドメイン名の左側に付ける必要があり、1 つのサブドメインレベルのみを保護できます
+    - [ACM 証明書の特徴](https://docs.aws.amazon.com/ja_jp/acm/latest/userguide/acm-certificate.html)
 
 ### Frontend (Tag: v0.1.1)
 

@@ -4,6 +4,7 @@ frameworkVersion: '3'
 useDotenv: true
 
 plugins:
+  - serverless-domain-manager
   - serverless-offline
   - serverless-plugin-typescript
   - serverless-s3-sync
@@ -16,9 +17,25 @@ custom:
     dev: Delete
     prod: Delete #Retain
 
-  frontFQDN:
+  backendFQDN:
+    dev: dev-api-wedding.${env:APP_DOMAIN_NAME}
+    prod: api-wedding.${env:APP_DOMAIN_NAME}
+
+  frontendFQDN:
     dev: dev-wedding.${env:APP_DOMAIN_NAME}
     prod: wedding.${env:APP_DOMAIN_NAME}
+
+  # serverless-domain-manager
+  customDomain:
+    domainName: ${self:custom.backendFQDN.${self:provider.stage}}
+    stage: ${self:provider.stage}
+    basePath: ''
+    createRoute53Record: true
+    createRoute53IPv6Record: true
+    endpointType: REGIONAL
+    securityPolicy: tls_1_2
+    apiType: http
+    autoDomain: true
 
   # serverless-s3-sync
   s3Sync:

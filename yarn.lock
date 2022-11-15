@@ -1198,6 +1198,22 @@ aws-sdk@2.1083.0:
     uuid "3.3.2"
     xml2js "0.4.19"
 
+aws-sdk@^2.1243.0:
+  version "2.1254.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1254.0.tgz#523d65f09c3f25d509e3a2cab87cf901178ea525"
+  integrity sha512-PDBSEskxckCwmfl9GVU+F6JZ9NusgO98DzRRqFv/PzQxkyw6vbdT6N/porUt+mFmGz3HjnGZLeZdywaDMtx7Dg==
+  dependencies:
+    buffer "4.9.2"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.16.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    util "^0.12.4"
+    uuid "8.0.0"
+    xml2js "0.4.19"
+
 aws-sdk@^2.346.0:
   version "2.1253.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1253.0.tgz#28ac12775f4d1589e366db6f2b162d8ea150c2ad"
@@ -3113,6 +3129,13 @@ semver@^6.0.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
+
+serverless-domain-manager@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/serverless-domain-manager/-/serverless-domain-manager-6.2.0.tgz#feccd2d7410ba9d5ea776b186b56f3f694239f0d"
+  integrity sha512-77qJ3xE7tjRGnNc/qidoaN3uFyspJhRLhZNKjvwaUwO5BfCIFgvUHHgotFH9qddeTz9ObLXz5uvjl7rZ9Jp2Zw==
+  dependencies:
+    aws-sdk "^2.1243.0"
 
 serverless-offline@^11.2.1:
   version "11.2.1"

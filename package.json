@@ -6,6 +6,7 @@
     "@types/aws-lambda": "^8.10.108",
     "@types/node": "^18.11.9",
     "aws-sdk": "2.1083.0",
+    "serverless-domain-manager": "^6.2.0",
     "serverless-offline": "^11.2.1",
     "serverless-plugin-typescript": "^2.1.4",
     "serverless-s3-sync": "^3.1.0",

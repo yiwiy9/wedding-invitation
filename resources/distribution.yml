@@ -22,7 +22,7 @@ Resources:
         DefaultRootObject: index.html
         PriceClass: PriceClass_200
         Aliases:
-          - ${self:custom.frontFQDN.${self:provider.stage}}
+          - ${self:custom.frontendFQDN.${self:provider.stage}}
         ViewerCertificate:
           AcmCertificateArn: ${env:US_EAST_CERTIFICATE_ARN}
           SslSupportMethod: sni-only
