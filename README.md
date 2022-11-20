@@ -2,6 +2,12 @@
 
 Web App of our wedding invitation
 
+## TODO
+
+1. CSS フレームワーク見る
+1. OpenAPI で型作成
+1. Github Actions で単体テスト、全体の ESLint 実行、デプロイ
+
 ## 環境構築
 
 ### Backend (Tag: v0.1.0)
@@ -268,7 +274,7 @@ yarn add -D prettier eslint-config-prettier
   - フロントもバックもこのコマンドを一度は実行した方が良い
     - 足らない依存関係が案外出てくる（`eslint-plugin-import`, `eslint-plugin-jsx-a11y`）
 
-## pre-commit
+## pre-commit (Tag: v0.1.6)
 
 参考: [husky と lint-staged でコミット時にコードを整える（v7 対応）](https://soudai-s.com/how-to-set-up-husky-v7-with-lint-staged)
 
@@ -290,7 +296,16 @@ yarn add -D prettier eslint-config-prettier
 }
 ```
 
-### TODO
+### Frontend
 
-1. CSS フレームワーク見る
-1. OpenAPI で型作成
+下記ファイルを追加すれば、インストール不要。
+親ディレクトリの`yarn lint-staged`が下記ファイルを検知して、チェックが走る。
+
+`frontend/.lintstagedrc.json`
+
+```json
+{
+  "*.{js,jsx,ts,tsx}": "eslint --fix",
+  "*.{js,jsx,ts,tsx,json,md,html,css}": "prettier --write"
+}
+```
