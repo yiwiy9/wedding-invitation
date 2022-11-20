@@ -16,18 +16,25 @@
         "christian-kohler.path-intellisense",
         "mhutchie.git-graph",
         "eamodio.gitlens",
+        "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "formulahendry.auto-rename-tag",
         "formulahendry.auto-close-tag",
         "dsznajder.es7-react-js-snippets",
-        "dbaeumer.vscode-eslint",
         "ecmel.vscode-html-css",
         "xabikos.JavaScriptSnippets",
         "bradlc.vscode-tailwindcss",
         "bierner.markdown-preview-github-styles",
         "DavidAnson.vscode-markdownlint",
         "mikestead.dotenv"
-      ]
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
+        }
+      }
     }
   }
 }
