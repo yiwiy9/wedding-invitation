@@ -133,6 +133,7 @@ The config that you\'ve selected requires the following dependencies:
 
 ```json
 {
+  "root": true, // プロジェクトのルートであることを明示
   "env": {
     "node": true, // browserではなく、nodeのグローバル変数を読めるようにする
     "es2021": true
@@ -205,10 +206,67 @@ frontend
 }
 ```
 
+### Frontend
+
+```bash
+# Frontendディレクトリに移動
+$ cd frontend/
+
+# ESLintの初期設定
+$ npm init @eslint/config
+Need to install the following packages:
+  @eslint/create-config@0.4.1
+Ok to proceed? (y) y
+✔ How would you like to use ESLint? · problems
+✔ What type of modules does your project use? · esm
+✔ Which framework does your project use? · react
+✔ Does your project use TypeScript? · No / Yes
+✔ Where does your code run? · browser
+✔ What format do you want your config file to be in? · JSON
+Local ESLint installation not found.
+The config that you\'ve selected requires the following dependencies:
+
+eslint-plugin-react@latest @typescript-eslint/eslint-plugin@latest @typescript-eslint/parser@latest eslint@latest
+✔ Would you like to install them now? · No / Yes
+✔ Which package manager do you want to use? · yarn
+
+# shareable config(Airbnb) を導入する
+yarn add -D eslint-config-airbnb eslint-config-airbnb-typescript eslint-plugin-import eslint-plugin-jsx-a11y
+
+# prettier のインストール
+yarn add -D prettier eslint-config-prettier
+```
+
+- ファイルの編集
+  - バックエンドと同様に、`.eslintrc.json`, `.eslintignore`, `.prettierrc`を作成
+- ESLint の設定がコンフリクトするエラーが出る（`yarn build`, `yarn start`実行時）
+  - `.eslintrc.json`に`"root": true`を追加して、親を見に行かないようにする必要がある
+  - `package.json`の`eslintConfig`の箇所を全て削除して、`node_modules`, `yarn.lock`を消して、`yarn install`し直す必要がある
+
+`.devcontainer/devcontainer.json`
+
+- Backend, Frontend で別々の`.eslintrc.json`を読み込むように設定
+
+```json
+{
+  // 省略
+  "customizations": {
+    "vscode": {
+      // 省略
+      "settings": {
+        // 省略
+        "eslint.workingDirectories": ["./", "./frontend"] // 追加
+      }
+    }
+  }
+}
+```
+
 ### 実行コマンド
 
 - ESLint: `npx eslint .`
-  - `backend`ディレクトリのみを指定しなくても良いように、ignore してある
+  - フロントもバックもこのコマンドを一度は実行した方が良い
+    - 足らない依存関係が案外出てくる（`eslint-plugin-import`, `eslint-plugin-jsx-a11y`）
 
 ### TODO
 
