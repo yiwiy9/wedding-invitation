@@ -100,9 +100,9 @@ Web App of our wedding invitation
 
 ### ESLint の導入
 
-### Backend (Tag: v0.1.4)
+#### Backend (Tag: v0.1.4)
 
-#### `npm init @eslint/config`を実行。（[Getting Started with ESLint](https://eslint.org/docs/latest/user-guide/getting-started)）
+##### `npm init @eslint/config`を実行。（[Getting Started with ESLint](https://eslint.org/docs/latest/user-guide/getting-started)）
 
 ```bash
 $ npm init @eslint/config
@@ -123,17 +123,17 @@ The config that you\'ve selected requires the following dependencies:
 ✔ Which package manager do you want to use? · yarn
 ```
 
-#### [TypeScript 向けの shareable config を導入する](https://typescriptbook.jp/tutorials/eslint#typescript%E5%90%91%E3%81%91%E3%81%AEshareable-config%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B)
+##### [TypeScript 向けの shareable config を導入する](https://typescriptbook.jp/tutorials/eslint#typescript%E5%90%91%E3%81%91%E3%81%AEshareable-config%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%99%E3%82%8B)
 
 - `yarn add -D eslint-config-airbnb-base eslint-config-airbnb-typescript eslint-plugin-import`
 - [iamturns/eslint-config-airbnb-typescript](https://github.com/iamturns/eslint-config-airbnb-typescript)
 - base を設定する（React バージョンじゃない）
 
-#### prettier のインストール
+##### prettier のインストール
 
 - `yarn add -D prettier eslint-config-prettier`
 
-#### ファイルの編集
+##### ファイルの編集
 
 `.eslintrc.json`
 
@@ -212,7 +212,7 @@ frontend
 }
 ```
 
-### Frontend (Tag: v0.1.5)
+#### Frontend (Tag: v0.1.5)
 
 ```bash
 # Frontendディレクトリに移動
@@ -268,17 +268,17 @@ yarn add -D prettier eslint-config-prettier
 }
 ```
 
-### 実行コマンド
+#### 実行コマンド
 
 - ESLint: `yarn run eslint .`
   - フロントもバックもこのコマンドを一度は実行した方が良い
     - 足らない依存関係が案外出てくる（`eslint-plugin-import`, `eslint-plugin-jsx-a11y`）
 
-## pre-commit (Tag: v0.1.6)
+### pre-commit (Tag: v0.1.6)
 
 参考: [husky と lint-staged でコミット時にコードを整える（v7 対応）](https://soudai-s.com/how-to-set-up-husky-v7-with-lint-staged)
 
-### Backend
+#### Backend
 
 1. [typicode/husky](https://github.com/typicode/husky), [okonet/lint-staged](https://github.com/okonet/lint-staged)
    - `yarn add -D husky lint-staged`
@@ -296,7 +296,7 @@ yarn add -D prettier eslint-config-prettier
 }
 ```
 
-### Frontend
+#### Frontend
 
 下記ファイルを追加すれば、インストール不要。
 親ディレクトリの`yarn lint-staged`が下記ファイルを検知して、チェックが走る。
