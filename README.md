@@ -264,9 +264,31 @@ yarn add -D prettier eslint-config-prettier
 
 ### 実行コマンド
 
-- ESLint: `npx eslint .`
+- ESLint: `yarn run eslint .`
   - フロントもバックもこのコマンドを一度は実行した方が良い
     - 足らない依存関係が案外出てくる（`eslint-plugin-import`, `eslint-plugin-jsx-a11y`）
+
+## pre-commit
+
+参考: [husky と lint-staged でコミット時にコードを整える（v7 対応）](https://soudai-s.com/how-to-set-up-husky-v7-with-lint-staged)
+
+### Backend
+
+1. [typicode/husky](https://github.com/typicode/husky), [okonet/lint-staged](https://github.com/okonet/lint-staged)
+   - `yarn add -D husky lint-staged`
+1. `yarn install` による依存解決後に自動で`husky install`を実行するようにする（Git hooks の設定）
+   - `npm pkg set scripts.prepare="husky install"`
+   - `yarn prepare`
+1. `.husky/pre-commit`の作成とコミット時の実行コマンドを追加
+   - `yarn husky add .husky/pre-commit "yarn lint-staged"`
+1. `.lintstagedrc.json`の作成
+
+```json
+{
+  "*.{js,ts}": "eslint --fix",
+  "*.{js,ts,md,json}": "prettier --write"
+}
+```
 
 ### TODO
 
