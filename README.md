@@ -17,7 +17,7 @@ Web App of our wedding invitation
    - `serverless.yml`にて、Lambda の環境変数に下記を追加
      - `NODE_OPTIONS: --enable-source-maps`
    - [TypeScript+Node.js で sourcemap 対応を加えてエラーログ調査を行いやすくしたい](https://dev.classmethod.jp/articles/node-typescript-source-map-support/)
-1. `tsconfig.json`の作成
+1. `tsconfig.json`の作成 (Tag: v0.1.3)
    - [serverless-plugin-typescript の tsconfig.json](https://github.com/serverless/serverless-plugin-typescript#tsconfigjson)を元に作成
    - `eslint-config-airbnb-typescript`で指定する必要がある
    - 参考
@@ -36,7 +36,7 @@ Web App of our wedding invitation
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "commonjs",
+    "module": "commonjs", // ここ、ちゃんと指定しないと、Lambdaで`es2021`が動かない
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": ".build",
@@ -94,7 +94,7 @@ Web App of our wedding invitation
 
 ### ESLint の導入
 
-### Backend
+### Backend (Tag: v0.1.4)
 
 #### `npm init @eslint/config`を実行。（[Getting Started with ESLint](https://eslint.org/docs/latest/user-guide/getting-started)）
 
@@ -206,7 +206,7 @@ frontend
 }
 ```
 
-### Frontend
+### Frontend (Tag: v0.1.5)
 
 ```bash
 # Frontendディレクトリに移動
