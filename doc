@@ -1,0 +1,7 @@
+.devcontainer/Dockerfileにコンテナ（実行環境）の設定が書かれている
+=> 例えば、serverlessframeworkのインストールとか、FROM node:16-buster-slimでnodeのイメージを元にイメージを自作とか
+
+.devcontainer/entrypoint.shはコンテナ作成時に実行されるコマンド（serverless frameworkにAWSアカウントを紐付けるとか、依存パッケージのインストールとか）
+
+.devcontainer/devcontainar.jsonで起動するコンテナのイメージとか拡張機能とかeslintとかの設定が書かれていて、それがリモート接続により共有される
+
