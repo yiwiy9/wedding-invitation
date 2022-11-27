@@ -25,4 +25,4 @@ serverless.ymlにはserverlessの設定を行うファイル=>lambda functionの
 
 backend/handler.tsは実際のラムダ関数が書かれている。httpリクエストによって該当の関数が呼ばれ、json形式のリソースを返したり、DBを操作したりする
 
-SPAアプリケーションであり、初めの1ページはamazonのS3において公開している。そのページのjavascriptのコードがapi経由でラムダ関数とやり取りする。
+SPAアプリケーションとしての初めの1ページはamazonのS3において公開している。そのページのjavascriptのコードがapi経由でラムダ関数とやり取りする。
