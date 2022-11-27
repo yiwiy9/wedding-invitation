@@ -4,7 +4,6 @@ Web App of our wedding invitation
 
 ## TODO
 
-1. CSS フレームワーク見る
 1. OpenAPI で型作成
 1. Github Actions で単体テスト、全体の ESLint 実行、デプロイ
 
@@ -309,3 +308,17 @@ yarn add -D prettier eslint-config-prettier
   "*.{js,jsx,ts,tsx,json,md,html,css}": "prettier --write"
 }
 ```
+
+### Tailwind CSS の導入 (Tag: v0.1.7)
+
+- [Install Tailwind CSS with Create React App](https://tailwindcss.com/docs/guides/create-react-app)
+  - `yarn add -D tailwindcss postcss autoprefixer`
+  - `yarn tailwindcss init -p`
+  - `tailwind.config.js`, `src/index.css`の修正
+- [IntelliSense for VS Code](https://tailwindcss.com/docs/editor-setup#intelli-sense-for-vs-code)
+  - [tailwindlabs/tailwindcss-intellisense](https://github.com/tailwindlabs/tailwindcss-intellisense)
+    - `.devcontainer/devcontainer.json`に`bradlc.vscode-tailwindcss`を追加
+  - [tailwindlabs/prettier-plugin-tailwindcss](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+    - `yarn add -D prettier-plugin-tailwindcss`
+- `yarn run eslint .`でエラーが出る
+  - `.eslintignore`に`tailwind.config.js`, `postcss.config.js`を追加する
