@@ -10,6 +10,7 @@ Web App of our wedding invitation
    - [Serverless - Testing](https://www.serverless.com/framework/docs/providers/aws/guide/testing)
    - [【OpenAPI】Prism でモックサーバ作成](https://qiita.com/andynuma/items/bf043b5184d3826d0f92)
 1. Github Actions で単体テスト、全体の ESLint 実行（とりあえず、デプロイはコメントアウト）
+   - [Require status checks before merging](https://docs.github.com/ja/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
 
 ## 環境構築
 
