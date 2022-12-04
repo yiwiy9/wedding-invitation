@@ -359,6 +359,8 @@ generated
 
 `.lintstagedrc.json`
 
+OpenAPI 仕様書を変更したら、確実に型定義の生成を実行するようにする
+
 ```json
 {
   "openapi.yml": ["yarn generate-api-schema", "git add ./generated"]
