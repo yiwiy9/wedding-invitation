@@ -24,7 +24,7 @@ export type webhooks = Record<string, never>;
 export type components = {
   schemas: {
     readonly Hello: {
-      /** @example Hello World!!! */
+      /** @example Hello World! */
       readonly message: string;
     };
     readonly User: {
