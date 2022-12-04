@@ -8,6 +8,6 @@ RUN apt update && apt install -y \
 # Serverless Framework のインストール
 RUN yarn global add serverless@^3
 
+# postCreateCommand で使用
 COPY ./entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
-CMD ["entrypoint.sh"]

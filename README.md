@@ -4,7 +4,12 @@ Web App of our wedding invitation
 
 ## TODO
 
-1. Github Actions で単体テスト、全体の ESLint 実行、デプロイ
+1. jest の導入（frontend/backend）
+   - [サーバーレスでもユニットテスト – TypeScript 製 AWS Lambda を Jest でテストする](https://dev.classmethod.jp/articles/serverless-unit-test-with-jest/)
+   - [jest-openapi](https://github.com/openapi-library/OpenAPIValidators/tree/master/packages/jest-openapi)
+   - [Serverless - Testing](https://www.serverless.com/framework/docs/providers/aws/guide/testing)
+   - [【OpenAPI】Prism でモックサーバ作成](https://qiita.com/andynuma/items/bf043b5184d3826d0f92)
+1. Github Actions で単体テスト、全体の ESLint 実行（とりあえず、デプロイはコメントアウト）
 
 ## 環境構築
 
@@ -322,7 +327,7 @@ yarn add -D prettier eslint-config-prettier
 - `yarn run eslint .`でエラーが出る
   - `.eslintignore`に`tailwind.config.js`, `postcss.config.js`を追加する
 
-### OpenAPI の導入
+### OpenAPI の導入 (Tag: v0.1.8)
 
 #### OpenAPI Specification の作成
 
