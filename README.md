@@ -4,7 +4,6 @@ Web App of our wedding invitation
 
 ## TODO
 
-1. OpenAPI で型作成
 1. Github Actions で単体テスト、全体の ESLint 実行、デプロイ
 
 ## 環境構築
@@ -322,3 +321,13 @@ yarn add -D prettier eslint-config-prettier
     - `yarn add -D prettier-plugin-tailwindcss`
 - `yarn run eslint .`でエラーが出る
   - `.eslintignore`に`tailwind.config.js`, `postcss.config.js`を追加する
+
+### OpenAPI の導入
+
+#### OpenAPI Specification の作成
+
+- [拡張機能](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi)のインストール
+  - `.devcontainer/devcontainer.json`に`"42Crunch.vscode-openapi"`を追加
+- `openapi.yml`を書く
+  - [スキーマファースト開発のための OpenAPI（Swagger）設計規約](https://future-architect.github.io/articles/20200409/)
+  - [OpenAPI (Swagger) 超入門](https://qiita.com/teinen_qiita/items/e440ca7b1b52ec918f1b)

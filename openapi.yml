@@ -1,0 +1,78 @@
+openapi: 3.0.2
+info:
+  title: Wedding Invitation API
+  version: 1.0.0
+paths:
+  /hello:
+    get:
+      operationId: getHello
+      summary: テスト実行
+      tags:
+        - Hello
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Hello'
+  /users:
+    post:
+      operationId: postUsers
+      summary: 新規ユーザーの作成
+      tags:
+        - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: CREATED
+  /users/{userEmail}:
+    get:
+      operationId: getUserByEmail
+      summary: 指定したメールアドレスのユーザーを取得
+      tags:
+        - User
+      parameters:
+        - name: userEmail
+          description: メールアドレス
+          in: path
+          required: true
+          schema:
+            type: string
+            format: email
+            example: wedding@example.com
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
+components:
+  schemas:
+    Hello:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: Hello World!!!
+    User:
+      type: object
+      required:
+        - email
+        - name
+      properties:
+        email:
+          type: string
+          format: email
+          example: wedding@example.com
+        name:
+          type: string
+          example: Wedding Taro
