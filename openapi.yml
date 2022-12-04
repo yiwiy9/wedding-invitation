@@ -62,7 +62,7 @@ components:
       properties:
         message:
           type: string
-          example: Hello World!
+          example: Hello World!!!
     User:
       type: object
       required:

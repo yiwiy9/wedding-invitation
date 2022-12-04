@@ -361,7 +361,7 @@ generated
 
 ```json
 {
-  "openapi.yml": "yarn generate-api-schema"
+  "openapi.yml": ["yarn generate-api-schema", "git add ./generated"]
   // 省略
 }
 ```
