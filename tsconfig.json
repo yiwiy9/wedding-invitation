@@ -14,9 +14,7 @@
     "sourceMap": true,
     "outDir": ".build",
     "rootDir": "./",
-    "preserveConstEnums": true,
+    "preserveConstEnums": true
   },
-  "include": [
-    "backend"
-  ]
+  "include": ["backend"]
 }

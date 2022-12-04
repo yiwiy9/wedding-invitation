@@ -1,4 +1,5 @@
 {
+  "openapi.yml": "yarn generate-api-schema",
   "*.{js,ts}": "eslint --fix",
   "*.{js,ts,json,md}": "prettier --write"
 }

@@ -331,3 +331,37 @@ yarn add -D prettier eslint-config-prettier
 - `openapi.yml`を書く
   - [スキーマファースト開発のための OpenAPI（Swagger）設計規約](https://future-architect.github.io/articles/20200409/)
   - [OpenAPI (Swagger) 超入門](https://qiita.com/teinen_qiita/items/e440ca7b1b52ec918f1b)
+
+#### OpenAPI Generator の使用
+
+- [OpenAPITools/openapi-generator-cli](https://github.com/OpenAPITools/openapi-generator-cli)をインストールしたが、バックエンドの typeScript 型生成ができない、かつ Java ランタイムが必要なので、使わないことにした
+- 代わりに[drwpow/openapi-typescript](https://github.com/drwpow/openapi-typescript)を使用する
+  - `yarn add -D openapi-typescript`
+- 以下を追加
+
+`package.json`
+
+```json
+{
+  // 省略
+  "scripts": {
+    // 省略
+    "generate-api-schema": "yarn openapi-typescript ./openapi.yml --output ./generated/schema.ts --export-type true --immutable-types true --path-params-as-types true"
+  }
+}
+```
+
+`.eslintignore`
+
+```sh
+generated
+```
+
+`.lintstagedrc.json`
+
+```json
+{
+  "openapi.yml": "yarn generate-api-schema"
+  // 省略
+}
+```
