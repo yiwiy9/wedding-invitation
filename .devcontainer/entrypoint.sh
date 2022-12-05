@@ -8,7 +8,4 @@ serverless config credentials \
     --secret $AWS_SECRET_ACCESS_KEY &&
 
 # 依存パッケージのインストール
-yarn &&
-
-# exitしないためにベースイメージの`CMD`実行
-node
+yarn && cd frontend/ && yarn

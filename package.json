@@ -15,6 +15,7 @@
     "eslint-plugin-import": "^2.26.0",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
+    "openapi-typescript": "^6.1.0",
     "prettier": "^2.7.1",
     "serverless-domain-manager": "^6.2.0",
     "serverless-offline": "^11.2.1",
@@ -23,6 +24,7 @@
     "typescript": "^4.8.4"
   },
   "scripts": {
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "generate-api-schema": "yarn openapi-typescript ./openapi.yml --output ./generated/schema.ts --export-type true --immutable-types true --path-params-as-types true"
   }
 }
