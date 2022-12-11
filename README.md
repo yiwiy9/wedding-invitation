@@ -102,6 +102,25 @@ Web App of our wedding invitation
      - [管理キャッシュポリシーの使用](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/using-managed-cache-policies.html)
        - とりあえず`CachingOptimized`にした。要検証
 
+#### 追記 1
+
+##### `@` import できるようにする
+
+`tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "baseUrl": ".",
+    "paths": {
+      "@*": ["src/*"]
+    }
+  }
+  // ...
+}
+```
+
 ### ESLint の導入
 
 #### Backend (Tag: v0.1.4)
@@ -272,9 +291,30 @@ yarn add -D prettier eslint-config-prettier
 }
 ```
 
+##### 追記 2
+
+1. `import React from 'react'`が必要なくなったので、下記を設定
+   - [新しい JSX トランスフォーム - reactjs.prg](https://ja.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint)
+1. Function Components の定義をアロー関数に制限するために、下記を設定
+   - [Enforce a specific function type for function components](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md#rule-options)
+
+`frontend/.eslintrc.json`
+
+```json
+{
+  // ...
+  "rules": {
+    // ...
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }]
+  }
+}
+```
+
 #### 実行コマンド
 
-- ESLint: `yarn run eslint .`
+- ESLint: `yarn eslint .`
   - フロントもバックもこのコマンドを一度は実行した方が良い
     - 足らない依存関係が案外出てくる（`eslint-plugin-import`, `eslint-plugin-jsx-a11y`）
 
