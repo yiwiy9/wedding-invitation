@@ -1,18 +1,52 @@
-import React from 'react'
-import { useSpring, animated } from 'react-spring'
-import weddingImage from './wedding_image.webp'
+import React, { useState } from 'react'
 
-function Practice() {
-  const styles = useSpring({
-    to: { opacity: 1 },
-    from: { opacity: 0 },
-  })
+function Form() {
+  const [name, setName] = useState('')
+  const [error, setError] = useState('')
+  const nameValidate = (value: string) => {
+    if (value.length === 0) {
+      setError('名前は１文字以上です')
+    } else {
+      setError('')
+    }
+  }
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+    const newName = event.target.value
+    nameValidate(newName)
+  }
+  const handleSubmit = () => {
+    console.log(name)
+  }
+
   return (
     <div>
-      <img src={weddingImage} alt='wedding' className='w-full' />
-      <animated.div style={styles} className='absolute top-1/2 left-1/2 -translate-x-1/2 transform'>
-        <h1 className='animate-pulse font-serif text-6xl text-white'>Welcome to our wedding</h1>
-      </animated.div>
+      <p>Name</p>
+      {error && <span className='text-red-600'>{error}</span>}
+      <p />
+      <input
+        type='text'
+        value={name}
+        onChange={handleNameChange}
+        className='border-2 border-solid border-black'
+      />
+      <p />
+      <button
+        onClick={handleSubmit}
+        type='submit'
+        className='rounded bg-indigo-700 py-2 px-4 font-semibold text-white'
+      >
+        Submit
+      </button>
+    </div>
+  )
+}
+
+function Practice() {
+  return (
+    <div>
+      <h1 className='text-5xl'>welcome to our wedding</h1>
+      <Form />
     </div>
   )
 }

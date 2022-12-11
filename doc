@@ -35,3 +35,15 @@ tailwind csssは素のcssを使わずに、tailwindが用意しているユー�
 ユーティリティークラスというのは、クラス名がそのまま、cssのプロパティとその値を示している（例:margin-top-10pxをdiv要素に当てると、そのままmargin-top: 10pxのスタイリングになる）
 
 bootstrapとの違いはデザインを作るクラスは存在せず、CSSプロパティのユーティリティクラスが用意されているのみであるところ（bootstrapはボタンが簡単に作れるクラスがあったりした）
+
+const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value)
+    const newName = event.target.value
+    nameValidate(newName)
+  }
+
+useStateで更新したstateは即座に更新されるわけではないので、更新直後のstateに依存する処理を行う場合には、一度更新直後のeventを新しい変数に格納して、それに対して処理を行う。
+もし新しい変数に格納しないで、
+setName(event.target.value)
+nameValidate(name)
+とすると、更新される前の（最新より一個前の）nameに対して、validationを行うことになってしまう。
