@@ -47,3 +47,12 @@ useStateで更新したstateは即座に更新されるわけではないので�
 setName(event.target.value)
 nameValidate(name)
 とすると、更新される前の（最新より一個前の）nameに対して、validationを行うことになってしまう。
+
+
+errors.email?.messageについて、errors.emailが存在すれば、その値に対して、messageかます。
+errors.emailが存在しなければ、何もしない。
+errors.email.messageだと、errors.emailが存在しないときに、message噛ませないのでエラーが起こる
+
+errors.name.messageはFiledError型で、FieldError型はReactNodeに割り当てられないので、文字列に変換した
+
+デフォルトでは一つの入力項目(name属性)に対して、一つのエラー情報しか持てない、

@@ -56,19 +56,24 @@ function HookForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <p>Name</p>
       <input
-        {...register('name', { required: true })}
+        {...register('name', { required: { value: true, message: '入力必須項目です' } })}
         className='border-2 border-solid border-black'
       />
-      {errors.name && <span className='text-red-600'>必須項目です</span>}
+      {errors.name?.message && <span className='text-red-600'>{String(errors.name.message)}</span>}
       <p>Email</p>
       <input
         className='border-2 border-solid border-black'
         {...register('email', {
-          required: true,
-          minLength: 5,
+          required: { value: true, message: '入力必須項目です' },
+          pattern: {
+            value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+            message: 'メールアドレスの形式が不正です',
+          },
         })}
       />
-      {errors.email && <span className='text-red-600'>５文字以上の入力が必要です</span>}
+      {errors.email?.message && (
+        <span className='text-red-600'>{String(errors.email.message)}</span>
+      )}
       <p></p>
       <button type='submit' className='rounded bg-indigo-700 py-2 px-4 font-semibold text-white'>
         Submit
