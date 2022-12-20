@@ -1,94 +1,125 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-
-function Form() {
-  const [name, setName] = useState('')
-  const [error, setError] = useState('')
-  const nameValidate = (value: string) => {
-    if (value.length === 0) {
-      setError('名前は１文字以上です')
-    } else {
-      setError('')
-    }
-  }
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value)
-    const newName = event.target.value
-    nameValidate(newName)
-  }
-  const handleSubmit = () => {
-    console.log(name)
-  }
-
-  return (
-    <div>
-      <p>Name</p>
-      <p />
-      <input
-        type='text'
-        value={name}
-        onChange={handleNameChange}
-        className='border-2 border-solid border-black'
-      />
-      {error && <span className='text-red-600'>{error}</span>}
-      <p />
-      <button
-        onClick={handleSubmit}
-        type='submit'
-        className='rounded bg-indigo-700 py-2 px-4 font-semibold text-white'
-      >
-        Submit
-      </button>
-    </div>
-  )
-}
+import wallImage from './white_wall_hash.webp'
 
 function HookForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm()
+    formState: { errors, isDirty },
+  } = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
+    defaultValues: {
+      attend: 'attend',
+      name: '',
+      email: '',
+      adress: '',
+      phoneNumber: '',
+      allergy: '',
+      message: '',
+    },
+  })
   const onSubmit = (data: object) => {
     console.log(data)
   }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <p>Name</p>
-      <input
-        {...register('name', { required: { value: true, message: '入力必須項目です' } })}
-        className='border-2 border-solid border-black'
-      />
-      {errors.name?.message && <span className='text-red-600'>{String(errors.name.message)}</span>}
-      <p>Email</p>
-      <input
-        className='border-2 border-solid border-black'
-        {...register('email', {
-          required: { value: true, message: '入力必須項目です' },
-          pattern: {
-            value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            message: 'メールアドレスの形式が不正です',
-          },
-        })}
-      />
-      {errors.email?.message && (
-        <span className='text-red-600'>{String(errors.email.message)}</span>
-      )}
-      <p></p>
-      <button type='submit' className='rounded bg-indigo-700 py-2 px-4 font-semibold text-white'>
-        Submit
-      </button>
-    </form>
+    <div className='font-serif'>
+      <h1 className='pb-10 text-center text-8xl'>R.V.S.P</h1>
+      <form onSubmit={handleSubmit(onSubmit)} className='text-xl '>
+        <div className='text-center'>
+          <input value='attend' type='radio' {...register('attend')} />
+          <span className='pr-5 pl-3'>will attend</span>
+          <input value='absent' type='radio' {...register('attend')} />
+          <span className='pl-3'>will not attend</span>
+        </div>
+        <div className='pt-10'>
+          <label className='inline-block w-60 text-right'>
+            Name<sup>*</sup>
+          </label>
+          <input
+            {...register('name', { required: { value: true, message: '名前は入力必須項目です' } })}
+            className='ml-10 inline-block border-2 border-solid border-black'
+          />
+          <br></br>
+          {errors?.name?.message ? (
+            <span className='block text-center text-red-600'>{String(errors.name.message)}</span>
+          ) : (
+            <br></br>
+          )}
+          <label className='inline-block w-60 text-right'>Adress</label>
+          <input
+            {...register('adress')}
+            className='ml-10 inline-block border-2 border-solid border-black'
+          />
+          <br></br>
+          <br></br>
+          <label className='inline-block w-60 text-right'>Phone number</label>
+          <input
+            {...register('phoneNumber')}
+            className='ml-10 inline-block border-2 border-solid border-black'
+          />
+          <br></br>
+          <br></br>
+          <label className='inline-block w-60 text-right'>
+            Email<sup>*</sup>
+          </label>
+          <input
+            className='ml-10 inline-block border-2 border-solid border-black'
+            {...register('email', {
+              required: { value: true, message: 'メールアドレスは入力必須項目です' },
+              pattern: {
+                value: /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message: '有効なメールアドレスを入力してください',
+              },
+            })}
+          />
+          <br></br>
+          {errors?.email?.message ? (
+            <span className='block text-center text-red-600'>{String(errors.email.message)}</span>
+          ) : (
+            <br></br>
+          )}
+
+          <label className='inline-block w-60 text-right'>Allergy</label>
+          <input
+            {...register('allergy')}
+            className='ml-10 inline-block border-2 border-solid border-black'
+          />
+          <br></br>
+          <br></br>
+          <label className='inline-block w-60 text-right'>Message</label>
+          <textarea
+            {...register('message')}
+            className='ml-10 inline-block border-2 border-solid border-black align-top'
+          ></textarea>
+          <br></br>
+          <br></br>
+          <button
+            type='submit'
+            disabled={!isDirty}
+            className={
+              isDirty
+                ? 'm-auto block rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-500'
+                : 'm-auto block rounded bg-gray-300 px-4 py-2 text-white'
+            }
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
   )
 }
 
 function Practice() {
   return (
-    <div>
-      <h1 className='text-5xl'>welcome to our wedding</h1>
-      <Form />
-      <p></p>
-      <HookForm />
+    <div className='relative'>
+      <img src={wallImage} alt='' className='w-full' />
+      <div className='absolute top-40 left-1/2 w-1/2 -translate-x-1/2'>
+        <HookForm />
+      </div>
     </div>
   )
 }

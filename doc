@@ -55,4 +55,13 @@ errors.email.messageだと、errors.emailが存在しないときに、message�
 
 errors.name.messageはFiledError型で、FieldError型はReactNodeに割り当てられないので、文字列に変換した
 
-デフォルトでは一つの入力項目(name属性)に対して、一つのエラー情報しか持てない、
+デフォルトでは一つの入力項目(name属性)に対して、一つのエラー情報しか持てないが、useForm({criteriaMode: 'all'})と引数指定すると、複数のエラー情報をもてる。
+=> errors = {email: {types: {MinLength: "8文字以上", pattern: "形式が不正"}}}  みたいな感じ
+=> 使わんかも
+
+isDirtyはフォームの初期値が変わると真偽値が変わる（false=>true)
+
+ラジオボタンはname属性同じにすると、それらが排他的な選択肢になる
+
+todo:
+送信成功した時のアラート出す
