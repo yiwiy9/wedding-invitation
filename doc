@@ -62,6 +62,11 @@ errors.name.messageはFiledError型で、FieldError型はReactNodeに割り当�
 isDirtyはフォームの初期値が変わると真偽値が変わる（false=>true)
 
 ラジオボタンはname属性同じにすると、それらが排他的な選択肢になる
+同じname属性のラジオボタンは一つの要素にバリデーションかくとそのグループに適用される。（required)
+
+overleyについて、opacityを使うと子要素も透けてしまうので、rgbaで設定する
+
+モーダルの表示・非表示はstateで管理する
 
 todo:
-送信成功した時のアラート出す
+りファクタリング（modalコンポーネント、formモンポーネント、appコンポーネントに分ける)
