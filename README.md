@@ -413,3 +413,22 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   // 省略
 }
 ```
+
+### Frontend ディレクトリ構成 (Tag: v0.2.0)
+
+#### 参考
+
+- [alan2207/bulletproof-react](https://github.com/alan2207/bulletproof-react)を参考にする
+  - [本気で考える React のベストプラクティス！bulletproof-react2022](https://zenn.dev/t_keshi/articles/bulletproof-react-2022)
+
+#### ルーティング設定
+
+- [React Router v6](https://reactrouter.com/en/main/start/tutorial)のインストール
+  - `yarn add react-router-dom`
+  - チュートリアルに沿って設定
+
+#### `@/~`を使用した import が Next.js みたいに簡単にできない
+
+- webpack の設定がめんどいのでやめる
+  - [TypeScript の paths はパスを解決してくれないので注意すべし！](https://www.agent-grow.com/self20percent/2019/03/11/typescript-paths-work-careful/)
+  - [React create-react-app したプロジェクトで paths alias 使おうとして盛大にハマったメモ](https://chaika.hatenablog.com/entry/2021/07/22/083000)
