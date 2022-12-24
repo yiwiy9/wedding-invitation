@@ -102,6 +102,25 @@ Web App of our wedding invitation
      - [管理キャッシュポリシーの使用](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/using-managed-cache-policies.html)
        - とりあえず`CachingOptimized`にした。要検証
 
+#### 追記 1
+
+##### `@` import できるようにする
+
+`tsconfig.json`
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "baseUrl": ".",
+    "paths": {
+      "@*": ["src/*"]
+    }
+  }
+  // ...
+}
+```
+
 ### ESLint の導入
 
 #### Backend (Tag: v0.1.4)
@@ -272,9 +291,30 @@ yarn add -D prettier eslint-config-prettier
 }
 ```
 
+##### 追記 2
+
+1. `import React from 'react'`が必要なくなったので、下記を設定
+   - [新しい JSX トランスフォーム - reactjs.prg](https://ja.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint)
+1. Function Components の定義をアロー関数に制限するために、下記を設定
+   - [Enforce a specific function type for function components](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/function-component-definition.md#rule-options)
+
+`frontend/.eslintrc.json`
+
+```json
+{
+  // ...
+  "rules": {
+    // ...
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }]
+  }
+}
+```
+
 #### 実行コマンド
 
-- ESLint: `yarn run eslint .`
+- ESLint: `yarn eslint .`
   - フロントもバックもこのコマンドを一度は実行した方が良い
     - 足らない依存関係が案外出てくる（`eslint-plugin-import`, `eslint-plugin-jsx-a11y`）
 
@@ -373,3 +413,22 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   // 省略
 }
 ```
+
+### Frontend ディレクトリ構成 (Tag: v0.2.0)
+
+#### 参考
+
+- [alan2207/bulletproof-react](https://github.com/alan2207/bulletproof-react)を参考にする
+  - [本気で考える React のベストプラクティス！bulletproof-react2022](https://zenn.dev/t_keshi/articles/bulletproof-react-2022)
+
+#### ルーティング設定
+
+- [React Router v6](https://reactrouter.com/en/main/start/tutorial)のインストール
+  - `yarn add react-router-dom`
+  - チュートリアルに沿って設定
+
+#### `@/~`を使用した import が Next.js みたいに簡単にできない
+
+- webpack の設定がめんどいのでやめる
+  - [TypeScript の paths はパスを解決してくれないので注意すべし！](https://www.agent-grow.com/self20percent/2019/03/11/typescript-paths-work-careful/)
+  - [React create-react-app したプロジェクトで paths alias 使おうとして盛大にハマったメモ](https://chaika.hatenablog.com/entry/2021/07/22/083000)
