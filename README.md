@@ -102,25 +102,6 @@ Web App of our wedding invitation
      - [管理キャッシュポリシーの使用](https://docs.aws.amazon.com/ja_jp/AmazonCloudFront/latest/DeveloperGuide/using-managed-cache-policies.html)
        - とりあえず`CachingOptimized`にした。要検証
 
-#### 追記 1
-
-##### `@` import できるようにする
-
-`tsconfig.json`
-
-```json
-{
-  "compilerOptions": {
-    // ...
-    "baseUrl": ".",
-    "paths": {
-      "@*": ["src/*"]
-    }
-  }
-  // ...
-}
-```
-
 ### ESLint の導入
 
 #### Backend (Tag: v0.1.4)
@@ -291,7 +272,7 @@ yarn add -D prettier eslint-config-prettier
 }
 ```
 
-##### 追記 2
+##### 追記 1
 
 1. `import React from 'react'`が必要なくなったので、下記を設定
    - [新しい JSX トランスフォーム - reactjs.prg](https://ja.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint)
