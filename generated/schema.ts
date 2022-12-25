@@ -5,9 +5,11 @@
 
 
 export type paths = {
-  "/hello": {
-    /** テスト実行 */
-    get: operations["getHello"];
+  "/tests": {
+    /** テスト：メッセージの一覧を取得 */
+    get: operations["getTests"];
+    /** テスト：新規メッセージの作成 */
+    post: operations["postTests"];
   };
   "/users": {
     /** 新規ユーザーの作成 */
@@ -23,7 +25,7 @@ export type webhooks = Record<string, never>;
 
 export type components = {
   schemas: {
-    readonly Hello: {
+    readonly Test: {
       /** @example Hello World!!! */
       readonly message: string;
     };
@@ -48,15 +50,27 @@ export type external = Record<string, never>;
 
 export type operations = {
 
-  getHello: {
-    /** テスト実行 */
+  getTests: {
+    /** テスト：メッセージの一覧を取得 */
     responses: {
       /** @description OK */
       200: {
         content: {
-          readonly "application/json": components["schemas"]["Hello"];
+          readonly "application/json": components["schemas"]["Test"];
         };
       };
+    };
+  };
+  postTests: {
+    /** テスト：新規メッセージの作成 */
+    readonly requestBody?: {
+      readonly content: {
+        readonly "application/json": components["schemas"]["Test"];
+      };
+    };
+    responses: {
+      /** @description CREATED */
+      201: never;
     };
   };
   postUsers: {

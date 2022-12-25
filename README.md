@@ -8,7 +8,6 @@ Web App of our wedding invitation
    - [サーバーレスでもユニットテスト – TypeScript 製 AWS Lambda を Jest でテストする](https://dev.classmethod.jp/articles/serverless-unit-test-with-jest/)
    - [jest-openapi](https://github.com/openapi-library/OpenAPIValidators/tree/master/packages/jest-openapi)
    - [Serverless - Testing](https://www.serverless.com/framework/docs/providers/aws/guide/testing)
-   - [【OpenAPI】Prism でモックサーバ作成](https://qiita.com/andynuma/items/bf043b5184d3826d0f92)
 1. Github Actions で単体テスト、全体の ESLint 実行（とりあえず、デプロイはコメントアウト）
    - [Require status checks before merging](https://docs.github.com/ja/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
 
@@ -413,3 +412,30 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 - webpack の設定がめんどいのでやめる
   - [TypeScript の paths はパスを解決してくれないので注意すべし！](https://www.agent-grow.com/self20percent/2019/03/11/typescript-paths-work-careful/)
   - [React create-react-app したプロジェクトで paths alias 使おうとして盛大にハマったメモ](https://chaika.hatenablog.com/entry/2021/07/22/083000)
+
+### Frontend API 設定 (Tag: v0.2.1)
+
+- `openapi-typescript`用のクライアントライブラリ[ajaishankar/openapi-typescript-fetch](https://github.com/ajaishankar/openapi-typescript-fetch)のインストール
+  - `yarn add openapi-typescript-fetch`
+- [React App で .env を使う](https://create-react-app.dev/docs/adding-custom-environment-variables/#what-other-env-files-can-be-used)
+- OpenAPI のモックサーバー用に[stoplightio/prism](https://github.com/stoplightio/prism)をグローバルにインストール
+  - `.devcontainer/Dockerfile`に`yarn global add @stoplight/prism-cli`の追加
+  - `.devcontainer/devcontainer.json`に`"forwardPorts": [4010]`の追加
+  - 実行コマンド：`prism mock -h 0.0.0.0 ../openapi.yml`
+- `config/index.ts`, `lib/fetcher.ts`の作成
+- フロントエンド開発用の npm-scripts の追加
+  - [Node.js ユーザーなら押さえておきたい npm-scripts のタスク実行方法まとめ](https://ics.media/entry/12226/)
+
+`frontend/package.json`
+
+```json
+{
+  // ...
+  "scripts": {
+    // ...
+    "mockserver": "prism mock -h 0.0.0.0 ../openapi.yml",
+    "dev": "yarn start & yarn mockserver"
+  }
+  // ...
+}
+```

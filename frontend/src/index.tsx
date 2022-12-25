@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
-
 import Root from './routes/root'
 import Index from './routes/index'
 import Entry from './routes/entry'

@@ -5,7 +5,7 @@
 
   "runArgs": ["--env-file", ".devcontainer/.env"],
 
-  "forwardPorts": [3000],
+  "forwardPorts": [3000, 4010],
 
   "postCreateCommand": "entrypoint.sh",
 
