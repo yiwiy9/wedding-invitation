@@ -5,8 +5,8 @@ ENV TZ=Asia/Tokyo
 RUN apt update && apt install -y \
     git
 
-# Serverless Framework のインストール
-RUN yarn global add serverless@^3
+# Serverless Framework, Prism のインストール
+RUN yarn global add serverless@^3 @stoplight/prism-cli
 
 # postCreateCommand で使用
 COPY ./entrypoint.sh /usr/local/bin/

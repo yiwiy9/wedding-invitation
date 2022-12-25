@@ -3,19 +3,32 @@ info:
   title: Wedding Invitation API
   version: 1.0.0
 paths:
-  /hello:
+  /tests:
     get:
-      operationId: getHello
-      summary: テスト実行
+      operationId: getTests
+      summary: テスト：メッセージの一覧を取得
       tags:
-        - Hello
+        - Test
       responses:
         '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Hello'
+                $ref: '#/components/schemas/Test'
+    post:
+      operationId: postTests
+      summary: テスト：新規メッセージの作成
+      tags:
+        - Test
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Test'
+      responses:
+        '201':
+          description: CREATED
   /users:
     post:
       operationId: postUsers
@@ -55,7 +68,7 @@ paths:
                 $ref: '#/components/schemas/User'
 components:
   schemas:
-    Hello:
+    Test:
       type: object
       required:
         - message
