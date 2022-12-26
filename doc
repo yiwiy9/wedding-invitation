@@ -73,8 +73,11 @@ overleyについて、opacityを使うと子要素も透けてしまうので、
 親コンポーネントは props を使うことで子に情報を返すことができます。
 こうすることで、子コンポーネントが兄弟同士、あるいは親との間で常に同期されるようになります。
 
-todo:
-リファクタリング（modalコンポーネント、formモンポーネント、appコンポーネントに分ける)
+const Modal: FC<{ modalHidden: () => void }> = (props) => {...}
+親コンポーネントから受け取るpropsにどんな属性値が含まれているかとその型を定義している。
+ここでは、propsにmodalHiddenが()=>void型（戻り値がない関数の型）で含まれていることを定義している。
 
-index.tsxのchildrenは何者？
+
+formコンポーネントとentryコンポーネント分けるべき？
+src/index.tsxのchildrenは何者？<Root>の<Outlet>にぶち込まれる感じ？
 Rootは共通レイアウトやけど何を書く？

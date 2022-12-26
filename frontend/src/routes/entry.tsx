@@ -19,9 +19,7 @@ const Entry: FC = () => {
   }
   return (
     <div className='relative'>
-      {/* 親 */}
-      <img src={wallImage} alt='' className='w-full' /> {/* サイト全体に画像のラッピング */}
-      {/* ここからフォーム */}
+      <img src={wallImage} alt='' className='w-full' />
       <div className='absolute top-40 left-1/2 w-1/2 -translate-x-1/2'>
         <div className='font-serif'>
           <h1 className='pb-10 text-center text-8xl'>R.V.S.P</h1>
@@ -130,27 +128,18 @@ const Entry: FC = () => {
           </form>
         </div>
       </div>
-      {/* ここまでフォーム */}
-      {/* ここからモーダル */}
-      {show ? (
-        <Modal
-          onClick={() => {
-            setShow(false)
-          }}
-        />
-      ) : null}
-      {/* ここまでモーダル */}
+      {show ? <Modal modalHidden={() => setShow(false)} /> : null}
     </div>
   )
 }
 
-const Modal: FC = (props) => {
+const Modal: FC<{ modalHidden: () => void }> = (props) => {
   return (
     <div id='overley'>
       <div className='z-10 h-1/4 w-1/4 bg-white p-10 font-serif'>
         <p className='pb-10 text-center text-2xl'>Sent successfully!!</p>
         <button
-          onClick={props.onClick}
+          onClick={props.modalHidden}
           className='m-auto mt-5 block rounded bg-gray-600 px-4 py-2 text-white hover:bg-gray-500'
         >
           close
