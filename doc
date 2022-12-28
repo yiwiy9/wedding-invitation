@@ -77,7 +77,14 @@ const Modal: FC<{ modalHidden: () => void }> = (props) => {...}
 親コンポーネントから受け取るpropsにどんな属性値が含まれているかとその型を定義している。
 ここでは、propsにmodalHiddenが()=>void型（戻り値がない関数の型）で含まれていることを定義している。
 
+何人目の子供かを表示させたり、データを受け取るのにMainFormからChildFormに渡したいが、配列のインデックスが数字で得られずに、undefinedになる
+=>indexを属性keyで取っていたが、キーワードなのでエラーになっていた。numで取るとできた
 
+todo:
+listにkey指定してないから、コンソールにエラー出てる
+chidren(n)のエラーの表示
+
+型定義をanyで妥協している
 formコンポーネントとentryコンポーネント分けるべき？
 src/index.tsxのchildrenは何者？<Root>の<Outlet>にぶち込まれる感じ？
 Rootは共通レイアウトやけど何を書く？
