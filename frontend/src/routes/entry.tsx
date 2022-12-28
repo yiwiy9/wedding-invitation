@@ -6,14 +6,13 @@ import wallImage from './white_wall_hash.webp'
 const Entry: FC = () => {
   const {
     register,
+    unregister,
     handleSubmit,
     formState: { errors, isDirty },
-  } = useForm({
-    mode: 'onSubmit',
-    reValidateMode: 'onChange',
-  })
+  } = useForm()
   const [show, setShow] = useState(false)
-  const [childNum, setChildNum] = useState([...Array(0)])
+  const [childrenArray, setChildrenArray] = useState(new Array(0))
+  const [addNum, setAddNum] = useState(0)
   const onSubmit = (data: object) => {
     console.log(data)
     setShow(true)
@@ -30,8 +29,11 @@ const Entry: FC = () => {
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             isDirty={isDirty}
-            childNum={childNum}
-            setChildNum={setChildNum}
+            childrenArray={childrenArray}
+            setChildrenArray={setChildrenArray}
+            addNum={addNum}
+            setAddNum={setAddNum}
+            unregister={unregister}
           />
         </div>
       </div>
@@ -46,9 +48,20 @@ const MainForm: FC<{
   handleSubmit: any
   onSubmit: any
   isDirty: any
-  childNum: any
-  setChildNum: any
+  childrenArray: any
+  setChildrenArray: any
+  addNum: any
+  setAddNum: any
+  unregister: any
 }> = (props) => {
+  const addChildren = () => {
+    let num = props.addNum + 1
+    let array = props.childrenArray
+    array.push(num)
+    props.setChildrenArray(array)
+    props.setAddNum(num)
+  }
+
   return (
     <form onSubmit={props.handleSubmit(props.onSubmit)} className='text-xl '>
       <div className='text-center'>
@@ -63,13 +76,9 @@ const MainForm: FC<{
         <input value='absent' type='radio' {...props.register('attend')} />
         <span className='pl-3'>decline</span>
         {props.errors?.attend?.message ? (
-          <span className='block text-center text-red-600'>
-            {String(props.errors.attend.message)}
-          </span>
+          <span className='block text-center text-red-600'>{props.errors.attend.message}</span>
         ) : (
-          <div>
-            <br />
-          </div>
+          <br />
         )}
       </div>
       <div className='pt-5'>
@@ -84,9 +93,7 @@ const MainForm: FC<{
         />
         <br />
         {props.errors?.name?.message ? (
-          <span className='block text-center text-red-600'>
-            {String(props.errors.name.message)}
-          </span>
+          <span className='block text-center text-red-600'>{props.errors.name.message}</span>
         ) : (
           <br />
         )}
@@ -119,13 +126,10 @@ const MainForm: FC<{
         />
         <br />
         {props.errors?.email?.message ? (
-          <span className='block text-center text-red-600'>
-            {String(props.errors.email.message)}
-          </span>
+          <span className='block text-center text-red-600'>{props.errors.email.message}</span>
         ) : (
           <br />
         )}
-
         <label className='inline-block w-60 text-right'>Allergy</label>
         <input
           {...props.register('allergy')}
@@ -140,21 +144,38 @@ const MainForm: FC<{
         />
         <br />
         <br />
-        {props.childNum.length === 0
+        {props.childrenArray.length === 0
           ? null
-          : props.childNum.map((value: any, index: any) => {
-              return <ChildForm register={props.register} errors={props.errors} num={index + 1} />
+          : props.childrenArray.map((value: any, index: any) => {
+              return (
+                <ChildForm
+                  register={props.register}
+                  unregister={props.unregister}
+                  errors={props.errors}
+                  childNum={value}
+                  setChildrenArray={props.setChildrenArray}
+                  childrenArray={props.childrenArray}
+                  setAddNum={props.setAddNum}
+                  key={index}
+                />
+              )
             })}
-        <br />
+        <button
+          type='button'
+          onClick={addChildren}
+          className='m-auto block rounded border-2 border-solid border-black px-4 py-2'
+        >
+          + Add children
+        </button>
         <br />
         <button
           type='button'
+          className='ml-auto block w-1/2 rounded px-4 py-2 underline'
           onClick={() => {
-            props.setChildNum([...Array(props.childNum.length + 1)])
+            window.location.reload()
           }}
-          className='ml-auto block rounded border-2 border-solid border-black px-4 py-2'
         >
-          + Add children
+          reset all
         </button>
         <button
           type='submit'
@@ -172,35 +193,60 @@ const MainForm: FC<{
   )
 }
 
-const ChildForm: FC<{ register: any; errors: any; num: any }> = (props) => {
+const ChildForm: FC<{
+  register: any
+  unregister: any
+  errors: any
+  childNum: any
+  setChildrenArray: any
+  childrenArray: any
+  setAddNum: any
+}> = (props) => {
+  const deleteChild = () => {
+    let array = props.childrenArray.filter((child: any) => {
+      return child !== props.childNum
+    })
+    if (array.length === 0) {
+      props.setAddNum(0)
+    }
+    props.setChildrenArray(array)
+    props.unregister([`childAllergy${props.childNum}`, childName])
+  }
+
+  let childName = `childName${props.childNum}`
+
   return (
     <div>
-      <div className='text-center'>children {props.num}</div>
+      <div className='text-center'>children {props.childNum}</div>
       <br></br>
       <label className='inline-block w-60 text-right'>
         Name<sup>*</sup>
       </label>
       <input
-        {...props.register(`childName${props.num}`, {
+        {...props.register(childName, {
           required: { value: true, message: '名前は入力必須項目です' },
         })}
         className='ml-10 inline-block border-2 border-solid border-black'
       />
       <br />
-      {props.errors?.childName?.message ? (
-        <span className='block text-center text-red-600'>
-          {String(props.errors.childName.message)}
-        </span>
+      {props.errors?.[childName]?.message ? (
+        <span className='block text-center text-red-600'>{props.errors[childName].message}</span>
       ) : (
         <br />
       )}
       <label className='inline-block w-60 text-right'>Allergy</label>
       <input
-        {...props.register(`childAllergy${props.num}`)}
+        {...props.register(`childAllergy${props.childNum}`)}
         className='ml-10 inline-block border-2 border-solid border-black'
       />
       <br />
-      <br />
+      <button
+        type='button'
+        onClick={deleteChild}
+        className='ml-auto block w-1/2 rounded px-4 py-2 underline'
+      >
+        delete
+      </button>
     </div>
   )
 }

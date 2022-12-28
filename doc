@@ -53,8 +53,6 @@ errors.email?.messageについて、errors.emailが存在すれば、その値�
 errors.emailが存在しなければ、何もしない。
 errors.email.messageだと、errors.emailが存在しないときに、message噛ませないのでエラーが起こる
 
-errors.name.messageはFiledError型で、FieldError型はReactNodeに割り当てられないので、文字列に変換した
-
 デフォルトでは一つの入力項目(name属性)に対して、一つのエラー情報しか持てないが、useForm({criteriaMode: 'all'})と引数指定すると、複数のエラー情報をもてる。
 => errors = {email: {types: {MinLength: "8文字以上", pattern: "形式が不正"}}}  みたいな感じ
 => 使わんかも
@@ -80,11 +78,24 @@ const Modal: FC<{ modalHidden: () => void }> = (props) => {...}
 何人目の子供かを表示させたり、データを受け取るのにMainFormからChildFormに渡したいが、配列のインデックスが数字で得られずに、undefinedになる
 =>indexを属性keyで取っていたが、キーワードなのでエラーになっていた。numで取るとできた
 
-todo:
-listにkey指定してないから、コンソールにエラー出てる
-chidren(n)のエラーの表示
+let childName = `childName${props.num}`
+{props.errors?.[childName]?.message ? (
+  <span className='block text-center text-red-600'>
+    {String(props.errors[childName].message)}
+  </span>}
+オブジェクトのキーに変数を使うには、[変数]としてキーを指定する。（定義時も同様）
 
-型定義をanyで妥協している
-formコンポーネントとentryコンポーネント分けるべき？
+一度children追加したらregister関数で登録されて後で消してもdataに残ってしまう。
+=>children削除した時に、unregisterを使って削除するchildrenのname属性指定すると、dataは参照しなくなる。
+
+一番最近追加した子供の番号を保持するaddNum(次にどの番号追加するか決めるため)
+現在有効な子供の番号の配列であるchidrenArray(この配列に入っている子供の番号が表示され、dataとして送られる)
+各々の子供が持つ自分の番号であるchildNum
+
+todo:
+型定義しっかりする(anyのところ)
+
+
 src/index.tsxのchildrenは何者？<Root>の<Outlet>にぶち込まれる感じ？
 Rootは共通レイアウトやけど何を書く？
+子供の番号の付け方をもっと凝るべき？
