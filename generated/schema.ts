@@ -56,7 +56,7 @@ export type operations = {
       /** @description OK */
       200: {
         content: {
-          readonly "application/json": components["schemas"]["Test"];
+          readonly "application/json": readonly (components["schemas"]["Test"])[];
         };
       };
     };

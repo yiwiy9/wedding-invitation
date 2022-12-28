@@ -15,7 +15,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Test'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Test'
     post:
       operationId: postTests
       summary: テスト：新規メッセージの作成
