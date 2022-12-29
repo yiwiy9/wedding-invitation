@@ -3,6 +3,29 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import wallImage from './white_wall_hash.webp'
 
+type mainProps = {
+  register: any
+  unregister: any
+  errors: any
+  handleSubmit: any
+  onSubmit: any
+  isDirty: any
+  childrenArray: any
+  setChildrenArray: any
+  addNum: any
+  setAddNum: any
+}
+
+type childProps = {
+  register: any
+  unregister: any
+  errors: any
+  childNum: number
+  setChildrenArray: any
+  childrenArray: any
+  setAddNum: any
+}
+
 const Entry: FC = () => {
   const {
     register,
@@ -17,6 +40,7 @@ const Entry: FC = () => {
     console.log(data)
     setShow(true)
   }
+
   return (
     <div className='relative'>
       <img src={wallImage} alt='' className='w-full' />
@@ -42,18 +66,7 @@ const Entry: FC = () => {
   )
 }
 
-const MainForm: FC<{
-  register: any
-  errors: any
-  handleSubmit: any
-  onSubmit: any
-  isDirty: any
-  childrenArray: any
-  setChildrenArray: any
-  addNum: any
-  setAddNum: any
-  unregister: any
-}> = (props) => {
+const MainForm: FC<mainProps> = (props) => {
   const addChildren = () => {
     let num = props.addNum + 1
     let array = props.childrenArray
@@ -146,7 +159,7 @@ const MainForm: FC<{
         <br />
         {props.childrenArray.length === 0
           ? null
-          : props.childrenArray.map((value: any, index: any) => {
+          : props.childrenArray.map((value: number, index: number) => {
               return (
                 <ChildForm
                   register={props.register}
@@ -193,17 +206,9 @@ const MainForm: FC<{
   )
 }
 
-const ChildForm: FC<{
-  register: any
-  unregister: any
-  errors: any
-  childNum: any
-  setChildrenArray: any
-  childrenArray: any
-  setAddNum: any
-}> = (props) => {
+const ChildForm: FC<childProps> = (props) => {
   const deleteChild = () => {
-    let array = props.childrenArray.filter((child: any) => {
+    let array = props.childrenArray.filter((child: number) => {
       return child !== props.childNum
     })
     if (array.length === 0) {

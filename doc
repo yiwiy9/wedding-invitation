@@ -94,6 +94,9 @@ let childName = `childName${props.num}`
 
 todo:
 型定義しっかりする(anyのところ)
+https://nomurabbit.hatenablog.jp/entry/20220112/1641915000
+https://qiita.com/FumioNonaka/items/943909dee793ee63416b
+=>参考
 
 
 src/index.tsxのchildrenは何者？<Root>の<Outlet>にぶち込まれる感じ？
