@@ -1,5 +1,4 @@
 import { Fetcher } from 'openapi-typescript-fetch'
-// eslint-disable-next-line import/no-relative-packages
 import { paths } from '../../../generated/schema'
 import { API_URL } from '../config'
 

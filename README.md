@@ -4,7 +4,6 @@ Web App of our wedding invitation
 
 ## TODO
 
-1. `react-router`の設定を`App.tsx`とかに移した方が良さそう
 1. jest の導入（frontend/backend）
    - [サーバーレスでもユニットテスト – TypeScript 製 AWS Lambda を Jest でテストする](https://dev.classmethod.jp/articles/serverless-unit-test-with-jest/)
    - [jest-openapi](https://github.com/openapi-library/OpenAPIValidators/tree/master/packages/jest-openapi)
@@ -395,6 +394,20 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 }
 ```
 
+`.eslintrc.json`
+
+`generated/`ディレクトリが`frontend/`ディレクトリの外にあるので、相対インポートでの親ディレクトリの参照を許可する
+
+```json
+{
+  // 省略
+  "rules": {
+    // 省略
+    "import/no-relative-packages": "off"
+  }
+}
+```
+
 ### Frontend ディレクトリ構成 (Tag: v0.2.0)
 
 #### 参考
@@ -443,5 +456,4 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 
 ### Frontend テストページの作成 (Tag: v0.2.2)
 
-- `frontend/src/routes/test.tsx`の作成と`frontend/src/index.tsx`にルーティングの追加
-- TODO: `eslint-disable-next-line import/no-relative-packages`と型定義場所を考える
+- `frontend/src/routes/test.tsx`の作成と`frontend/src/App.tsx`にルーティングの追加

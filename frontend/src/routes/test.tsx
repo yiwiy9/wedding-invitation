@@ -1,6 +1,5 @@
 import type { FC } from 'react'
 import { Link, useLoaderData } from 'react-router-dom'
-// eslint-disable-next-line import/no-relative-packages
 import { components } from '../../../generated/schema'
 import { findTests } from '../lib/fetcher'
 
