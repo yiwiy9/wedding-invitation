@@ -93,7 +93,7 @@ let childName = `childName${props.num}`
 各々の子供が持つ自分の番号であるchildNum
 
 todo:
-型定義しっかりする(anyのところ)
+型定義しっかりする(anyのところ)=>errors
 https://nomurabbit.hatenablog.jp/entry/20220112/1641915000
 https://qiita.com/FumioNonaka/items/943909dee793ee63416b
 =>参考
@@ -102,3 +102,4 @@ https://qiita.com/FumioNonaka/items/943909dee793ee63416b
 src/index.tsxのchildrenは何者？<Root>の<Outlet>にぶち込まれる感じ？
 Rootは共通レイアウトやけど何を書く？
 子供の番号の付け方をもっと凝るべき？
+reactが変更が必要な箇所を非同期に書き換えるとは？

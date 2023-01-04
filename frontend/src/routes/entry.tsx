@@ -4,26 +4,26 @@ import { useForm } from 'react-hook-form'
 import wallImage from './white_wall_hash.webp'
 
 type mainProps = {
-  register: any
-  unregister: any
+  register: Function
+  unregister: Function
   errors: any
-  handleSubmit: any
-  onSubmit: any
-  isDirty: any
-  childrenArray: any
-  setChildrenArray: any
-  addNum: any
-  setAddNum: any
+  handleSubmit: Function
+  onSubmit: Function
+  isDirty: Boolean
+  childrenArray: Array<number>
+  setChildrenArray: Function
+  addNum: number
+  setAddNum: Function
 }
 
 type childProps = {
-  register: any
-  unregister: any
+  register: Function
+  unregister: Function
   errors: any
   childNum: number
-  setChildrenArray: any
-  childrenArray: any
-  setAddNum: any
+  setChildrenArray: Function
+  childrenArray: Array<number>
+  setAddNum: Function
 }
 
 const Entry: FC = () => {
