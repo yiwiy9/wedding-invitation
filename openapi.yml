@@ -31,6 +31,10 @@ paths:
       responses:
         '201':
           description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Test'
   /users:
     post:
       operationId: postUsers
@@ -45,6 +49,10 @@ paths:
       responses:
         '201':
           description: CREATED
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
   /users/{userEmail}:
     get:
       operationId: getUserByEmail
@@ -66,18 +74,18 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/User'
 components:
   schemas:
     Test:
       type: object
       required:
-        - message
+        - email
       properties:
-        message:
+        email:
           type: string
-          example: Hello World!!!
+          format: email
+          example: wedding@example.com
     User:
       type: object
       required:

@@ -26,8 +26,11 @@ export type webhooks = Record<string, never>;
 export type components = {
   schemas: {
     readonly Test: {
-      /** @example Hello World!!! */
-      readonly message: string;
+      /**
+       * Format: email 
+       * @example wedding@example.com
+       */
+      readonly email: string;
     };
     readonly User: {
       /**
@@ -70,7 +73,11 @@ export type operations = {
     };
     responses: {
       /** @description CREATED */
-      201: never;
+      201: {
+        content: {
+          readonly "application/json": components["schemas"]["Test"];
+        };
+      };
     };
   };
   postUsers: {
@@ -82,7 +89,11 @@ export type operations = {
     };
     responses: {
       /** @description CREATED */
-      201: never;
+      201: {
+        content: {
+          readonly "application/json": components["schemas"]["User"];
+        };
+      };
     };
   };
   getUserByEmail: {

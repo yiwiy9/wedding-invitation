@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './routes/root'
 import Index from './routes/index'
 import Entry from './routes/entry'
-import Test, { loader as testLoader } from './routes/test'
+import Test, { loader as testLoader, action as testAction } from './routes/test'
 import ErrorPage from './routes/error-boundary'
 
 const router = createBrowserRouter([
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       { path: 'entry', element: <Entry /> },
-      { path: 'test', element: <Test />, loader: testLoader },
+      { path: 'test', element: <Test />, loader: testLoader, action: testAction },
     ],
   },
 ])
