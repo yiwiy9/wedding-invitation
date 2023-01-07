@@ -1,17 +1,30 @@
 import type { FC } from 'react'
 import type { ActionFunctionArgs } from 'react-router-dom'
-import { useLoaderData, useSubmit, Link, Form } from 'react-router-dom'
+import { useEffect } from 'react'
+import { redirect, useLoaderData, useActionData, useSubmit, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { components } from '../../../generated/schema'
 import { createTest, findTests } from '../lib/fetcher'
 
 type FormInputs = components['requestBodies']['PostTest']['content']['application/json']
 type LoaderData = components['responses']['Tests']['content']['application/json']
+type ActionErrorData = components['responses']['TestValidationError']['content']['application/json']
 
-export const action = async ({ request }: ActionFunctionArgs) => {
+export const action = async ({
+  request,
+}: ActionFunctionArgs): Promise<ActionErrorData | Response> => {
   const data = Object.fromEntries(await request.formData()) as FormInputs
-  const res = await createTest(data)
-  return res
+  try {
+    await createTest(data)
+  } catch (e) {
+    if (e instanceof createTest.Error) {
+      const error = e.getActualType()
+      if (error.status === 422) {
+        return error.data
+      }
+    }
+  }
+  return redirect('/')
 }
 
 export const loader = async (): Promise<LoaderData> => {
@@ -21,12 +34,21 @@ export const loader = async (): Promise<LoaderData> => {
 
 const Test: FC = () => {
   const emails = useLoaderData() as LoaderData
+  const actionErrors = useActionData() as ActionErrorData | undefined
   const submit = useSubmit()
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormInputs>()
+
+  useEffect(() => {
+    if (actionErrors) {
+      actionErrors.map(({ name, reason }) => setError(name, { type: 'custom', message: reason }))
+    }
+  }, [actionErrors, setError])
 
   return (
     <>
@@ -51,7 +73,7 @@ const Test: FC = () => {
           <i>No Emails</i>
         </p>
       )}
-      <Form method='post' onSubmit={handleSubmit((data) => submit(data))}>
+      <form onSubmit={handleSubmit((data) => submit(data, { method: 'post' }))}>
         <input
           type='email'
           placeholder='メールアドレス'
@@ -66,7 +88,7 @@ const Test: FC = () => {
         />
         <button type='submit'>Create</button>
         {errors.email?.message && <p>{errors.email.message}</p>}
-      </Form>
+      </form>
     </>
   )
 }

@@ -30,17 +30,15 @@ export type components = {
       /** @example Wedding Man */
       readonly name: string;
     };
-    readonly UserValidationError: components["schemas"]["BaseError"] & {
-      readonly errors: {
+    readonly UserValidationError: readonly ({
         /**
-         * Format: email 
-         * @example email is invalid.
+         * @example email 
+         * @enum {string}
          */
-        readonly email?: string;
-        /** @example name is invalid. */
-        readonly name?: string;
-      };
-    };
+        readonly name: "email" | "name";
+        /** @example email is invalid. */
+        readonly reason: string;
+      })[];
     readonly Test: {
       /**
        * Format: email 
@@ -48,17 +46,17 @@ export type components = {
        */
       readonly email: string;
     };
-    readonly TestValidationError: components["schemas"]["BaseError"] & {
-      readonly errors: {
+    readonly TestValidationError: readonly ({
         /**
-         * Format: email 
-         * @example email is invalid.
+         * @example email 
+         * @enum {string}
          */
-        readonly email?: string;
-      };
-    };
-    readonly BaseError: {
-      /** @example An error occurred. */
+        readonly name: "email";
+        /** @example email is invalid. */
+        readonly reason: string;
+      })[];
+    readonly NotFound: {
+      /** @example Not found. */
       readonly message: string;
     };
   };
@@ -96,7 +94,7 @@ export type components = {
     /** @description 共通の404エラーレスポンスボディ */
     readonly NotFound: {
       content: {
-        readonly "application/json": components["schemas"]["BaseError"];
+        readonly "application/json": components["schemas"]["NotFound"];
       };
     };
   };

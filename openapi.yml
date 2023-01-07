@@ -97,7 +97,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/BaseError'
+            $ref: '#/components/schemas/NotFound'
   schemas:
     User:
       type: object
@@ -113,22 +113,22 @@ components:
         - email
         - name
     UserValidationError:
-      allOf:
-        - $ref: '#/components/schemas/BaseError'
-        - type: object
-          properties:
-            errors:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  example: email is invalid.
-                name:
-                  type: string
-                  example: name is invalid.
-          required:
-            - errors
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            enum:
+              - email
+              - name
+            example: email
+          reason:
+            type: string
+            example: email is invalid.
+        required:
+          - name
+          - reason
     Test:
       type: object
       properties:
@@ -139,24 +139,26 @@ components:
       required:
         - email
     TestValidationError:
-      allOf:
-        - $ref: '#/components/schemas/BaseError'
-        - type: object
-          properties:
-            errors:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                  example: email is invalid.
-          required:
-            - errors
-    BaseError:
+      type: array
+      items:
+        type: object
+        properties:
+          name:
+            type: string
+            enum:
+              - email
+            example: email
+          reason:
+            type: string
+            example: email is invalid.
+        required:
+          - name
+          - reason
+    NotFound:
       type: object
       properties:
         message:
           type: string
-          example: An error occurred.
+          example: Not found.
       required:
         - message
