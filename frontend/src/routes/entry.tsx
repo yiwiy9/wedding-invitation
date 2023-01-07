@@ -1,12 +1,12 @@
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, FieldErrorsImpl } from 'react-hook-form'
 import wallImage from './white_wall_hash.webp'
 
 type mainProps = {
   register: Function
   unregister: Function
-  errors: any
+  errors: Partial<FieldErrorsImpl<{ [x: string]: any }>>
   handleSubmit: Function
   onSubmit: Function
   isDirty: Boolean
@@ -19,7 +19,7 @@ type mainProps = {
 type childProps = {
   register: Function
   unregister: Function
-  errors: any
+  errors: Partial<FieldErrorsImpl<{ [x: string]: any }>>
   childNum: number
   setChildrenArray: Function
   childrenArray: Array<number>
@@ -89,7 +89,9 @@ const MainForm: FC<mainProps> = (props) => {
         <input value='absent' type='radio' {...props.register('attend')} />
         <span className='pl-3'>decline</span>
         {props.errors?.attend?.message ? (
-          <span className='block text-center text-red-600'>{props.errors.attend.message}</span>
+          <span className='block text-center text-red-600'>
+            {String(props.errors.attend.message)}
+          </span>
         ) : (
           <br />
         )}
@@ -106,7 +108,9 @@ const MainForm: FC<mainProps> = (props) => {
         />
         <br />
         {props.errors?.name?.message ? (
-          <span className='block text-center text-red-600'>{props.errors.name.message}</span>
+          <span className='block text-center text-red-600'>
+            {String(props.errors.name.message)}
+          </span>
         ) : (
           <br />
         )}
@@ -139,7 +143,9 @@ const MainForm: FC<mainProps> = (props) => {
         />
         <br />
         {props.errors?.email?.message ? (
-          <span className='block text-center text-red-600'>{props.errors.email.message}</span>
+          <span className='block text-center text-red-600'>
+            {String(props.errors.email.message)}
+          </span>
         ) : (
           <br />
         )}
@@ -235,7 +241,9 @@ const ChildForm: FC<childProps> = (props) => {
       />
       <br />
       {props.errors?.[childName]?.message ? (
-        <span className='block text-center text-red-600'>{props.errors[childName].message}</span>
+        <span className='block text-center text-red-600'>
+          {String(props.errors?.[childName]?.message)}
+        </span>
       ) : (
         <br />
       )}
