@@ -1,7 +1,14 @@
 import type { FC } from 'react'
 import type { ActionFunctionArgs } from 'react-router-dom'
-import { useEffect } from 'react'
-import { redirect, useLoaderData, useActionData, useSubmit, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import {
+  redirect,
+  useLoaderData,
+  useActionData,
+  useSubmit,
+  useNavigation,
+  Link,
+} from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { components } from '../../../generated/schema'
 import { createTest, findTests } from '../lib/fetcher'
@@ -36,6 +43,13 @@ const Test: FC = () => {
   const emails = useLoaderData() as LoaderData
   const actionErrors = useActionData() as ActionErrorData | undefined
   const submit = useSubmit()
+  const navigation = useNavigation()
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setIsLoading(navigation.state !== 'idle')
+  }, [navigation])
 
   const {
     register,
@@ -86,7 +100,9 @@ const Test: FC = () => {
             },
           })}
         />
-        <button type='submit'>Create</button>
+        <button type='submit' disabled={isLoading}>
+          Create
+        </button>
         {errors.email?.message && <p>{errors.email.message}</p>}
       </form>
     </>
