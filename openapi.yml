@@ -3,94 +3,104 @@ info:
   title: Wedding Invitation API
   version: 1.0.0
 paths:
-  /tests:
-    get:
-      operationId: getTests
-      summary: テスト：メッセージの一覧を取得
-      tags:
-        - Test
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Test'
-    post:
-      operationId: postTests
-      summary: テスト：新規メッセージの作成
-      tags:
-        - Test
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Test'
-      responses:
-        '201':
-          description: CREATED
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Test'
   /users:
     post:
-      operationId: postUsers
+      operationId: postUser
       summary: 新規ユーザーの作成
       tags:
         - User
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/User'
+        $ref: '#/components/requestBodies/PostUser'
       responses:
         '201':
-          description: CREATED
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-  /users/{userEmail}:
+          $ref: '#/components/responses/User'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UserValidationError'
+  /tests:
     get:
-      operationId: getUserByEmail
-      summary: 指定したメールアドレスのユーザーを取得
+      operationId: getTests
+      summary: テスト：メールの一覧を取得
       tags:
-        - User
-      parameters:
-        - name: userEmail
-          description: メールアドレス
-          in: path
-          required: true
-          schema:
-            type: string
-            format: email
-            example: wedding@example.com
+        - Test
       responses:
         '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
+          $ref: '#/components/responses/Tests'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: postTest
+      summary: テスト：新規メールの作成
+      tags:
+        - Test
+      requestBody:
+        $ref: '#/components/requestBodies/PostTest'
+      responses:
+        '201':
+          $ref: '#/components/responses/Test'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/TestValidationError'
 components:
-  schemas:
+  requestBodies:
+    PostUser:
+      description: 新規ユーザーの作成用リクエストボディ
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    PostTest:
+      description: テスト：新規メールの作成用リクエストボディ
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Test'
+  responses:
+    User:
+      description: 単一ユーザーのレスポンスボディ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    UserValidationError:
+      description: ユーザーバリデーションエラーのレスポンスボディ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserValidationError'
     Test:
-      type: object
-      required:
-        - email
-      properties:
-        email:
-          type: string
-          format: email
-          example: wedding@example.com
+      description: 単一テストのレスポンスボディ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Test'
+    Tests:
+      description: 複数テストのレスポンスボディ
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Test'
+    TestValidationError:
+      description: テストバリデーションエラーのレスポンスボディ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TestValidationError'
+    NotFound:
+      description: 共通の404エラーレスポンスボディ
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BaseError'
+  schemas:
     User:
       type: object
-      required:
-        - email
-        - name
       properties:
         email:
           type: string
@@ -98,4 +108,55 @@ components:
           example: wedding@example.com
         name:
           type: string
-          example: Wedding Taro
+          example: Wedding Man
+      required:
+        - email
+        - name
+    UserValidationError:
+      allOf:
+        - $ref: '#/components/schemas/BaseError'
+        - type: object
+          properties:
+            errors:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: email is invalid.
+                name:
+                  type: string
+                  example: name is invalid.
+          required:
+            - errors
+    Test:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: wedding@example.com
+      required:
+        - email
+    TestValidationError:
+      allOf:
+        - $ref: '#/components/schemas/BaseError'
+        - type: object
+          properties:
+            errors:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: email is invalid.
+          required:
+            - errors
+    BaseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: An error occurred.
+      required:
+        - message

@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form'
 import { components } from '../../../generated/schema'
 import { createTest, findTests } from '../lib/fetcher'
 
-type LoaderData = readonly components['schemas']['Test'][]
+type FormInputs = components['requestBodies']['PostTest']['content']['application/json']
+type LoaderData = components['responses']['Tests']['content']['application/json']
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const data = Object.fromEntries(await request.formData()) as components['schemas']['Test']
+  const data = Object.fromEntries(await request.formData()) as FormInputs
   const res = await createTest(data)
   return res
 }
@@ -25,7 +26,7 @@ const Test: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<components['schemas']['Test']>()
+  } = useForm<FormInputs>()
 
   return (
     <>

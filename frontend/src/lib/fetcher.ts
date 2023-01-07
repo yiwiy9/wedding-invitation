@@ -14,4 +14,3 @@ fetcher.configure({
 export const findTests = fetcher.path('/tests').method('get').create()
 export const createTest = fetcher.path('/tests').method('post').create()
 export const createUser = fetcher.path('/users').method('post').create()
-export const findUserByEmail = fetcher.path('/users/{userEmail}').method('get').create()

@@ -5,19 +5,15 @@
 
 
 export type paths = {
-  "/tests": {
-    /** テスト：メッセージの一覧を取得 */
-    get: operations["getTests"];
-    /** テスト：新規メッセージの作成 */
-    post: operations["postTests"];
-  };
   "/users": {
     /** 新規ユーザーの作成 */
-    post: operations["postUsers"];
+    post: operations["postUser"];
   };
-  "/users/{userEmail}": {
-    /** 指定したメールアドレスのユーザーを取得 */
-    get: operations["getUserByEmail"];
+  "/tests": {
+    /** テスト：メールの一覧を取得 */
+    get: operations["getTests"];
+    /** テスト：新規メールの作成 */
+    post: operations["postTest"];
   };
 };
 
@@ -25,6 +21,26 @@ export type webhooks = Record<string, never>;
 
 export type components = {
   schemas: {
+    readonly User: {
+      /**
+       * Format: email 
+       * @example wedding@example.com
+       */
+      readonly email: string;
+      /** @example Wedding Man */
+      readonly name: string;
+    };
+    readonly UserValidationError: components["schemas"]["BaseError"] & {
+      readonly errors: {
+        /**
+         * Format: email 
+         * @example email is invalid.
+         */
+        readonly email?: string;
+        /** @example name is invalid. */
+        readonly name?: string;
+      };
+    };
     readonly Test: {
       /**
        * Format: email 
@@ -32,19 +48,73 @@ export type components = {
        */
       readonly email: string;
     };
-    readonly User: {
-      /**
-       * Format: email 
-       * @example wedding@example.com
-       */
-      readonly email: string;
-      /** @example Wedding Taro */
-      readonly name: string;
+    readonly TestValidationError: components["schemas"]["BaseError"] & {
+      readonly errors: {
+        /**
+         * Format: email 
+         * @example email is invalid.
+         */
+        readonly email?: string;
+      };
+    };
+    readonly BaseError: {
+      /** @example An error occurred. */
+      readonly message: string;
     };
   };
-  responses: never;
+  responses: {
+    /** @description 単一ユーザーのレスポンスボディ */
+    readonly User: {
+      content: {
+        readonly "application/json": components["schemas"]["User"];
+      };
+    };
+    /** @description ユーザーバリデーションエラーのレスポンスボディ */
+    readonly UserValidationError: {
+      content: {
+        readonly "application/json": components["schemas"]["UserValidationError"];
+      };
+    };
+    /** @description 単一テストのレスポンスボディ */
+    readonly Test: {
+      content: {
+        readonly "application/json": components["schemas"]["Test"];
+      };
+    };
+    /** @description 複数テストのレスポンスボディ */
+    readonly Tests: {
+      content: {
+        readonly "application/json": readonly (components["schemas"]["Test"])[];
+      };
+    };
+    /** @description テストバリデーションエラーのレスポンスボディ */
+    readonly TestValidationError: {
+      content: {
+        readonly "application/json": components["schemas"]["TestValidationError"];
+      };
+    };
+    /** @description 共通の404エラーレスポンスボディ */
+    readonly NotFound: {
+      content: {
+        readonly "application/json": components["schemas"]["BaseError"];
+      };
+    };
+  };
   parameters: never;
-  requestBodies: never;
+  requestBodies: {
+    /** @description 新規ユーザーの作成用リクエストボディ */
+    readonly PostUser: {
+      readonly content: {
+        readonly "application/json": components["schemas"]["User"];
+      };
+    };
+    /** @description テスト：新規メールの作成用リクエストボディ */
+    readonly PostTest: {
+      readonly content: {
+        readonly "application/json": components["schemas"]["Test"];
+      };
+    };
+  };
   headers: never;
   pathItems: never;
 };
@@ -53,64 +123,29 @@ export type external = Record<string, never>;
 
 export type operations = {
 
-  getTests: {
-    /** テスト：メッセージの一覧を取得 */
-    responses: {
-      /** @description OK */
-      200: {
-        content: {
-          readonly "application/json": readonly (components["schemas"]["Test"])[];
-        };
-      };
-    };
-  };
-  postTests: {
-    /** テスト：新規メッセージの作成 */
-    readonly requestBody?: {
-      readonly content: {
-        readonly "application/json": components["schemas"]["Test"];
-      };
-    };
-    responses: {
-      /** @description CREATED */
-      201: {
-        content: {
-          readonly "application/json": components["schemas"]["Test"];
-        };
-      };
-    };
-  };
-  postUsers: {
+  postUser: {
     /** 新規ユーザーの作成 */
-    readonly requestBody?: {
-      readonly content: {
-        readonly "application/json": components["schemas"]["User"];
-      };
-    };
+    readonly requestBody: components["requestBodies"]["PostUser"];
     responses: {
-      /** @description CREATED */
-      201: {
-        content: {
-          readonly "application/json": components["schemas"]["User"];
-        };
-      };
+      201: components["responses"]["User"];
+      404: components["responses"]["NotFound"];
+      422: components["responses"]["UserValidationError"];
     };
   };
-  getUserByEmail: {
-    /** 指定したメールアドレスのユーザーを取得 */
-    parameters: {
-        /** @description メールアドレス */
-      readonly path: {
-        userEmail: string;
-      };
-    };
+  getTests: {
+    /** テスト：メールの一覧を取得 */
     responses: {
-      /** @description OK */
-      200: {
-        content: {
-          readonly "application/json": components["schemas"]["User"];
-        };
-      };
+      200: components["responses"]["Tests"];
+      404: components["responses"]["NotFound"];
+    };
+  };
+  postTest: {
+    /** テスト：新規メールの作成 */
+    readonly requestBody: components["requestBodies"]["PostTest"];
+    responses: {
+      201: components["responses"]["Test"];
+      404: components["responses"]["NotFound"];
+      422: components["responses"]["TestValidationError"];
     };
   };
 };
