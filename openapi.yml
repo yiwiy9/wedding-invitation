@@ -51,7 +51,16 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/User'
+            allOf:
+              - $ref: '#/components/schemas/User'
+              - type: object
+                properties:
+                  children:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserBase'
+                required:
+                  - children
     PostTest:
       description: テスト：新規メールの作成用リクエストボディ
       required: true
@@ -99,19 +108,72 @@ components:
           schema:
             $ref: '#/components/schemas/NotFound'
   schemas:
-    User:
+    UserBase:
       type: object
       properties:
-        email:
+        familyNameKanji:
           type: string
-          format: email
-          example: wedding@example.com
-        name:
+          maxLength: 255
+          example: 山田
+        givenNameKanji:
           type: string
-          example: Wedding Man
+          maxLength: 255
+          example: 太郎
+        familyNameKana:
+          type: string
+          maxLength: 255
+          example: やまだ
+        givenNameKana:
+          type: string
+          maxLength: 255
+          example: たろう
+        allergy:
+          type: string
+          maxLength: 255
+          example: 卵
       required:
-        - email
-        - name
+        - familyNameKanji
+        - givenNameKanji
+        - familyNameKana
+        - givenNameKana
+    User:
+      allOf:
+        - $ref: '#/components/schemas/UserBase'
+        - type: object
+          properties:
+            isAttend:
+              type: boolean
+              example: true
+            zipCode:
+              type: string
+              pattern: ^\d{7}$
+              example: 1234567
+            address1:
+              type: string
+              maxLength: 255
+              example: 東京都ｘｘ区ｘｘｘ 1-1-1
+            address2:
+              type: string
+              maxLength: 255
+              example: ｘｘマンション 101号室
+            email:
+              type: string
+              format: email
+              example: yamada@example.com
+            tel:
+              type: string
+              format: ^0\d{9,10}$
+              example: 09012345678
+            message:
+              type: string
+              maxLength: 255
+              example: おめでとう！
+          required:
+            - isAttend
+            - zipCode
+            - address1
+            - address2
+            - email
     UserValidationError:
       type: array
       items:
@@ -120,8 +182,19 @@ components:
           name:
             type: string
             enum:
+              - familyNameKanji
+              - givenNameKanji
+              - familyNameKana
+              - givenNameKana
+              - allergy
+              - isAttend
+              - zipCode
+              - address1
+              - address2
               - email
-              - name
+              - tel
+              - message
+              - children
             example: email
           reason:
             type: string
