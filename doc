@@ -93,8 +93,10 @@ let childName = `childName${props.num}`
 各々の子供が持つ自分の番号であるchildNum
 
 todo:
-reactnodeとは？エラー表示をstringにしているところ
-FieldErrorsImplって何
+destructuring propsについて
+listの子要素のkeyにindex使うな
+typeとinterfaceの違い
+react, react-hook-formからimportしたものたち（型定義のため）って何もの
 オブジェクトのキーに[変数]としたら、?つけないとエラーになるなんで
 
 src/index.tsxのchildrenは何者？<Root>の<Outlet>にぶち込まれる感じ？
