@@ -21,21 +21,46 @@ export type webhooks = Record<string, never>;
 
 export type components = {
   schemas: {
-    readonly User: {
+    readonly UserBase: {
+      /** @example 山田 */
+      readonly familyNameKanji: string;
+      /** @example 太郎 */
+      readonly givenNameKanji: string;
+      /** @example やまだ */
+      readonly familyNameKana: string;
+      /** @example たろう */
+      readonly givenNameKana: string;
+      /** @example 卵 */
+      readonly allergy?: string;
+    };
+    readonly User: components["schemas"]["UserBase"] & {
+      /** @example true */
+      readonly isAttend: boolean;
+      /** @example 1234567 */
+      readonly zipCode: string;
+      /** @example 東京都ｘｘ区ｘｘｘ 1-1-1 */
+      readonly address1: string;
+      /** @example ｘｘマンション 101号室 */
+      readonly address2: string;
       /**
        * Format: email 
-       * @example wedding@example.com
+       * @example yamada@example.com
        */
       readonly email: string;
-      /** @example Wedding Man */
-      readonly name: string;
+      /**
+       * Format: ^0\d{9,10}$ 
+       * @example 9012345678
+       */
+      readonly tel?: string;
+      /** @example おめでとう！ */
+      readonly message?: string;
     };
     readonly UserValidationError: readonly ({
         /**
          * @example email 
          * @enum {string}
          */
-        readonly name: "email" | "name";
+        readonly name: "familyNameKanji" | "givenNameKanji" | "familyNameKana" | "givenNameKana" | "allergy" | "isAttend" | "zipCode" | "address1" | "address2" | "email" | "tel" | "message" | "children";
         /** @example email is invalid. */
         readonly reason: string;
       })[];
@@ -103,7 +128,9 @@ export type components = {
     /** @description 新規ユーザーの作成用リクエストボディ */
     readonly PostUser: {
       readonly content: {
-        readonly "application/json": components["schemas"]["User"];
+        readonly "application/json": components["schemas"]["User"] & {
+          readonly children: readonly (components["schemas"]["UserBase"])[];
+        };
       };
     };
     /** @description テスト：新規メールの作成用リクエストボディ */
