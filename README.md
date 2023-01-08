@@ -4,7 +4,6 @@ Web App of our wedding invitation
 
 ## TODO
 
-1. `react-router`の設定を`App.tsx`とかに移した方が良さそう
 1. jest の導入（frontend/backend）
    - [サーバーレスでもユニットテスト – TypeScript 製 AWS Lambda を Jest でテストする](https://dev.classmethod.jp/articles/serverless-unit-test-with-jest/)
    - [jest-openapi](https://github.com/openapi-library/OpenAPIValidators/tree/master/packages/jest-openapi)
@@ -152,6 +151,8 @@ The config that you\'ve selected requires the following dependencies:
     // デフォルトのものから置き換える
     "airbnb-base",
     "airbnb-typescript/base",
+    "plugin:@typescript-eslint/recommended", // 型を必要としないプラグインの推奨ルール
+    "plugin:@typescript-eslint/recommended-requiring-type-checking", // 型を必要とするプラグインの推奨ルール
     "prettier" // ESLint と Prettier が干渉しないように設定
   ],
   "overrides": [],
@@ -195,11 +196,11 @@ frontend
 
 ```json
 {
-  // 省略
+  // ...
   "customizations": {
     "vscode": {
       "extensions": [
-        // 省略
+        // ...
         "esbenp.prettier-vscode", // 追加
         "dbaeumer.vscode-eslint" // 追加
       ],
@@ -259,12 +260,12 @@ yarn add -D prettier eslint-config-prettier
 
 ```json
 {
-  // 省略
+  // ...
   "customizations": {
     "vscode": {
-      // 省略
+      // ...
       "settings": {
-        // 省略
+        // ...
         "eslint.workingDirectories": ["./", "./frontend"] // 追加
       }
     }
@@ -274,6 +275,9 @@ yarn add -D prettier eslint-config-prettier
 
 ##### 追記 1
 
+1. `airbnb`に加えて[@typescript-eslint/eslint-plugin](https://typescript-eslint.io/rules/)も extends に追加する
+   - [https://github.com/iamturns/eslint-config-airbnb-typescript#i-wish-this-config-would-support-](https://github.com/iamturns/eslint-config-airbnb-typescript#i-wish-this-config-would-support-)
+   - [https://github.com/iamturns/create-exposed-app/blob/master/.eslintrc.js](https://github.com/iamturns/create-exposed-app/blob/master/.eslintrc.js)
 1. `import React from 'react'`が必要なくなったので、下記を設定
    - [新しい JSX トランスフォーム - reactjs.prg](https://ja.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html#eslint)
 1. Function Components の定義をアロー関数に制限するために、下記を設定
@@ -284,6 +288,15 @@ yarn add -D prettier eslint-config-prettier
 ```json
 {
   // ...
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier"
+  ],
+  // ...
   "rules": {
     // ...
     "react/jsx-uses-react": "off",
@@ -291,6 +304,29 @@ yarn add -D prettier eslint-config-prettier
     "react/function-component-definition": [2, { "namedComponents": "arrow-function" }]
   }
 }
+```
+
+`frontend/src/reportWebVitals.ts`
+
+`plugin:@typescript-eslint/recommended-requiring-type-checking`の影響でエラーが出るので、中身を変更せずに無視する
+
+```ts
+import { ReportHandler } from 'web-vitals'
+
+const reportWebVitals = (onPerfEntry?: ReportHandler) => {
+  if (onPerfEntry && onPerfEntry instanceof Function) {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+    import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+      getCLS(onPerfEntry)
+      getFID(onPerfEntry)
+      getFCP(onPerfEntry)
+      getLCP(onPerfEntry)
+      getTTFB(onPerfEntry)
+    })
+  }
+}
+
+export default reportWebVitals
 ```
 
 #### 実行コマンド
@@ -370,9 +406,9 @@ yarn add -D prettier eslint-config-prettier
 
 ```json
 {
-  // 省略
+  // ...
   "scripts": {
-    // 省略
+    // ...
     "generate-api-schema": "yarn openapi-typescript ./openapi.yml --output ./generated/schema.ts --export-type true --immutable-types true --path-params-as-types true"
   }
 }
@@ -391,7 +427,21 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 ```json
 {
   "openapi.yml": ["yarn generate-api-schema", "git add ./generated"]
-  // 省略
+  // ...
+}
+```
+
+`.eslintrc.json`
+
+`generated/`ディレクトリが`frontend/`ディレクトリの外にあるので、相対インポートでの親ディレクトリの参照を許可する
+
+```json
+{
+  // ...
+  "rules": {
+    // ...
+    "import/no-relative-packages": "off"
+  }
 }
 ```
 
@@ -443,5 +493,32 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 
 ### Frontend テストページの作成 (Tag: v0.2.2)
 
-- `frontend/src/routes/test.tsx`の作成と`frontend/src/index.tsx`にルーティングの追加
-- TODO: `eslint-disable-next-line import/no-relative-packages`と型定義場所を考える
+- `frontend/src/routes/test.tsx`の作成と`frontend/src/App.tsx`にルーティングの追加
+- [React Hook Form](https://react-hook-form.com/)のインストール
+  - `yarn add react-hook-form`
+  - [Examples](https://github.com/react-hook-form/react-hook-form/tree/master/examples)
+
+`.eslintrc.json`
+
+1. `react-hook-form`の`register()`メソッドが props をスプレッド演算子で渡すことを許可する
+1. [Typescript error with form and handleSubmit](https://github.com/react-hook-form/react-hook-form/discussions/8020)
+   - [feat(eslint-plugin): [no-misused-promises] add granular options within checksVoidReturns](https://github.com/typescript-eslint/typescript-eslint/pull/4623)
+   - [no-misused-promises](https://typescript-eslint.io/rules/no-misused-promises/)
+
+```json
+{
+  // ...
+  "rules": {
+    // ...
+    "react/jsx-props-no-spreading": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ]
+  }
+}
+```
