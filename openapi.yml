@@ -18,31 +18,31 @@ paths:
           $ref: '#/components/responses/NotFound'
         '422':
           $ref: '#/components/responses/UserValidationError'
-  /tests:
+  /samples:
     get:
-      operationId: getTests
-      summary: テスト：メールの一覧を取得
+      operationId: getSamples
+      summary: サンプル：メールの一覧を取得
       tags:
-        - Test
+        - Sample
       responses:
         '200':
-          $ref: '#/components/responses/Tests'
+          $ref: '#/components/responses/Samples'
         '404':
           $ref: '#/components/responses/NotFound'
     post:
-      operationId: postTest
-      summary: テスト：新規メールの作成
+      operationId: postSample
+      summary: サンプル：新規メールの作成
       tags:
-        - Test
+        - Sample
       requestBody:
-        $ref: '#/components/requestBodies/PostTest'
+        $ref: '#/components/requestBodies/PostSample'
       responses:
         '201':
-          $ref: '#/components/responses/Test'
+          $ref: '#/components/responses/Sample'
         '404':
           $ref: '#/components/responses/NotFound'
         '422':
-          $ref: '#/components/responses/TestValidationError'
+          $ref: '#/components/responses/SampleValidationError'
 components:
   requestBodies:
     PostUser:
@@ -61,13 +61,13 @@ components:
                       $ref: '#/components/schemas/UserBase'
                 required:
                   - children
-    PostTest:
-      description: テスト：新規メールの作成用リクエストボディ
+    PostSample:
+      description: サンプル：新規メールの作成用リクエストボディ
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Test'
+            $ref: '#/components/schemas/Sample'
   responses:
     User:
       description: 単一ユーザーのレスポンスボディ
@@ -81,26 +81,26 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/UserValidationError'
-    Test:
-      description: 単一テストのレスポンスボディ
+    Sample:
+      description: 単一サンプルのレスポンスボディ
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Test'
-    Tests:
-      description: 複数テストのレスポンスボディ
+            $ref: '#/components/schemas/Sample'
+    Samples:
+      description: 複数サンプルのレスポンスボディ
       content:
         application/json:
           schema:
             type: array
             items:
-              $ref: '#/components/schemas/Test'
-    TestValidationError:
-      description: テストバリデーションエラーのレスポンスボディ
+              $ref: '#/components/schemas/Sample'
+    SampleValidationError:
+      description: サンプルバリデーションエラーのレスポンスボディ
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/TestValidationError'
+            $ref: '#/components/schemas/SampleValidationError'
     NotFound:
       description: 共通の404エラーレスポンスボディ
       content:
@@ -202,7 +202,7 @@ components:
         required:
           - name
           - reason
-    Test:
+    Sample:
       type: object
       properties:
         email:
@@ -211,7 +211,7 @@ components:
           example: wedding@example.com
       required:
         - email
-    TestValidationError:
+    SampleValidationError:
       type: array
       items:
         type: object

@@ -9,11 +9,11 @@ export type paths = {
     /** 新規ユーザーの作成 */
     post: operations["postUser"];
   };
-  "/tests": {
-    /** テスト：メールの一覧を取得 */
-    get: operations["getTests"];
-    /** テスト：新規メールの作成 */
-    post: operations["postTest"];
+  "/samples": {
+    /** サンプル：メールの一覧を取得 */
+    get: operations["getSamples"];
+    /** サンプル：新規メールの作成 */
+    post: operations["postSample"];
   };
 };
 
@@ -64,14 +64,14 @@ export type components = {
         /** @example email is invalid. */
         readonly reason: string;
       })[];
-    readonly Test: {
+    readonly Sample: {
       /**
        * Format: email 
        * @example wedding@example.com
        */
       readonly email: string;
     };
-    readonly TestValidationError: readonly ({
+    readonly SampleValidationError: readonly ({
         /**
          * @example email 
          * @enum {string}
@@ -98,22 +98,22 @@ export type components = {
         readonly "application/json": components["schemas"]["UserValidationError"];
       };
     };
-    /** @description 単一テストのレスポンスボディ */
-    readonly Test: {
+    /** @description 単一サンプルのレスポンスボディ */
+    readonly Sample: {
       content: {
-        readonly "application/json": components["schemas"]["Test"];
+        readonly "application/json": components["schemas"]["Sample"];
       };
     };
-    /** @description 複数テストのレスポンスボディ */
-    readonly Tests: {
+    /** @description 複数サンプルのレスポンスボディ */
+    readonly Samples: {
       content: {
-        readonly "application/json": readonly (components["schemas"]["Test"])[];
+        readonly "application/json": readonly (components["schemas"]["Sample"])[];
       };
     };
-    /** @description テストバリデーションエラーのレスポンスボディ */
-    readonly TestValidationError: {
+    /** @description サンプルバリデーションエラーのレスポンスボディ */
+    readonly SampleValidationError: {
       content: {
-        readonly "application/json": components["schemas"]["TestValidationError"];
+        readonly "application/json": components["schemas"]["SampleValidationError"];
       };
     };
     /** @description 共通の404エラーレスポンスボディ */
@@ -133,10 +133,10 @@ export type components = {
         };
       };
     };
-    /** @description テスト：新規メールの作成用リクエストボディ */
-    readonly PostTest: {
+    /** @description サンプル：新規メールの作成用リクエストボディ */
+    readonly PostSample: {
       readonly content: {
-        readonly "application/json": components["schemas"]["Test"];
+        readonly "application/json": components["schemas"]["Sample"];
       };
     };
   };
@@ -157,20 +157,20 @@ export type operations = {
       422: components["responses"]["UserValidationError"];
     };
   };
-  getTests: {
-    /** テスト：メールの一覧を取得 */
+  getSamples: {
+    /** サンプル：メールの一覧を取得 */
     responses: {
-      200: components["responses"]["Tests"];
+      200: components["responses"]["Samples"];
       404: components["responses"]["NotFound"];
     };
   };
-  postTest: {
-    /** テスト：新規メールの作成 */
-    readonly requestBody: components["requestBodies"]["PostTest"];
+  postSample: {
+    /** サンプル：新規メールの作成 */
+    readonly requestBody: components["requestBodies"]["PostSample"];
     responses: {
-      201: components["responses"]["Test"];
+      201: components["responses"]["Sample"];
       404: components["responses"]["NotFound"];
-      422: components["responses"]["TestValidationError"];
+      422: components["responses"]["SampleValidationError"];
     };
   };
 };

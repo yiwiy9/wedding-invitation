@@ -11,20 +11,21 @@ import {
 } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { components } from '../../../generated/schema'
-import { createTest, findTests } from '../lib/fetcher'
+import { createSample, findSamples } from '../lib/fetcher'
 
-type FormInputs = components['requestBodies']['PostTest']['content']['application/json']
-type LoaderData = components['responses']['Tests']['content']['application/json']
-type ActionErrorData = components['responses']['TestValidationError']['content']['application/json']
+type FormInputs = components['requestBodies']['PostSample']['content']['application/json']
+type LoaderData = components['responses']['Samples']['content']['application/json']
+type ActionErrorData =
+  components['responses']['SampleValidationError']['content']['application/json']
 
 export const action = async ({
   request,
 }: ActionFunctionArgs): Promise<ActionErrorData | Response> => {
   const data = Object.fromEntries(await request.formData()) as FormInputs
   try {
-    await createTest(data)
+    await createSample(data)
   } catch (e) {
-    if (e instanceof createTest.Error) {
+    if (e instanceof createSample.Error) {
       const error = e.getActualType()
       if (error.status === 422) {
         return error.data
@@ -35,11 +36,11 @@ export const action = async ({
 }
 
 export const loader = async (): Promise<LoaderData> => {
-  const { data: emails } = await findTests({})
+  const { data: emails } = await findSamples({})
   return emails
 }
 
-const Test: FC = () => {
+const Sample: FC = () => {
   const emails = useLoaderData() as LoaderData
   const actionErrors = useActionData() as ActionErrorData | undefined
   const submit = useSubmit()
@@ -66,7 +67,7 @@ const Test: FC = () => {
 
   return (
     <>
-      <h2>Test</h2>
+      <h2>Sample</h2>
       <ul>
         <li>
           <Link to='/'>Top Page</Link>
@@ -109,4 +110,4 @@ const Test: FC = () => {
   )
 }
 
-export default Test
+export default Sample

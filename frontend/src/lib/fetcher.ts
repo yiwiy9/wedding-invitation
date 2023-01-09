@@ -11,6 +11,6 @@ fetcher.configure({
 })
 
 // create fetch operations
-export const findTests = fetcher.path('/tests').method('get').create()
-export const createTest = fetcher.path('/tests').method('post').create()
 export const createUser = fetcher.path('/users').method('post').create()
+export const findSamples = fetcher.path('/samples').method('get').create()
+export const createSample = fetcher.path('/samples').method('post').create()
