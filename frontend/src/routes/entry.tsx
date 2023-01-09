@@ -8,7 +8,6 @@ import {
   UseFormHandleSubmit,
   FieldValues,
 } from 'react-hook-form'
-import wallImage from './white_wall_hash.webp'
 
 type MainProps = {
   register: UseFormRegister<FieldValues>
@@ -51,10 +50,10 @@ const ChildForm: FC<ChildProps> = (props) => {
 
   return (
     <div>
-      <div className='text-center'>children {childNum}</div>
+      <div className='text-center'>子供 {childNum}</div>
       <br />
       <span className='inline-block w-60 text-right'>
-        Name<sup>*</sup>
+        名前<sup>*</sup>
       </span>
       <input
         {...register(childName, {
@@ -68,7 +67,7 @@ const ChildForm: FC<ChildProps> = (props) => {
       ) : (
         <br />
       )}
-      <span className='inline-block w-60 text-right'>Allergy</span>
+      <span className='inline-block w-60 text-right'>アレルギー</span>
       <input
         {...register(childAllergy)}
         className='ml-10 inline-block border-2 border-solid border-black'
@@ -111,81 +110,158 @@ const MainForm: FC<MainProps> = (props) => {
     <form onSubmit={handleSubmit(onSubmit)} className='text-xl '>
       <div className='text-center'>
         <input
-          value='attend'
           type='radio'
-          {...register('attend', {
+          value='true'
+          {...register('isAttend', {
             required: { value: true, message: '出席・欠席を選んでください' },
           })}
         />
-        <span className='pr-5 pl-3'>attend</span>
-        <input value='absent' type='radio' {...register('attend')} />
-        <span className='pl-3'>decline</span>
-        {errors?.attend?.message ? (
-          <span className='block text-center text-red-600'>{errors.attend.message}</span>
+        <span className='pr-5 pl-3'>出席</span>
+        <input type='radio' value='false' {...register('isAttend')} />
+        <span className='pl-3'>欠席</span>
+        {errors?.isAttend?.message ? (
+          <span className='block text-center text-red-600'>{errors.isAttend.message}</span>
         ) : (
-          <br />
+          <div>
+            <br />
+          </div>
         )}
       </div>
       <div className='pt-5'>
         <span className='inline-block w-60 text-right'>
-          Name<sup>*</sup>
+          姓（漢字）<sup>*</sup>
         </span>
         <input
-          {...register('name', {
-            required: { value: true, message: '名前は入力必須項目です' },
+          {...register('familyNameKanji', {
+            required: { value: true, message: '姓（漢字）は入力必須項目です' },
           })}
-          className='ml-10 inline-block border-2 border-solid border-black'
+          type='text'
+          autoComplete='family-name'
+          placeholder='山田'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
         />
         <br />
-        {errors?.name?.message ? (
-          <span className='block text-center text-red-600'>{errors.name.message}</span>
+        {errors?.familyNameKanji?.message ? (
+          <span className='block text-center text-red-600'>{errors.familyNameKanji.message}</span>
         ) : (
           <br />
         )}
-        <span className='inline-block w-60 text-right'>Adress</span>
-        <input
-          {...register('adress')}
-          className='ml-10 inline-block border-2 border-solid border-black'
-        />
-        <br />
-        <br />
-        <span className='inline-block w-60 text-right'>Phone number</span>
-        <input
-          {...register('phoneNumber')}
-          className='ml-10 inline-block border-2 border-solid border-black'
-        />
-        <br />
-        <br />
         <span className='inline-block w-60 text-right'>
-          Email<sup>*</sup>
+          姓（かな）<sup>*</sup>
         </span>
         <input
-          className='ml-10 inline-block border-2 border-solid border-black'
-          {...register('email', {
-            required: { value: true, message: 'メールアドレスは入力必須項目です' },
-            pattern: {
-              value: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-              message: '有効なメールアドレスを入力してください',
-            },
+          {...register('familyNameKana', {
+            required: { value: true, message: '姓（かな）は入力必須項目です' },
           })}
+          type='text'
+          placeholder='やまだ'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
         />
         <br />
-        {errors?.email?.message ? (
-          <span className='block text-center text-red-600'>{errors.email.message}</span>
+        {errors?.familyNameKana?.message ? (
+          <span className='block text-center text-red-600'>{errors.familyNameKana.message}</span>
         ) : (
           <br />
         )}
-        <span className='inline-block w-60 text-right'>Allergy</span>
+        <span className='inline-block w-60 text-right'>
+          名（漢字）<sup>*</sup>
+        </span>
+        <input
+          {...register('givenNameKanji', {
+            required: { value: true, message: '名（漢字）は入力必須項目です' },
+          })}
+          type='text'
+          autoComplete='given-name'
+          placeholder='太郎'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
+        />
+        <br />
+        {errors?.givenNameKanji?.message ? (
+          <span className='block text-center text-red-600'>{errors.givenNameKanji.message}</span>
+        ) : (
+          <br />
+        )}
+        <span className='inline-block w-60 text-right'>
+          名（かな）<sup>*</sup>
+        </span>
+        <input
+          {...register('givenNameKana', {
+            required: { value: true, message: '名（かな）は入力必須項目です' },
+          })}
+          type='text'
+          placeholder='たろう'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
+        />
+        <br />
+        {errors?.givenNameKana?.message ? (
+          <span className='block text-center text-red-600'>{errors.givenNameKana.message}</span>
+        ) : (
+          <br />
+        )}
+        <span className='inline-block w-60 text-right'>郵便番号</span>
+        <input
+          {...register('zipCode')}
+          type='text'
+          autoComplete='postal-code'
+          placeholder='1234567'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
+        />
+        <br />
+        <br />
+        <span className='inline-block w-60 text-right'>住所１</span>
+        <input
+          {...register('adress1')}
+          type='text'
+          autoComplete='address-line1'
+          placeholder='東京都ｘｘ区ｘｘｘ 1-1-1'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
+        />
+        <br />
+        <br />
+        <span className='inline-block w-60 text-right'>住所２</span>
+        <input
+          {...register('adress2')}
+          type='text'
+          autoComplete='address-line2'
+          placeholder='ｘｘマンション 101号室'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
+        />
+        <br />
+        <br />
+        <span className='inline-block w-60 text-right'>電話番号</span>
+        <input
+          {...register('tel')}
+          type='tel'
+          autoComplete='tel'
+          placeholder='09012345678'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
+        />
+        <br />
+        <br />
+        <span className='inline-block w-60 text-right'>メールアドレス</span>
+        <input
+          {...register('email')}
+          type='email'
+          autoComplete='email'
+          placeholder='yamada@example.com'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
+        />
+        <br />
+        <br />
+        <span className='inline-block w-60 text-right'>アレルギー</span>
         <input
           {...register('allergy')}
-          className='ml-10 inline-block border-2 border-solid border-black'
+          type='text'
+          placeholder='卵'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1'
         />
         <br />
         <br />
-        <span className='inline-block w-60 text-right'>Message</span>
+        <span className='inline-block w-60 text-right'>メッセージ</span>
         <textarea
           {...register('message')}
-          className='ml-10 inline-block border-2 border-solid border-black align-top'
+          placeholder='おめでとう！'
+          className='ml-10 inline-block w-1/2 border-2 border-solid border-black p-1 align-top'
         />
         <br />
         <br />
@@ -240,8 +316,8 @@ const Modal: FC<{ modalHidden: () => void }> = (props) => {
   const { modalHidden } = props
   return (
     <div id='overley'>
-      <div className='z-10 h-1/4 w-1/4 bg-white p-10 font-serif'>
-        <p className='pb-10 text-center text-2xl'>Sent successfully!!</p>
+      <div className='z-10 h-1/4 w-1/4 bg-white p-10'>
+        <p className='pb-10 text-center text-2xl'>送信成功しました！</p>
         <button
           type='button'
           onClick={modalHidden}
@@ -271,23 +347,20 @@ const Entry: FC = () => {
 
   return (
     <div className='relative'>
-      <img src={wallImage} alt='' className='w-full' />
-      <div className='absolute top-40 left-1/2 w-1/2 -translate-x-1/2'>
-        <div className='font-serif'>
-          <h1 className='pb-10 text-center text-8xl'>R.V.S.P</h1>
-          <MainForm
-            register={register}
-            errors={errors}
-            handleSubmit={handleSubmit}
-            onSubmit={onSubmit}
-            isDirty={isDirty}
-            childrenArray={childrenArray}
-            setChildrenArray={setChildrenArray}
-            addNum={addNum}
-            setAddNum={setAddNum}
-            unregister={unregister}
-          />
-        </div>
+      <div className='absolute top-20 left-1/2 w-3/5 -translate-x-1/2'>
+        <h1 className='pb-10 text-center font-serif text-8xl'>R.V.S.P</h1>
+        <MainForm
+          register={register}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+          isDirty={isDirty}
+          childrenArray={childrenArray}
+          setChildrenArray={setChildrenArray}
+          addNum={addNum}
+          setAddNum={setAddNum}
+          unregister={unregister}
+        />
       </div>
       {show ? <Modal modalHidden={() => setShow(false)} /> : null}
     </div>

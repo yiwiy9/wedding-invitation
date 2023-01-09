@@ -93,6 +93,13 @@ let childName = `childName${props.num}`
 各々の子供が持つ自分の番号であるchildNum
 
 todo:
+isAttendをstringのまま渡しているが、bealeanに変える
+フォームの形整える（大きさ、配置）
+郵便番号から住所自動入力
+ふりがな自動入力
+モックサーバーとの通信
+
+given-nameとfamily-nameがうまく割り振られない
 destructuring propsについて
 listの子要素のkeyにindex使うな
 typeとinterfaceの違い
