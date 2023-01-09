@@ -94,11 +94,12 @@ let childName = `childName${props.num}`
 
 todo:
 isAttendをstringのまま渡しているが、bealeanに変える
-フォームの形整える（大きさ、配置）
 郵便番号から住所自動入力
 ふりがな自動入力
 モックサーバーとの通信
 
+controlledとuncontrolled? ref?
+axios?async(非同期)?await(同期)?
 given-nameとfamily-nameがうまく割り振られない
 destructuring propsについて
 listの子要素のkeyにindex使うな
