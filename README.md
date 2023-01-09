@@ -491,9 +491,9 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 }
 ```
 
-### Frontend テストページの作成 (Tag: v0.2.2)
+### Frontend サンプルページの作成 (Tag: v0.2.2)
 
-- `frontend/src/routes/test.tsx`の作成と`frontend/src/App.tsx`にルーティングの追加
+- `frontend/src/routes/sample.tsx`の作成と`frontend/src/App.tsx`にルーティングの追加
 - [React Hook Form](https://react-hook-form.com/)のインストール
   - `yarn add react-hook-form`
   - [Examples](https://github.com/react-hook-form/react-hook-form/tree/master/examples)
