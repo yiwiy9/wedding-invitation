@@ -94,10 +94,11 @@ let childName = `childName${props.num}`
 
 todo:
 isAttendをstringのまま渡しているが、bealeanに変える
+childrenを配列で渡す（openapi.yml参考）
+sample.tsxの書き方で書き直す
+
 郵便番号から住所自動入力
 ふりがな自動入力
-モックサーバーとの通信
-
 controlledとuncontrolled? ref?
 axios?async(非同期)?await(同期)?
 given-nameとfamily-nameがうまく割り振られない

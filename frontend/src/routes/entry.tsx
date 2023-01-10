@@ -8,7 +8,6 @@ import {
   UseFormHandleSubmit,
   FieldValues,
 } from 'react-hook-form'
-import axios from 'axios'
 
 type MainProps = {
   register: UseFormRegister<FieldValues>
@@ -108,25 +107,6 @@ const MainForm: FC<MainProps> = (props) => {
     setAddNum(num)
   }
 
-  const [fullAdress, setFullAdress] = useState('')
-  const [zipCode, setZipCode] = useState('')
-
-  type Res = {
-    data: { code: number; data: { fullAdress: string } }
-  }
-
-  const handleChangeAdress = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFullAdress(e.target.value)
-  }
-
-  const handleChangeZipCode = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setZipCode(e.target.value)
-    const res: Res = await axios.get(`https://api.zipaddress.net/?zipcode=${e.target.value}`)
-    if (res.data.code === 200) {
-      setFullAdress(res.data.data.fullAdress)
-    }
-  }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='mx-auto md:max-w-md'>
       <div className='text-center'>
@@ -217,8 +197,6 @@ const MainForm: FC<MainProps> = (props) => {
         <input
           {...register('zipCode')}
           type='text'
-          onChange={handleChangeZipCode}
-          value={zipCode}
           autoComplete='postal-code'
           placeholder='1234567'
           className='w-full border-b py-2 placeholder-gray-500 placeholder-opacity-50 focus:border-b-2 focus:border-indigo-500 focus:outline-none'
@@ -228,8 +206,6 @@ const MainForm: FC<MainProps> = (props) => {
         <span className='block text-sm'>住所</span>
         <input
           {...register('adress1')}
-          onChange={handleChangeAdress}
-          value={fullAdress}
           type='text'
           autoComplete='address-line1'
           placeholder='東京都ｘｘ区ｘｘｘ 1-1-1'
