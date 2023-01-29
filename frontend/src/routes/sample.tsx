@@ -10,13 +10,12 @@ import {
   Link,
 } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { components } from '../../../generated/schema'
+import type { operations } from '../../../generated/schema'
 import { createSample, findSamples } from '../lib/fetcher'
 
-type FormInputs = components['requestBodies']['PostSample']['content']['application/json']
-type LoaderData = components['responses']['Samples']['content']['application/json']
-type ActionErrorData =
-  components['responses']['SampleValidationError']['content']['application/json']
+type FormInputs = operations['postSample']['requestBody']['content']['application/json']
+type LoaderData = operations['getSamples']['responses'][200]['content']['application/json']
+type ActionErrorData = operations['postSample']['responses'][422]['content']['application/json']
 
 export const action = async ({
   request,
@@ -80,7 +79,7 @@ const Sample: FC = () => {
       {emails.length ? (
         <ul>
           {emails.map((email) => (
-            <li key={email.email}>{email.email}</li>
+            <li key={email.sampleEmail}>{email.sampleEmail}</li>
           ))}
         </ul>
       ) : (
@@ -92,7 +91,7 @@ const Sample: FC = () => {
         <input
           type='email'
           placeholder='メールアドレス'
-          {...register('email', {
+          {...register('sampleEmail', {
             required: '必須項目です。',
             pattern: {
               value:
@@ -104,7 +103,7 @@ const Sample: FC = () => {
         <button type='submit' disabled={isLoading}>
           Create
         </button>
-        {errors.email?.message && <p>{errors.email.message}</p>}
+        {errors.sampleEmail?.message && <p>{errors.sampleEmail.message}</p>}
       </form>
     </>
   )

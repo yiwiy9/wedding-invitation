@@ -1,5 +1,5 @@
 import { Fetcher } from 'openapi-typescript-fetch'
-import { paths } from '../../../generated/schema'
+import type { paths } from '../../../generated/schema'
 import { API_URL } from '../config'
 
 // declare fetcher for paths

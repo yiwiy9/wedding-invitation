@@ -1,10 +1,10 @@
-import { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda'
+import type { APIGatewayProxyHandlerV2 } from 'aws-lambda'
 
-export const hello = async (
-  event: APIGatewayEvent,
-  context: Context,
+export const handler: APIGatewayProxyHandlerV2 = async (
+  event,
+  context,
   // eslint-disable-next-line @typescript-eslint/require-await
-): Promise<APIGatewayProxyResult> => {
+) => {
   console.log(`Event: ${JSON.stringify(event, null, 2)}`)
   console.log(`Context: ${JSON.stringify(context, null, 2)}`)
   // throw new Error('Some exception');

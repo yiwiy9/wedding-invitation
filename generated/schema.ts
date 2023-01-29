@@ -3,174 +3,210 @@
  * Do not make direct changes to the file.
  */
 
-
 export type paths = {
-  "/users": {
+  '/users': {
     /** 新規ユーザーの作成 */
-    post: operations["postUser"];
-  };
-  "/samples": {
+    post: operations['postUser']
+  }
+  '/samples': {
     /** サンプル：メールの一覧を取得 */
-    get: operations["getSamples"];
+    get: operations['getSamples']
     /** サンプル：新規メールの作成 */
-    post: operations["postSample"];
-  };
-};
+    post: operations['postSample']
+  }
+}
 
-export type webhooks = Record<string, never>;
+export type webhooks = Record<string, never>
 
 export type components = {
   schemas: {
-    readonly UserBase: {
+    UserBase: {
       /** @example 山田 */
-      readonly familyNameKanji: string;
+      familyNameKanji: string
       /** @example 太郎 */
-      readonly givenNameKanji: string;
+      givenNameKanji: string
       /** @example やまだ */
-      readonly familyNameKana: string;
+      familyNameKana: string
       /** @example たろう */
-      readonly givenNameKana: string;
+      givenNameKana: string
       /** @example 卵 */
-      readonly allergy?: string;
-    };
-    readonly User: components["schemas"]["UserBase"] & {
-      /** @example true */
-      readonly isAttend: boolean;
-      /** @example 1234567 */
-      readonly zipCode: string;
-      /** @example 東京都ｘｘ区ｘｘｘ 1-1-1 */
-      readonly address1: string;
-      /** @example ｘｘマンション 101号室 */
-      readonly address2: string;
+      allergy?: string
+    }
+    User: components['schemas']['UserBase'] & {
       /**
-       * Format: email 
+       * @example true
+       * @enum {string}
+       */
+      isAttend: 'true' | 'false'
+      /** @example 1234567 */
+      zipCode: string
+      /** @example 東京都ｘｘ区ｘｘｘ 1-1-1 */
+      address1: string
+      /** @example ｘｘマンション 101号室 */
+      address2: string
+      /**
+       * Format: email
        * @example yamada@example.com
        */
-      readonly email: string;
+      email: string
       /**
-       * Format: ^0\d{9,10}$ 
+       * Format: ^0\d{9,10}$
        * @example 9012345678
        */
-      readonly tel?: string;
+      tel?: string
       /** @example おめでとう！ */
-      readonly message?: string;
-    };
-    readonly UserValidationError: readonly ({
-        /**
-         * @example email 
-         * @enum {string}
-         */
-        readonly name: "familyNameKanji" | "givenNameKanji" | "familyNameKana" | "givenNameKana" | "allergy" | "isAttend" | "zipCode" | "address1" | "address2" | "email" | "tel" | "message" | "children";
-        /** @example email is invalid. */
-        readonly reason: string;
-      })[];
-    readonly Sample: {
+      message?: string
+    }
+    CreateUserInput: components['schemas']['User'] & {
+      children: components['schemas']['UserBase'][]
+    }
+    CreateUserValidationError: {
       /**
-       * Format: email 
-       * @example wedding@example.com
+       * @example email
+       * @enum {string}
        */
-      readonly email: string;
-    };
-    readonly SampleValidationError: readonly ({
-        /**
-         * @example email 
-         * @enum {string}
-         */
-        readonly name: "email";
-        /** @example email is invalid. */
-        readonly reason: string;
-      })[];
-    readonly NotFound: {
+      name:
+        | 'familyNameKanji'
+        | 'givenNameKanji'
+        | 'familyNameKana'
+        | 'givenNameKana'
+        | 'allergy'
+        | 'isAttend'
+        | 'zipCode'
+        | 'address1'
+        | 'address2'
+        | 'email'
+        | 'tel'
+        | 'message'
+        | 'children'
+      /** @example email is invalid. */
+      reason: string
+    }[]
+    Sample: {
+      /**
+       * Format: email
+       * @example yamada@example.com
+       */
+      sampleEmail: string
+    }
+    CreateSampleInput: components['schemas']['Sample']
+    CreateSampleValidationError: {
+      /**
+       * @example sampleEmail
+       * @enum {string}
+       */
+      name: 'sampleEmail'
+      /** @example sampleEmail is invalid. */
+      reason: string
+    }[]
+    Error: {
       /** @example Not found. */
-      readonly message: string;
-    };
-  };
+      message: string
+    }
+    BadRequest: components['schemas']['Error']
+    NotFound: components['schemas']['Error']
+    InternalServerError: components['schemas']['Error']
+  }
   responses: {
     /** @description 単一ユーザーのレスポンスボディ */
-    readonly User: {
+    User: {
       content: {
-        readonly "application/json": components["schemas"]["User"];
-      };
-    };
+        'application/json': components['schemas']['User']
+      }
+    }
     /** @description ユーザーバリデーションエラーのレスポンスボディ */
-    readonly UserValidationError: {
+    UserValidationError: {
       content: {
-        readonly "application/json": components["schemas"]["UserValidationError"];
-      };
-    };
+        'application/json': components['schemas']['CreateUserValidationError']
+      }
+    }
     /** @description 単一サンプルのレスポンスボディ */
-    readonly Sample: {
+    Sample: {
       content: {
-        readonly "application/json": components["schemas"]["Sample"];
-      };
-    };
+        'application/json': components['schemas']['Sample']
+      }
+    }
     /** @description 複数サンプルのレスポンスボディ */
-    readonly Samples: {
+    Samples: {
       content: {
-        readonly "application/json": readonly (components["schemas"]["Sample"])[];
-      };
-    };
+        'application/json': components['schemas']['Sample'][]
+      }
+    }
     /** @description サンプルバリデーションエラーのレスポンスボディ */
-    readonly SampleValidationError: {
+    SampleValidationError: {
       content: {
-        readonly "application/json": components["schemas"]["SampleValidationError"];
-      };
-    };
+        'application/json': components['schemas']['CreateSampleValidationError']
+      }
+    }
+    /** @description 共通の400エラーレスポンスボディ */
+    BadRequest: {
+      content: {
+        'application/json': components['schemas']['BadRequest']
+      }
+    }
     /** @description 共通の404エラーレスポンスボディ */
-    readonly NotFound: {
+    NotFound: {
       content: {
-        readonly "application/json": components["schemas"]["NotFound"];
-      };
-    };
-  };
-  parameters: never;
+        'application/json': components['schemas']['NotFound']
+      }
+    }
+    /** @description 共通の500エラーレスポンスボディ */
+    InternalServerError: {
+      content: {
+        'application/json': components['schemas']['InternalServerError']
+      }
+    }
+  }
+  parameters: never
   requestBodies: {
     /** @description 新規ユーザーの作成用リクエストボディ */
-    readonly PostUser: {
-      readonly content: {
-        readonly "application/json": components["schemas"]["User"] & {
-          readonly children: readonly (components["schemas"]["UserBase"])[];
-        };
-      };
-    };
+    PostUser: {
+      content: {
+        'application/json': components['schemas']['CreateUserInput']
+      }
+    }
     /** @description サンプル：新規メールの作成用リクエストボディ */
-    readonly PostSample: {
-      readonly content: {
-        readonly "application/json": components["schemas"]["Sample"];
-      };
-    };
-  };
-  headers: never;
-  pathItems: never;
-};
+    PostSample: {
+      content: {
+        'application/json': components['schemas']['CreateSampleInput']
+      }
+    }
+  }
+  headers: never
+  pathItems: never
+}
 
-export type external = Record<string, never>;
+export type external = Record<string, never>
 
 export type operations = {
-
   postUser: {
     /** 新規ユーザーの作成 */
-    readonly requestBody: components["requestBodies"]["PostUser"];
+    requestBody: components['requestBodies']['PostUser']
     responses: {
-      201: components["responses"]["User"];
-      404: components["responses"]["NotFound"];
-      422: components["responses"]["UserValidationError"];
-    };
-  };
+      201: components['responses']['User']
+      400: components['responses']['BadRequest']
+      404: components['responses']['NotFound']
+      422: components['responses']['UserValidationError']
+      500: components['responses']['InternalServerError']
+    }
+  }
   getSamples: {
     /** サンプル：メールの一覧を取得 */
     responses: {
-      200: components["responses"]["Samples"];
-      404: components["responses"]["NotFound"];
-    };
-  };
+      200: components['responses']['Samples']
+      404: components['responses']['NotFound']
+      500: components['responses']['InternalServerError']
+    }
+  }
   postSample: {
     /** サンプル：新規メールの作成 */
-    readonly requestBody: components["requestBodies"]["PostSample"];
+    requestBody: components['requestBodies']['PostSample']
     responses: {
-      201: components["responses"]["Sample"];
-      404: components["responses"]["NotFound"];
-      422: components["responses"]["SampleValidationError"];
-    };
-  };
-};
+      201: components['responses']['Sample']
+      400: components['responses']['BadRequest']
+      404: components['responses']['NotFound']
+      422: components['responses']['SampleValidationError']
+      500: components['responses']['InternalServerError']
+    }
+  }
+}

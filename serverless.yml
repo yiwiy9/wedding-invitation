@@ -54,18 +54,32 @@ provider:
   versionFunctions: false
   environment:
     NODE_OPTIONS: --enable-source-maps # ソースマップを有効にする
+  httpApi:
+    disableDefaultEndpoint: true
 
 package:
   patterns:
     - '!frontend/**' # フロントエンドのコードはLambda関数に含めない
 
 functions:
-  hello:
-    handler: backend/handler.hello
+  # postUser:
+  #   handler: backend/api/postUser.handler
+  #   events:
+  #     - httpApi:
+  #         path: /users
+  #         method: post
+  getSamples:
+    handler: backend/api/getSamples.handler
     events:
       - httpApi:
-          path: /
+          path: /samples
           method: get
+  postSample:
+    handler: backend/api/postSample.handler
+    events:
+      - httpApi:
+          path: /samples
+          method: post
 
 resources:
   - ${file(./resources/bucket.yml)}

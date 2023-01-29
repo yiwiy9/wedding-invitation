@@ -2,8 +2,18 @@
 
 Web App of our wedding invitation
 
-## TODO
+## Backlog
 
+**納期やばいので、完成を第一優先に!!!**
+
+1. ユーザー登録成功と 500 エラーの Slack 通知
+   - 肩書きなどをすぐに埋められるようにする
+   - 迅速なエラー対応、招待者の完了の把握
+1. email 認証を入れる
+   - 「招待状に回答する」ボタンを押すと、`entryURL?token=foo`を email で送る
+   - email が正しいものとして扱えるので、今後に認証用ページを用意できる
+   - ユーザー情報の更新が可能になる（登録時に重複 email のレコードを削除）
+   - 嘘の email を入れられる危険がなくなる
 1. jest の導入（frontend/backend）
    - [サーバーレスでもユニットテスト – TypeScript 製 AWS Lambda を Jest でテストする](https://dev.classmethod.jp/articles/serverless-unit-test-with-jest/)
    - [jest-openapi](https://github.com/openapi-library/OpenAPIValidators/tree/master/packages/jest-openapi)
@@ -409,7 +419,7 @@ export default reportWebVitals
   // ...
   "scripts": {
     // ...
-    "generate-api-schema": "yarn openapi-typescript ./openapi.yml --output ./generated/schema.ts --export-type true --immutable-types true --path-params-as-types true"
+    "generate-api-schema": "yarn openapi-typescript ./openapi.yml --output ./generated/schema.ts --export-type --path-params-as-types --support-array-length"
   }
 }
 ```
@@ -522,3 +532,94 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   }
 }
 ```
+
+### Backend 設計
+
+色々考慮した結果、下記の設計に落ち着いた
+
+- [TypeScript の型システムとデータフローに着目した宣言的プログラミング](https://techplay.jp/column/1631)
+  - [スライド](https://speakerdeck.com/naoya/typescript-niyoru-graphql-batukuendokai-fa-75b3dab7-90a8-4169-a4dc-d1e7410b9dbd)
+  - クラスを使用しないので、DDD ほど冗長にならない
+  - Result 型を使用して、例外をスローしない
+  - DI にはカリー化を使う
+  - `IO - workflow - IO`という感じで外界とのやり取りで純粋な関数を囲む
+
+#### 考慮したこと
+
+- OpenAPI の型定義からバリデーションを自動生成する
+  - [cdimascio/express-openapi-validator](https://github.com/cdimascio/express-openapi-validator)
+  - express.js もしくは Nest.js を使う必要がある
+    - serverless framework の旨みがあまりなくなる
+  - エラーレスポンスの形を OpenAPI 定義通りにするのが難しい
+- TypeScript の型からバリデーションを自動生成する
+  - [外からやってくる値から TypeScript の型を守るライブラリ・ツールまとめ](https://tech.mobilefactory.jp/entry/2021/12/10/000000)
+  - [io-ts](https://github.com/gcanti/io-ts), [zod](https://github.com/colinhacks/zod) はスキーマを別途定義する必要がある
+    - OpenAPI スキーマとの二重管理になる
+  - [ts-auto-guard](https://github.com/rhys-vdw/ts-auto-guard)はどの項目でバリデーションが落ちたかわからない
+    - OpenAPI スキーマ通りのレスポンスができない
+    - Guard 生成が自動にできない
+      - `generated/schema.ts`の型が配列なので、`requestBodies`を指定した型を別ファイルで別途エクスポートして、そのファイルに対してコマンドを実行する必要がある
+
+#### 採用事項
+
+- [ts-auto-guard](https://github.com/rhys-vdw/ts-auto-guard)は入力の型チェックに使用して、文字数などの細かいバリデーションに関しては、ValueObject でおこなう
+- ValueObject はドメインモデルごとに作成する（同じ email であるからと統一しない）
+- レスポンスの型の強制をおこなう
+- Error クラスを拡張して、レスポンスの型に対応できるようにする
+
+#### 設定
+
+- [ts-auto-guard](https://github.com/rhys-vdw/ts-auto-guard)を使用して、TypeScript の型からバリデーションを自動生成する
+  - `yarn add -D ts-auto-guard`
+- `./generated/input.ts`は手動で作成する
+  - バリデーションを使用したい型のみ
+  - NOTE: 余裕があれば自動化したい
+- 以下を追加
+
+`package.json`
+
+```json
+{
+  // ...
+  "scripts": {
+    // ...
+    "generate-input-guard": "yarn ts-auto-guard --export-all ./generated/input.ts"
+  }
+}
+```
+
+- `backend/`配下に`api/`, `workflows/`, `repos/`, `objects/`, `utils/`, `errors/`ディレクトリを作成する
+  - `workflows/`はユースケース層なので API のエンドポイントに依存しないようにする
+    - `components['schemas']['CreateSampleInput']`や`components['schemas']['CreateSampleValidationError']`のようのエンドポイントではなくユースケースに依存した型を用意する
+    - `objects/`はドメイン層なので、エンドポイントやユースケースに依存しないようにする
+      - 型は`components['schemas']['Sample']`のようなベースとなっているものにしか依存しない
+- Result 型を扱うためのライブラリ[supermacro/neverthrow](https://github.com/supermacro/neverthrow)のインストール
+  - `yarn add neverthrow`
+  - 同 [eslint ライブラリ](https://github.com/mdbetancourt/eslint-plugin-neverthrow)もインストール
+    - `yarn add -D eslint-plugin-neverthrow`
+
+`.eslintrc.json`
+
+```json
+{
+  // ...
+  "extends": [
+    // ...
+    "plugin:neverthrow/recommended", // 追加
+    "prettier"
+  ],
+  // ...
+  "plugins": [
+    "@typescript-eslint",
+    "neverthrow" // 追加
+  ]
+  // ...
+}
+```
+
+- 様々な型の拡張を導入
+  - [型のブランド化](https://gist.github.com/gushernobindsme/2f0c3933d85eb5b4a882a0828afdf6c8#%E5%90%8D%E5%89%8D%E5%9E%8B%E3%82%92%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B)
+  - [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
+  - [as 句の中で never を返した場合にはそのプロパティを除外](https://zenn.dev/link/comments/618ef3139c93c0)
+  - [Typescript any number except X](https://stackoverflow.com/questions/68008673/typescript-any-number-except-x)
+  - [Union to Intersection](https://github.com/type-challenges/type-challenges/issues/20129)
