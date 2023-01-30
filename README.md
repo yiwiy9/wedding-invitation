@@ -594,28 +594,11 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
     - `objects/`はドメイン層なので、エンドポイントやユースケースに依存しないようにする
       - 型は`components['schemas']['Sample']`のようなベースとなっているものにしか依存しない
 - Result 型を扱うためのライブラリ[supermacro/neverthrow](https://github.com/supermacro/neverthrow)のインストール
+
   - `yarn add neverthrow`
-  - 同 [eslint ライブラリ](https://github.com/mdbetancourt/eslint-plugin-neverthrow)もインストール
-    - `yarn add -D eslint-plugin-neverthrow`
-
-`.eslintrc.json`
-
-```json
-{
-  // ...
-  "extends": [
-    // ...
-    "plugin:neverthrow/recommended", // 追加
-    "prettier"
-  ],
-  // ...
-  "plugins": [
-    "@typescript-eslint",
-    "neverthrow" // 追加
-  ]
-  // ...
-}
-```
+  - 同 [eslint ライブラリ](https://github.com/mdbetancourt/eslint-plugin-neverthrow)はインストールしない
+    - [この使い方](https://github.com/supermacro/neverthrow/wiki/Accessing-The-Value-Inside-A-Result)ができなかったから
+    - `docResult`のエラーハンドリングと DI を`unwrapOr()`でやると汚くなる
 
 - 様々な型の拡張を導入
   - [型のブランド化](https://gist.github.com/gushernobindsme/2f0c3933d85eb5b4a882a0828afdf6c8#%E5%90%8D%E5%89%8D%E5%9E%8B%E3%82%92%E3%82%B7%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%83%88%E3%81%99%E3%82%8B)
@@ -623,3 +606,23 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   - [as 句の中で never を返した場合にはそのプロパティを除外](https://zenn.dev/link/comments/618ef3139c93c0)
   - [Typescript any number except X](https://stackoverflow.com/questions/68008673/typescript-any-number-except-x)
   - [Union to Intersection](https://github.com/type-challenges/type-challenges/issues/20129)
+
+### Google スプレッドシート連携
+
+- [theoephraim/node-google-spreadsheet](https://github.com/theoephraim/node-google-spreadsheet)を使用する
+- [Authentication 手順](https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication)に従って、バックエンドから Google Sheets API が使えるようにする
+  1. プロジェクトの作成
+  1. `Sheets API`の有効化
+  1. サービスアカウントの作成
+  1. Json キーの作成（ダウンロード）
+  1. 作業対象のシートをサービスアカウントに編集者として共有する
+- 下記コマンドを実行して、ライブラリをインストールする
+  - `yarn add google-spreadsheet`
+  - `yarn add -D @types/google-spreadsheet`
+- `.env`に追加
+  - `GOOGLE_SPREADSHEET_ID=`
+  - `GOOGLE_SERVICE_ACCOUNT_EMAIL=`
+  - `GOOGLE_PRIVATE_KEY=`
+- 依存の向きを考える
+  - `repos/`はインフラ層なので、スプレッドシートの仕様に引っ張られて良い
+  - ただ、ユニットテストやインスタンスの使い回しを考慮して、Doc クライアントは DI する

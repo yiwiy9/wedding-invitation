@@ -54,6 +54,9 @@ provider:
   versionFunctions: false
   environment:
     NODE_OPTIONS: --enable-source-maps # ソースマップを有効にする
+    GOOGLE_SPREADSHEET_ID: ${env:GOOGLE_SPREADSHEET_ID}
+    GOOGLE_SERVICE_ACCOUNT_EMAIL: ${env:GOOGLE_SERVICE_ACCOUNT_EMAIL}
+    GOOGLE_PRIVATE_KEY: ${env:GOOGLE_PRIVATE_KEY}
   httpApi:
     disableDefaultEndpoint: true
 

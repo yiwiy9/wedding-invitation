@@ -8,10 +8,12 @@
     "generate-input-guard": "yarn ts-auto-guard --export-all ./generated/input.ts"
   },
   "dependencies": {
+    "google-spreadsheet": "^3.3.0",
     "neverthrow": "^6.0.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.108",
+    "@types/google-spreadsheet": "^3.3.0",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.43.0",
@@ -21,7 +23,6 @@
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-neverthrow": "^1.1.4",
     "husky": "^8.0.2",
     "lint-staged": "^13.0.3",
     "openapi-typescript": "^6.1.0",
