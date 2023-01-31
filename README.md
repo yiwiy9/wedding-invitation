@@ -349,6 +349,8 @@ export default reportWebVitals
 
 参考: [husky と lint-staged でコミット時にコードを整える（v7 対応）](https://soudai-s.com/how-to-set-up-husky-v7-with-lint-staged)
 
+- 追加で型チェック`yarn tsc --noEmit`も実行する
+
 #### Backend
 
 1. [typicode/husky](https://github.com/typicode/husky), [okonet/lint-staged](https://github.com/okonet/lint-staged)
@@ -362,6 +364,7 @@ export default reportWebVitals
 
 ```json
 {
+  "*.{ts}": "tsc --noEmit",
   "*.{js,ts}": "eslint --fix",
   "*.{js,ts,md,json}": "prettier --write"
 }
@@ -376,6 +379,7 @@ export default reportWebVitals
 
 ```json
 {
+  "*.{ts,tsx}": "tsc --noEmit",
   "*.{js,jsx,ts,tsx}": "eslint --fix",
   "*.{js,jsx,ts,tsx,json,md,html,css}": "prettier --write"
 }
