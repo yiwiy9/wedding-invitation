@@ -495,7 +495,7 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   "scripts": {
     // ...
     "mockserver": "prism mock -h 0.0.0.0 ../openapi.yml",
-    "dev": "yarn start & yarn mockserver"
+    "dev:mock": "yarn start & yarn mockserver"
   }
   // ...
 }
@@ -533,7 +533,7 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 }
 ```
 
-### Backend 設計
+### Backend 設計 (Tag: v0.３.0)
 
 色々考慮した結果、下記の設計に落ち着いた
 
@@ -607,7 +607,7 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   - [Typescript any number except X](https://stackoverflow.com/questions/68008673/typescript-any-number-except-x)
   - [Union to Intersection](https://github.com/type-challenges/type-challenges/issues/20129)
 
-### Google スプレッドシート連携
+#### Google スプレッドシート連携
 
 - [theoephraim/node-google-spreadsheet](https://github.com/theoephraim/node-google-spreadsheet)を使用する
 - [Authentication 手順](https://theoephraim.github.io/node-google-spreadsheet/#/getting-started/authentication)に従って、バックエンドから Google Sheets API が使えるようにする
@@ -626,3 +626,23 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 - 依存の向きを考える
   - `repos/`はインフラ層なので、スプレッドシートの仕様に引っ張られて良い
   - ただ、ユニットテストやインスタンスの使い回しを考慮して、Doc クライアントは DI する
+
+#### フロント側から叩けるようにする
+
+環境変数の兼ね合いで`prism mock`と同じポート番号を使用する
+
+`frontend/package.json`
+
+```json
+{
+  // ...
+  "scripts": {
+    // ...
+    "mockserver": "prism mock -h 0.0.0.0 ../openapi.yml",
+    "slsserver": "cd ../ && sls offline --httpPort 4010", // 追加
+    "dev:mock": "yarn start & yarn mockserver",
+    "dev:sls": "yarn start & yarn slsserver" // 追加
+  }
+  // ...
+}
+```

@@ -8,7 +8,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "mockserver": "prism mock -h 0.0.0.0 ../openapi.yml",
-    "dev": "yarn start & yarn mockserver"
+    "slsserver": "cd ../ && sls offline --httpPort 4010",
+    "dev:mock": "yarn start & yarn mockserver",
+    "dev:sls": "yarn start & yarn slsserver"
   },
   "browserslist": {
     "production": [
