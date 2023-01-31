@@ -7,8 +7,6 @@ type InitSpreadsheetDoc = () => ResultAsync<GoogleSpreadsheet, InternalServerErr
 
 export const initSpreadsheetDoc: InitSpreadsheetDoc = () => {
   const initSpreadsheetDocAsync = async () => {
-    console.log('initSpreadsheetDoc')
-
     const doc = new GoogleSpreadsheet(GOOGLE_SPREADSHEET_ID)
     await doc.useServiceAccountAuth({
       client_email: GOOGLE_SERVICE_ACCOUNT_EMAIL,

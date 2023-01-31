@@ -19,12 +19,31 @@ export const saveSample =
     const saveSampleAsync = async () => {
       const sheet = doc.sheetsByTitle[sheetTitle]
       const newRow = await sheet.addRow(modelToRow(model))
-      console.log(newRow.Email)
       return rowToModel(newRow)
     }
 
     return ResultAsync.fromPromise(
       saveSampleAsync(),
-      () => new InternalServerError({ message: 'Google スプレッドシートに保存できませんでした。' }),
+      () =>
+        new InternalServerError({
+          message: 'Google スプレッドシートにデータを保存できませんでした。',
+        }),
+    )
+  }
+
+export const findAllSamples =
+  (doc: GoogleSpreadsheet) => (): ResultAsync<Sample[], InternalServerError> => {
+    const findAllSamplesAsync = async () => {
+      const sheet = doc.sheetsByTitle[sheetTitle]
+      const rows = await sheet.getRows()
+      return rows.map((row) => rowToModel(row))
+    }
+
+    return ResultAsync.fromPromise(
+      findAllSamplesAsync(),
+      () =>
+        new InternalServerError({
+          message: 'Google スプレッドシートからデータを取得できませんでした。',
+        }),
     )
   }
