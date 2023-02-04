@@ -6,6 +6,8 @@ Web App of our wedding invitation
 
 **納期やばいので、完成を第一優先に!!!**
 
+1. Frontend 異常系エラー制御とエラーページの精査
+   - フロントの`NotFound`は綺麗なエラーが出る
 1. ユーザー登録成功と 500 エラーの Slack 通知
    - 肩書きなどをすぐに埋められるようにする
    - 迅速なエラー対応、招待者の完了の把握
@@ -471,6 +473,15 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 - [React Router v6](https://reactrouter.com/en/main/start/tutorial)のインストール
   - `yarn add react-router-dom`
   - チュートリアルに沿って設定
+- [React Router の Action](https://reactrouter.com/en/main/route/action) だと、配列を扱えない件
+  - 中身が [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) なので、`children`の配列が渡せない
+  - 渡そうと思うと、JSON 化する必要があるが、そうした場合 `as` が多発
+    - 無駄なコンバートが`submit`と`action`で必要になる
+  - せっかくの Open API の型の旨みを受けられない
+    - `react-hook-form` は型で守れるので、OpenAPI と親和性が高い
+  - そもそも`react-hook-form`との相性が悪い（併用が難しい）
+    - 両方、`event.preventDefault()`が不要
+  - `action` にすることで refetch や異常系のハンドリングなどがやりやすかったが、型の恩恵の方がメリットが大きい
 
 #### `@/~`を使用した import が Next.js みたいに簡単にできない
 

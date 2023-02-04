@@ -1,38 +1,13 @@
 import type { FC } from 'react'
-import type { ActionFunctionArgs } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import {
-  redirect,
-  useLoaderData,
-  useActionData,
-  useSubmit,
-  useNavigation,
-  Link,
-} from 'react-router-dom'
+import type { SubmitHandler } from 'react-hook-form'
+import { useState } from 'react'
+import { useLoaderData, useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import type { operations } from '../../../generated/schema'
 import { createSample, findSamples } from '../lib/fetcher'
 
 type FormInputs = operations['postSample']['requestBody']['content']['application/json']
 type LoaderData = operations['getSamples']['responses'][200]['content']['application/json']
-type ActionErrorData = operations['postSample']['responses'][422]['content']['application/json']
-
-export const action = async ({
-  request,
-}: ActionFunctionArgs): Promise<ActionErrorData | Response> => {
-  const data = Object.fromEntries(await request.formData()) as FormInputs
-  try {
-    await createSample(data)
-  } catch (e) {
-    if (e instanceof createSample.Error) {
-      const error = e.getActualType()
-      if (error.status === 422) {
-        return error.data
-      }
-    }
-  }
-  return redirect('/')
-}
 
 export const loader = async (): Promise<LoaderData> => {
   const { data: emails } = await findSamples({})
@@ -41,16 +16,8 @@ export const loader = async (): Promise<LoaderData> => {
 
 const Sample: FC = () => {
   const emails = useLoaderData() as LoaderData
-  const actionErrors = useActionData() as ActionErrorData | undefined
-  const submit = useSubmit()
-  const navigation = useNavigation()
-
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    setIsLoading(navigation.state !== 'idle')
-  }, [navigation])
-
   const {
     register,
     handleSubmit,
@@ -58,11 +25,24 @@ const Sample: FC = () => {
     formState: { errors },
   } = useForm<FormInputs>()
 
-  useEffect(() => {
-    if (actionErrors) {
-      actionErrors.map(({ name, reason }) => setError(name, { type: 'custom', message: reason }))
-    }
-  }, [actionErrors, setError])
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    setIsLoading(true)
+    createSample(data)
+      .then(() => {
+        navigate('/')
+      })
+      .catch((e) => {
+        if (e instanceof createSample.Error) {
+          const error = e.getActualType()
+          if (error.status === 422) {
+            error.data.map(({ name, reason }) =>
+              setError(name, { type: 'custom', message: reason }),
+            )
+          }
+        }
+      })
+      .finally(() => setIsLoading(false))
+  }
 
   return (
     <>
@@ -87,7 +67,7 @@ const Sample: FC = () => {
           <i>No Emails</i>
         </p>
       )}
-      <form onSubmit={handleSubmit((data) => submit(data, { method: 'post' }))}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           type='email'
           placeholder='メールアドレス'
