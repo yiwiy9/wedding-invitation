@@ -57,6 +57,7 @@ const Entry: FC = () => {
           }
         }
       })
+      .finally(() => setIsLoading(false))
   }
 
   return (
