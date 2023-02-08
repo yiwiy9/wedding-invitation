@@ -165,7 +165,7 @@ const validateUser: ValidateUser = (model) => {
 
 type ValidateChildren = (
   model: ValidatedUser,
-) => Result<[User, ...User[]], ValidationError<CreateUserValidationError>>
+) => Result<User[], ValidationError<CreateUserValidationError>>
 
 type CreateChildrenValidationError = {
   index: number
@@ -231,7 +231,7 @@ const validateChildren: ValidateChildren = (model) => {
 
 type Workflow = (
   model: CreateUserInput,
-) => Result<[User, ...User[]], ValidationError<CreateUserValidationError>>
+) => Result<User[], ValidationError<CreateUserValidationError>>
 
 export const createUserWorkflow = (): Workflow => (model) =>
   ok(model).andThen(validateUser).andThen(validateChildren)

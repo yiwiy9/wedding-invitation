@@ -7,7 +7,7 @@ import type { PostUserInput } from '../../generated/input'
 import { isPostUserInput } from '../../generated/input.guard'
 import BadRequestError from '../errors/BadRequestError'
 import { createUserWorkflow } from '../workflows/createUser'
-// import { saveUser } from '../repos/userRepository'
+import { saveUsers } from '../repos/userRepository'
 
 const responseFn = responseGenerator<'postUser'>()
 const workflow = createUserWorkflow()
@@ -27,8 +27,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event, context) => {
 
   const requestBody = event?.body ? (JSON.parse(event?.body) as unknown) : {}
 
-  const result = ok(requestBody).andThen(validateInput).andThen(workflow)
-  // .asyncAndThen(saveUser(docResult.value))
+  const result = ok(requestBody)
+    .andThen(validateInput)
+    .andThen(workflow)
+    .asyncAndThen(saveUsers(docResult.value))
 
   return result.match(
     (users) => responseFn(201, users),

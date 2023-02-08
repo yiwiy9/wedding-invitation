@@ -667,3 +667,46 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   // ...
 }
 ```
+
+#### [codepen.io](https://codepen.io/pen/?editors=0012)で試す
+
+```js
+var xhr = new XMLHttpRequest()
+xhr.open('POST', 'http://localhost:3000/users')
+xhr.onreadystatechange = function (event) {
+  console.log(event.target.response)
+}
+xhr.setRequestHeader('Content-Type', 'application/json')
+xhr.send(
+  JSON.stringify({
+    familyNameKanji: '山田',
+    givenNameKanji: '太郎',
+    familyNameKana: 'やまだ',
+    givenNameKana: 'たろう',
+    allergy: '卵',
+    zipCode: '1234567',
+    address1: '東京都ｘｘ区ｘｘｘ 1-1-1',
+    address2: 'ｘｘマンション 101号室',
+    email: 'yamada@example.com',
+    tel: '09012345678',
+    message: 'おめでとう！',
+    isAttend: 'true',
+    children: [
+      {
+        familyNameKanji: '山田',
+        givenNameKanji: '花子',
+        familyNameKana: 'やまだ',
+        givenNameKana: 'はなこ',
+        allergy: 'そば',
+      },
+      {
+        familyNameKanji: '山田',
+        givenNameKanji: '次郎',
+        familyNameKana: 'やまだ',
+        givenNameKana: 'じろう',
+        allergy: '甲殻類',
+      },
+    ],
+  }),
+)
+```
