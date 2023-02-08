@@ -65,12 +65,12 @@ package:
     - '!frontend/**' # フロントエンドのコードはLambda関数に含めない
 
 functions:
-  # postUser:
-  #   handler: backend/api/postUser.handler
-  #   events:
-  #     - httpApi:
-  #         path: /users
-  #         method: post
+  postUser:
+    handler: backend/api/postUser.handler
+    events:
+      - httpApi:
+          path: /users
+          method: post
   getSamples:
     handler: backend/api/getSamples.handler
     events:

@@ -550,6 +550,10 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 }
 ```
 
+1. `react-hook-form`でラジオボタンの値を`boolean`にできない（= OpenAPI の型をそのまま使えない）ので、`true / false`の文字列で扱う
+1. ただバックエンドの ValueObjects では、`boolean`で扱った方が自然なので、型を２つ用意する
+1. その際、OpenAPI のスキーマ定義ではオーバーライドができないので、`UserWithoutIsAttend`を用意して、`allOf`で`isAttend`を加えて対応する
+
 ### Backend 設計 (Tag: v0.３.0)
 
 色々考慮した結果、下記の設計に落ち着いた

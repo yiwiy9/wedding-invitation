@@ -32,12 +32,7 @@ export type components = {
       /** @example 卵 */
       allergy?: string
     }
-    User: components['schemas']['UserBase'] & {
-      /**
-       * @example true
-       * @enum {string}
-       */
-      isAttend: 'true' | 'false'
+    UserWithoutIsAttend: components['schemas']['UserBase'] & {
       /** @example 1234567 */
       zipCode: string
       /** @example 東京都ｘｘ区ｘｘｘ 1-1-1 */
@@ -57,7 +52,16 @@ export type components = {
       /** @example おめでとう！ */
       message?: string
     }
-    CreateUserInput: components['schemas']['User'] & {
+    User: components['schemas']['UserWithoutIsAttend'] & {
+      /** @example true */
+      isAttend: boolean
+    }
+    CreateUserInput: components['schemas']['UserWithoutIsAttend'] & {
+      /**
+       * @example true
+       * @enum {string}
+       */
+      isAttend: 'true' | 'false'
       children: components['schemas']['UserBase'][]
     }
     CreateUserValidationError: {
@@ -108,10 +112,10 @@ export type components = {
     InternalServerError: components['schemas']['Error']
   }
   responses: {
-    /** @description 単一ユーザーのレスポンスボディ */
-    User: {
+    /** @description 複数ユーザーのレスポンスボディ */
+    Users: {
       content: {
-        'application/json': components['schemas']['User']
+        'application/json': components['schemas']['User'][]
       }
     }
     /** @description ユーザーバリデーションエラーのレスポンスボディ */
@@ -183,7 +187,7 @@ export type operations = {
     /** 新規ユーザーの作成 */
     requestBody: components['requestBodies']['PostUser']
     responses: {
-      201: components['responses']['User']
+      201: components['responses']['Users']
       400: components['responses']['BadRequest']
       404: components['responses']['NotFound']
       422: components['responses']['UserValidationError']
