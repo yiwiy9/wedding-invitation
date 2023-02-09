@@ -11,6 +11,8 @@ import { createUser } from '../lib/fetcher'
 type FormInputs = operations['postUser']['requestBody']['content']['application/json']
 
 const Entry: FC = () => {
+  const navigate = useNavigate()
+  const [isLoading, setIsLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -37,9 +39,6 @@ const Entry: FC = () => {
   const removeChildren = (index: number) => {
     remove(index)
   }
-
-  const navigate = useNavigate()
-  const [isLoading, setIsLoading] = useState(false)
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
     setIsLoading(true)
@@ -90,9 +89,9 @@ const Entry: FC = () => {
           <button
             type='submit'
             disabled={isLoading}
-            className='mx-auto mb-10 block w-5/6 rounded-full border border-white bg-gradient-to-r from-orange-200 to-orange-300 py-6 text-2xl text-white shadow-2xl'
+            className='mx-auto mb-10 block w-5/6 rounded-full bg-gradient-to-r from-orange-200 to-orange-300 py-6 text-2xl text-white shadow-2xl'
           >
-            送信する
+            回答する
           </button>
           <Link className='mb-8 block' to='/'>
             &lt; 戻る
