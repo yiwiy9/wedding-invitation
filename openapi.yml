@@ -13,7 +13,7 @@ paths:
         $ref: '#/components/requestBodies/PostUser'
       responses:
         '201':
-          $ref: '#/components/responses/User'
+          $ref: '#/components/responses/Users'
         '400':
           $ref: '#/components/responses/BadRequest'
         '404':
@@ -70,12 +70,14 @@ components:
           schema:
             $ref: '#/components/schemas/CreateSampleInput'
   responses:
-    User:
-      description: 単一ユーザーのレスポンスボディ
+    Users:
+      description: 複数ユーザーのレスポンスボディ
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/User'
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
     UserValidationError:
       description: ユーザーバリデーションエラーのレスポンスボディ
       content:
@@ -149,17 +151,11 @@ components:
         - givenNameKanji
         - familyNameKana
         - givenNameKana
-    User:
+    UserWithoutIsAttend:
       allOf:
         - $ref: '#/components/schemas/UserBase'
         - type: object
           properties:
-            isAttend:
-              type: string
-              enum:
-                - 'true'
-                - 'false'
-              example: 'true'
             zipCode:
               type: string
               pattern: ^\d{7}$
@@ -185,23 +181,39 @@ components:
               maxLength: 255
               example: おめでとう！
           required:
-            - isAttend
             - zipCode
             - address1
             - address2
             - email
-    CreateUserInput:
+    User:
       allOf:
-        - $ref: '#/components/schemas/User'
+        - $ref: '#/components/schemas/UserWithoutIsAttend'
         - type: object
           properties:
+            isAttend:
+              type: boolean
+              example: true
+          required:
+            - isAttend
+    CreateUserInput:
+      allOf:
+        - $ref: '#/components/schemas/UserWithoutIsAttend'
+        - type: object
+          properties:
+            isAttend:
+              type: string
+              enum:
+                - 'true'
+                - 'false'
+              example: 'true'
             children:
               type: array
               minItems: 0
-              maxItems: 20
+              maxItems: 10
               items:
                 $ref: '#/components/schemas/UserBase'
           required:
+            - isAttend
             - children
     CreateUserValidationError:
       type: array

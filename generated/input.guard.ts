@@ -14,7 +14,6 @@ export function isPostUserInput(obj: unknown): obj is PostUserInput {
     typeof typedObj['givenNameKana'] === 'string' &&
     (typeof typedObj['allergy'] === 'undefined' || typeof typedObj['allergy'] === 'string') &&
     ((typedObj !== null && typeof typedObj === 'object') || typeof typedObj === 'function') &&
-    (typedObj['isAttend'] === 'true' || typedObj['isAttend'] === 'false') &&
     typeof typedObj['zipCode'] === 'string' &&
     typeof typedObj['address1'] === 'string' &&
     typeof typedObj['address2'] === 'string' &&
@@ -22,6 +21,7 @@ export function isPostUserInput(obj: unknown): obj is PostUserInput {
     (typeof typedObj['tel'] === 'undefined' || typeof typedObj['tel'] === 'string') &&
     (typeof typedObj['message'] === 'undefined' || typeof typedObj['message'] === 'string') &&
     ((typedObj !== null && typeof typedObj === 'object') || typeof typedObj === 'function') &&
+    (typedObj['isAttend'] === 'true' || typedObj['isAttend'] === 'false') &&
     Array.isArray(typedObj['children']) &&
     typedObj['children'].every(
       (e: any) =>

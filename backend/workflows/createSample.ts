@@ -1,4 +1,5 @@
-import { Result, ok } from 'neverthrow'
+import type { Err } from 'neverthrow'
+import { Result, ok, err } from 'neverthrow'
 import type { components } from '../../generated/schema'
 import ValidationError from '../errors/ValidationError'
 import type { Sample } from '../objects/sample'
@@ -12,16 +13,15 @@ type ValidateSample = (
 ) => Result<Sample, ValidationError<CreateSampleValidationError>>
 
 const validateSample: ValidateSample = (model) => {
-  const sampleEmail = validateSampleEmail(model.sampleEmail)
+  const sampleEmailResult = validateSampleEmail(model.sampleEmail).orElse<
+    Err<never, CreateSampleValidationError[number]>
+  >((e) => err({ name: 'sampleEmail', reason: e.message }))
 
-  const values = Result.combineWithAllErrors([sampleEmail])
+  const values = Result.combineWithAllErrors([sampleEmailResult])
 
   return values
-    .map(([validatedEmail]) => ({ ...model, sampleEmail: validatedEmail }))
-    .mapErr(
-      ([sampleEmailErr]) =>
-        new ValidationError([{ name: 'sampleEmail', reason: sampleEmailErr.message }]),
-    )
+    .map(([sampleEmail]) => ({ ...model, sampleEmail }))
+    .mapErr((errArray) => new ValidationError(errArray))
 }
 
 type Workflow = (
