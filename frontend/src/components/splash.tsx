@@ -8,7 +8,7 @@ const Splash: FC = () => {
     <div
       className={`${
         isEnded ? 'opacity-0' : ''
-      } pointer-events-none fixed top-0 left-0 z-10 h-screen w-full bg-white transition-opacity duration-1000 ease-in`}
+      } pointer-events-none fixed top-0 left-0 z-20 h-screen w-full bg-white transition-opacity duration-1000 ease-in`}
     >
       <video className='mx-auto h-full' muted autoPlay onEnded={() => setIsEnded(true)}>
         <source src={SPLASH_VIDEO} type='video/mp4' />

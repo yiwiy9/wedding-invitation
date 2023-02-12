@@ -14,9 +14,9 @@ const ImageSlider: FC<Props> = ({ imageArray }) => (
   <Swiper
     modules={[Autoplay, EffectFade]}
     loop
-    autoplay={{ delay: 4000, disableOnInteraction: false }}
+    autoplay={{ delay: 3000, disableOnInteraction: false }}
     effect='fade'
-    speed={2000}
+    speed={1000}
     allowTouchMove={false}
   >
     {imageArray.map((image, index) => (
