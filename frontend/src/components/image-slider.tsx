@@ -1,0 +1,30 @@
+import type { FC } from 'react'
+import { Autoplay, EffectFade } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import 'swiper/css'
+import 'swiper/css/autoplay'
+import 'swiper/css/effect-fade'
+
+type Props = {
+  imageArray: string[]
+}
+
+const ImageSlider: FC<Props> = ({ imageArray }) => (
+  <Swiper
+    modules={[Autoplay, EffectFade]}
+    loop
+    autoplay={{ delay: 4000, disableOnInteraction: false }}
+    effect='fade'
+    speed={2000}
+    allowTouchMove={false}
+  >
+    {imageArray.map((image, index) => (
+      <SwiperSlide key={image}>
+        <img className='animate-zoomUp' src={image} alt={`img-${index}`} />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+)
+
+export default ImageSlider

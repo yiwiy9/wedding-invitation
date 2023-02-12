@@ -710,3 +710,10 @@ xhr.send(
   }),
 )
 ```
+
+### Top ページ開発
+
+- [Swiper React Components](https://swiperjs.com/react)のインストール
+  - `yarn add swiper`
+- `.mp4`をインポートできるようにする
+  - [Can't import video](https://github.com/facebook/create-react-app/issues/6822)
