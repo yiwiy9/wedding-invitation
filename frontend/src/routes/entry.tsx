@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
+import axios from 'axios'
 import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
@@ -9,6 +10,17 @@ import type { operations } from '../../../generated/schema'
 import { createUser } from '../lib/fetcher'
 
 type FormInputs = operations['postUser']['requestBody']['content']['application/json']
+type AddressResponse = {
+  data: {
+    results:
+      | {
+          address1: string
+          address2: string
+          address3: string
+        }[]
+      | null
+  }
+}
 
 const Entry: FC = () => {
   const navigate = useNavigate()
@@ -16,6 +28,8 @@ const Entry: FC = () => {
   const {
     register,
     handleSubmit,
+    getValues,
+    setValue,
     setError,
     formState: { errors },
     control,
@@ -38,6 +52,26 @@ const Entry: FC = () => {
 
   const removeChildren = (index: number) => {
     remove(index)
+  }
+
+  const getAddressFromZipCode = async () => {
+    setIsLoading(true)
+    const zipCode = getValues('zipCode')
+    try {
+      const res: AddressResponse = await axios.get(
+        `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipCode}`,
+      )
+      if (res.data.results) {
+        const result = res.data.results[0]
+        setValue('address1', result.address1 + result.address2 + result.address3)
+      } else {
+        throw new Error()
+      }
+    } catch {
+      console.log('住所を取得できませんでした。')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
@@ -66,7 +100,11 @@ const Entry: FC = () => {
           <h1>----------------</h1>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <MainForm register={register} errors={errors} />
+          <MainForm
+            register={register}
+            errors={errors}
+            getAddressFromZipCode={getAddressFromZipCode}
+          />
           {fields.map((field, index) => (
             <ChildrenForm
               key={field.id}

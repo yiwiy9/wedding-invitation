@@ -6,9 +6,10 @@ type FormInputs = operations['postUser']['requestBody']['content']['application/
 type MainFormProps = {
   register: UseFormRegister<FormInputs>
   errors: Partial<FieldErrorsImpl<FormInputs>>
+  getAddressFromZipCode: () => Promise<void>
 }
 
-const MainForm: FC<MainFormProps> = ({ register, errors }) => (
+const MainForm: FC<MainFormProps> = ({ register, errors, getAddressFromZipCode }) => (
   <div className='text-xl'>
     <div>
       <p className='mb-2.5 text-lg'>いずれかをお選びください</p>
@@ -101,8 +102,19 @@ const MainForm: FC<MainFormProps> = ({ register, errors }) => (
       </div>
     </div>
     <div className='mt-11'>
-      <p className='text-base font-light text-gray-400'>Postcode</p>
-      <p className='mb-2.5 text-lg'>郵便番号</p>
+      <div className='flex justify-center'>
+        <div className='ml-28'>
+          <p className='text-base font-light text-gray-400'>Postcode</p>
+          <p className='mb-2.5 text-lg'>郵便番号</p>
+        </div>
+        <button
+          type='button'
+          onClick={getAddressFromZipCode}
+          className='my-3 ml-8 block rounded bg-orange-300 px-1 py-1 text-lg text-white'
+        >
+          住所検索
+        </button>
+      </div>
       <input
         type='text'
         autoComplete='postal-code'
