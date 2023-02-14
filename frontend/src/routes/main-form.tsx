@@ -6,10 +6,10 @@ type FormInputs = operations['postUser']['requestBody']['content']['application/
 type MainFormProps = {
   register: UseFormRegister<FormInputs>
   errors: Partial<FieldErrorsImpl<FormInputs>>
-  getAddressFromZipCode: () => Promise<void>
+  suggestAddressFromZipCode: () => Promise<void>
 }
 
-const MainForm: FC<MainFormProps> = ({ register, errors, getAddressFromZipCode }) => (
+const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCode }) => (
   <div className='text-xl'>
     <div>
       <p className='mb-2.5 text-lg'>いずれかをお選びください</p>
@@ -109,8 +109,8 @@ const MainForm: FC<MainFormProps> = ({ register, errors, getAddressFromZipCode }
         </div>
         <button
           type='button'
-          onClick={getAddressFromZipCode}
-          className='my-3 ml-8 block rounded bg-orange-300 px-1 py-1 text-lg text-white'
+          onClick={suggestAddressFromZipCode}
+          className='mt-4 mb-3 ml-8 block rounded bg-orange-400 px-1 text-lg text-white'
         >
           住所検索
         </button>

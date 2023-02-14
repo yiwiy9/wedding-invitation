@@ -1,6 +1,5 @@
 import type { FC } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
-import axios from 'axios'
 import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
@@ -8,18 +7,17 @@ import MainForm from './main-form'
 import ChildrenForm from './children-form'
 import type { operations } from '../../../generated/schema'
 import { createUser } from '../lib/fetcher'
+import suggestAddress from '../lib/api/suggest-address'
 
 type FormInputs = operations['postUser']['requestBody']['content']['application/json']
 type AddressResponse = {
-  data: {
-    results:
-      | {
-          address1: string
-          address2: string
-          address3: string
-        }[]
-      | null
-  }
+  results:
+    | {
+        address1: string
+        address2: string
+        address3: string
+      }[]
+    | null
 }
 
 const Entry: FC = () => {
@@ -33,7 +31,7 @@ const Entry: FC = () => {
     setError,
     formState: { errors },
     control,
-  } = useForm<FormInputs>()
+  } = useForm<FormInputs>({ mode: 'onBlur' })
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -54,21 +52,23 @@ const Entry: FC = () => {
     remove(index)
   }
 
-  const getAddressFromZipCode = async () => {
+  const suggestAddressFromZipCode = async () => {
     setIsLoading(true)
     const zipCode = getValues('zipCode')
     try {
-      const res: AddressResponse = await axios.get(
-        `https://zipcloud.ibsnet.co.jp/api/search?zipcode=${zipCode}`,
-      )
-      if (res.data.results) {
-        const result = res.data.results[0]
+      const res = (await suggestAddress(zipCode)) as AddressResponse
+      if (res.results) {
+        const result = res.results[0]
         setValue('address1', result.address1 + result.address2 + result.address3)
       } else {
         throw new Error()
       }
     } catch {
-      console.log('住所を取得できませんでした。')
+      setError(
+        'zipCode',
+        { type: 'custom', message: '住所が取得できませんでした' },
+        { shouldFocus: true },
+      )
     } finally {
       setIsLoading(false)
     }
@@ -103,7 +103,7 @@ const Entry: FC = () => {
           <MainForm
             register={register}
             errors={errors}
-            getAddressFromZipCode={getAddressFromZipCode}
+            suggestAddressFromZipCode={suggestAddressFromZipCode}
           />
           {fields.map((field, index) => (
             <ChildrenForm
@@ -127,7 +127,7 @@ const Entry: FC = () => {
           <button
             type='submit'
             disabled={isLoading}
-            className='mx-auto mb-10 block w-5/6 rounded-full bg-gradient-to-r from-orange-200 to-orange-300 py-6 text-2xl text-white shadow-2xl'
+            className='mx-auto mb-10 block w-5/6 rounded-full bg-gradient-to-r from-orange-200 to-orange-400 py-6 text-2xl text-white shadow-2xl'
           >
             回答する
           </button>
