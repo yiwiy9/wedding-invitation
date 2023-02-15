@@ -5,7 +5,6 @@ import slideImage3 from '../assets/private/slide-image-3.jpeg'
 import leftLeaves from '../assets/left-leaves.png'
 import rightLeaves from '../assets/right-leaves.png'
 import lineFlower from '../assets/line-flower.png'
-import texture from '../assets/texture.png'
 
 export const API_URL = process.env.REACT_APP_API_URL as string
 
@@ -29,4 +28,3 @@ export const SLIDE_IMAGES = [slideImage1, slideImage2, slideImage3]
 export const LEFT_LEAVES_IMAGE = leftLeaves
 export const RIGHT_LEAVES_IMAGE = rightLeaves
 export const LINE_FLOWER_IMAGE = lineFlower
-export const TEXTURE_IMAGE = texture

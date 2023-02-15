@@ -22,6 +22,7 @@ Web App of our wedding invitation
    - [Serverless - Testing](https://www.serverless.com/framework/docs/providers/aws/guide/testing)
 1. Github Actions で単体テスト、全体の ESLint 実行（とりあえず、デプロイはコメントアウト）
    - [Require status checks before merging](https://docs.github.com/ja/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
+1. 回答期限後、結婚式後の UI を考える
 
 ## 環境構築
 
@@ -717,3 +718,4 @@ xhr.send(
   - `yarn add swiper`
 - `.mp4`をインポートできるようにする
   - [Can't import video](https://github.com/facebook/create-react-app/issues/6822)
+- [useCallback はとにかく使え！　特にカスタムフックでは](https://blog.uhy.ooo/entry/2021-02-23/usecallback-custom-hooks/)
