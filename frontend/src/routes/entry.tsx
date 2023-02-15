@@ -29,9 +29,10 @@ const Entry: FC = () => {
     getValues,
     setValue,
     setError,
+    trigger,
     formState: { errors },
     control,
-  } = useForm<FormInputs>({ mode: 'onBlur' })
+  } = useForm<FormInputs>()
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -54,14 +55,17 @@ const Entry: FC = () => {
 
   const suggestAddressFromZipCode = async () => {
     setIsLoading(true)
-    const zipCode = getValues('zipCode')
     try {
-      const res = (await suggestAddress(zipCode)) as AddressResponse
-      if (res.results) {
-        const result = res.results[0]
-        setValue('address1', result.address1 + result.address2 + result.address3)
-      } else {
-        throw new Error()
+      const resultValidate = await trigger('zipCode', { shouldFocus: true })
+      if (resultValidate) {
+        const zipCode = getValues('zipCode')
+        const res = (await suggestAddress(zipCode)) as AddressResponse
+        if (res.results) {
+          const result = res.results[0]
+          setValue('address1', result.address1 + result.address2 + result.address3)
+        } else {
+          throw new Error()
+        }
       }
     } catch {
       setError(
