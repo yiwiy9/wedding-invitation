@@ -3,11 +3,12 @@ import type { SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
-import MainForm from './main-form'
-import ChildrenForm from './children-form'
+import MainForm from '../components/main-form'
+import ChildrenForm from '../components/children-form'
 import type { operations } from '../../../generated/schema'
 import { createUser } from '../lib/fetcher'
 import suggestAddress from '../lib/api/suggest-address'
+import { TEXTURE_IMAGE } from '../config'
 
 type FormInputs = operations['postUser']['requestBody']['content']['application/json']
 type AddressResponse = {
@@ -56,8 +57,8 @@ const Entry: FC = () => {
   const suggestAddressFromZipCode = async () => {
     setIsLoading(true)
     try {
-      const resultValidate = await trigger('zipCode', { shouldFocus: true })
-      if (resultValidate) {
+      const isCorrectFormat = await trigger('zipCode', { shouldFocus: true })
+      if (isCorrectFormat) {
         const zipCode = getValues('zipCode')
         const res = (await suggestAddress(zipCode)) as AddressResponse
         if (res.results) {
@@ -98,8 +99,13 @@ const Entry: FC = () => {
   }
 
   return (
-    <div className='bg-gradient-to-b from-orange-50 to-orange-200 px-5 py-7'>
-      <div className='m-auto max-w-2xl rounded bg-white px-4 py-7 text-center text-slate-600 shadow-2xl'>
+    <div className='relative bg-gray-100 px-5 py-7'>
+      <img
+        className='pointer-events-none absolute top-0 left-0 z-0 h-full w-full'
+        src={TEXTURE_IMAGE}
+        alt='texture'
+      />
+      <div className='m-auto max-w-2xl rounded bg-white px-4 py-7 text-center text-zinc-600 shadow-2xl'>
         <div className='mt-14 mb-12'>
           <h1>----------------</h1>
         </div>
@@ -131,7 +137,7 @@ const Entry: FC = () => {
           <button
             type='submit'
             disabled={isLoading}
-            className='mx-auto mb-10 block w-5/6 rounded-full bg-gradient-to-r from-orange-200 to-orange-400 py-6 text-2xl text-white shadow-2xl'
+            className='mx-auto mb-10 block w-5/6 rounded-full bg-gradient-to-r from-emerald-300 to-emerald-500 py-6 text-2xl text-white shadow-2xl'
           >
             回答する
           </button>

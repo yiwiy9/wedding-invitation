@@ -48,7 +48,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
             type='text'
             autoComplete='family-name'
             placeholder='姓'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register('familyNameKanji', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -61,7 +61,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
             type='text'
             autoComplete='given-name'
             placeholder='名'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register('givenNameKanji', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -79,7 +79,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
           <input
             type='text'
             placeholder='やまだ'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register('familyNameKana', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -91,7 +91,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
           <input
             type='text'
             placeholder='たろう'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register('givenNameKana', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -102,33 +102,33 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
       </div>
     </div>
     <div className='mt-11'>
-      <div className='flex justify-center'>
-        <div className='ml-28'>
-          <p className='text-base font-light text-gray-400'>Postcode</p>
-          <p className='mb-2.5 text-lg'>郵便番号</p>
+      <p className='text-base font-light text-gray-400'>Postcode</p>
+      <p className='mb-2.5 text-lg'>郵便番号</p>
+      <div className='flex'>
+        <div className='w-full'>
+          <input
+            type='text'
+            autoComplete='postal-code'
+            placeholder='1234567'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
+            {...register('zipCode', {
+              required: { value: true, message: '必須項目です' },
+              pattern: {
+                value: /^\d{7}$/,
+                message: '有効な郵便番号(ハイフン不要)を入力してください',
+              },
+            })}
+          />
+          <p className='text-sm text-red-600'>{errors.zipCode?.message}</p>
         </div>
         <button
           type='button'
           onClick={suggestAddressFromZipCode}
-          className='mt-4 mb-3 ml-8 block rounded bg-orange-400 px-1 text-lg text-white'
+          className='block h-11 w-1/4 rounded bg-emerald-500 text-sm text-white shadow-lg'
         >
           住所検索
         </button>
       </div>
-      <input
-        type='text'
-        autoComplete='postal-code'
-        placeholder='1234567'
-        className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
-        {...register('zipCode', {
-          required: { value: true, message: '必須項目です' },
-          pattern: {
-            value: /^\d{7}$/,
-            message: '有効な郵便番号(ハイフン不要)を入力してください',
-          },
-        })}
-      />
-      <p className='text-sm text-red-600'>{errors.zipCode?.message}</p>
     </div>
     <div className='mt-11'>
       <p className='text-base font-light text-gray-400'>Address</p>
@@ -137,7 +137,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
         type='text'
         autoComplete='address-line1'
         placeholder='東京都ｘｘ区ｘｘｘ 1-1-1'
-        className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
         {...register('address1', {
           required: { value: true, message: '必須項目です' },
           maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -152,7 +152,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
         type='text'
         autoComplete='address-line2'
         placeholder='ｘｘマンション 101号室'
-        className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
         {...register('address2', {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
@@ -166,7 +166,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
         type='tel'
         autoComplete='tel'
         placeholder='09012345678'
-        className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
         {...register('tel', {
           pattern: {
             value: /^0\d{9,10}$/,
@@ -183,7 +183,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
         type='email'
         autoComplete='email'
         placeholder='yamada@example.com'
-        className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
         {...register('email', {
           required: { value: true, message: '必須項目です' },
           pattern: {
@@ -201,7 +201,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
       <input
         type='text'
         placeholder='卵'
-        className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
         {...register('allergy', {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
@@ -213,7 +213,7 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
       <p className='mb-2.5 text-lg'>メッセージ（任意）</p>
       <textarea
         placeholder='ご自由にご入力ください'
-        className='h-24 w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+        className='h-24 w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
         {...register('message', {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
