@@ -7,6 +7,11 @@ module.exports = {
     extend: {
       fontFamily: {
         serif: ['Noto Serif JP', ...defaultTheme.fontFamily.serif],
+        italicSerif: ['Playfair Display', ...defaultTheme.fontFamily.serif],
+      },
+      backgroundImage: {
+        texture: "url('/src/assets/texture.png')",
+        countdown: "url('/src/assets/square-leaves.jpg')",
       },
       keyframes: {
         zoomUp: {
