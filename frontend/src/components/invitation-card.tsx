@@ -30,7 +30,7 @@ const InvitationCard: FC = () => (
       <div className='relative mx-auto mt-10 mb-1 h-36 w-36 animate-appear opacity-0'>
         <TitleLogo />
       </div>
-      <div className='pt-5 text-center'>
+      <div className='pt-5 text-center tracking-wide'>
         <h1>{`${GROOM} & ${BRIDE}`}</h1>
         <p className='pt-2 font-italicSerif text-sm'>{`${YEAR}.${MONTH}.${DAY}`}</p>
       </div>

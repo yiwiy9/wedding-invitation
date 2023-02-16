@@ -6,6 +6,8 @@ Web App of our wedding invitation
 
 **納期やばいので、完成を第一優先に!!!**
 
+1. バックエンドと OpenAPI の空文字を弾く処理
+1. favicon など、 `index.html`の精査
 1. Frontend 異常系エラー制御とエラーページの精査
    - フロントの`NotFound`は綺麗なエラーが出る
 1. ユーザー登録成功と 500 エラーの Slack 通知
