@@ -7,9 +7,15 @@ type MainFormProps = {
   register: UseFormRegister<FormInputs>
   errors: Partial<FieldErrorsImpl<FormInputs>>
   suggestAddressFromZipCode: () => Promise<void>
+  isLoading: boolean
 }
 
-const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCode }) => (
+const MainForm: FC<MainFormProps> = ({
+  register,
+  errors,
+  suggestAddressFromZipCode,
+  isLoading,
+}) => (
   <div className='text-xl'>
     <div>
       <p className='mb-2.5 text-lg'>いずれかをお選びください</p>
@@ -122,8 +128,9 @@ const MainForm: FC<MainFormProps> = ({ register, errors, suggestAddressFromZipCo
           <p className='text-sm text-red-600'>{errors.zipCode?.message}</p>
         </div>
         <button
-          type='button'
           onClick={suggestAddressFromZipCode}
+          type='button'
+          disabled={isLoading}
           className='block h-11 w-1/4 rounded bg-emerald-500 text-sm text-white shadow-lg'
         >
           住所検索

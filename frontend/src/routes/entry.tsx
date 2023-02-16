@@ -3,23 +3,13 @@ import type { SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
-import MainForm from '../components/main-form'
-import ChildrenForm from '../components/children-form'
 import type { operations } from '../../../generated/schema'
 import { createUser } from '../lib/fetcher'
 import suggestAddress from '../lib/api/suggest-address'
-import { TEXTURE_IMAGE } from '../config'
+import MainForm from '../components/main-form'
+import ChildrenForm from '../components/children-form'
 
 type FormInputs = operations['postUser']['requestBody']['content']['application/json']
-type AddressResponse = {
-  results:
-    | {
-        address1: string
-        address2: string
-        address3: string
-      }[]
-    | null
-}
 
 const Entry: FC = () => {
   const navigate = useNavigate()
@@ -56,27 +46,21 @@ const Entry: FC = () => {
 
   const suggestAddressFromZipCode = async () => {
     setIsLoading(true)
-    try {
-      const isCorrectFormat = await trigger('zipCode', { shouldFocus: true })
-      if (isCorrectFormat) {
-        const zipCode = getValues('zipCode')
-        const res = (await suggestAddress(zipCode)) as AddressResponse
-        if (res.results) {
-          const result = res.results[0]
-          setValue('address1', result.address1 + result.address2 + result.address3)
-        } else {
-          throw new Error()
-        }
+    const isCorrectFormat = await trigger('zipCode', { shouldFocus: true })
+    if (isCorrectFormat) {
+      const zipCode = getValues('zipCode')
+      const fullAddress = await suggestAddress(zipCode)
+      if (fullAddress) {
+        setValue('address1', fullAddress)
+      } else {
+        setError(
+          'zipCode',
+          { type: 'custom', message: '住所が取得できませんでした' },
+          { shouldFocus: true },
+        )
       }
-    } catch {
-      setError(
-        'zipCode',
-        { type: 'custom', message: '住所が取得できませんでした' },
-        { shouldFocus: true },
-      )
-    } finally {
-      setIsLoading(false)
     }
+    setIsLoading(false)
   }
 
   const onSubmit: SubmitHandler<FormInputs> = (data) => {
@@ -99,12 +83,7 @@ const Entry: FC = () => {
   }
 
   return (
-    <div className='relative bg-gray-100 px-5 py-7'>
-      <img
-        className='pointer-events-none absolute top-0 left-0 z-0 h-full w-full'
-        src={TEXTURE_IMAGE}
-        alt='texture'
-      />
+    <div className='bg-texture px-5 py-7'>
       <div className='m-auto max-w-2xl rounded bg-white px-4 py-7 text-center text-zinc-600 shadow-2xl'>
         <div className='mt-14 mb-12'>
           <h1>----------------</h1>
@@ -114,6 +93,7 @@ const Entry: FC = () => {
             register={register}
             errors={errors}
             suggestAddressFromZipCode={suggestAddressFromZipCode}
+            isLoading={isLoading}
           />
           {fields.map((field, index) => (
             <ChildrenForm
