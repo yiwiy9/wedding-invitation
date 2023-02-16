@@ -30,13 +30,13 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
           <input
             type='text'
             placeholder='山田'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.familyNameKanji`, {
-              required: { value: true, message: '姓は必須項目です' },
+              required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-base text-red-600'>
+          <p className='text-sm text-red-600'>
             {errors.children?.[childrenIndex]?.familyNameKanji?.message}
           </p>
         </div>
@@ -44,13 +44,13 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
           <input
             type='text'
             placeholder='太郎'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.givenNameKanji`, {
-              required: { value: true, message: '名は必須項目です' },
+              required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-base text-red-600'>
+          <p className='text-sm text-red-600'>
             {errors.children?.[childrenIndex]?.givenNameKanji?.message}
           </p>
         </div>
@@ -64,13 +64,13 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
           <input
             type='text'
             placeholder='やまだ'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.familyNameKana`, {
-              required: { value: true, message: '姓（かな）は必須項目です' },
+              required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-base text-red-600'>
+          <p className='text-sm text-red-600'>
             {errors.children?.[childrenIndex]?.familyNameKana?.message}
           </p>
         </div>
@@ -78,13 +78,13 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
           <input
             type='text'
             placeholder='たろう'
-            className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.givenNameKana`, {
-              required: { value: true, message: '名（かな）は必須項目です' },
+              required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-base text-red-600'>
+          <p className='text-sm text-red-600'>
             {errors.children?.[childrenIndex]?.givenNameKana?.message}
           </p>
         </div>
@@ -96,12 +96,12 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
       <input
         type='text'
         placeholder='卵'
-        className='w-full border-b p-2 text-center focus:border-orange-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-2 text-center focus:border-emerald-500 focus:bg-neutral-100 focus:outline-none'
         {...register(`children.${childrenIndex}.allergy`, {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
       />
-      <p className='text-base text-red-600'>{errors.children?.[childrenIndex]?.allergy?.message}</p>
+      <p className='text-sm text-red-600'>{errors.children?.[childrenIndex]?.allergy?.message}</p>
     </div>
     <button
       onClick={() => removeChildren(childrenIndex)}
