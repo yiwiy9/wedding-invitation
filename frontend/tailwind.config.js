@@ -11,7 +11,7 @@ module.exports = {
       },
       backgroundImage: {
         texture: "url('/src/assets/texture.png')",
-        countdown: "url('/src/assets/square-leaves.jpg')",
+        countdown: "url('/src/assets/square-leaves.jpeg')",
       },
       keyframes: {
         zoomUp: {

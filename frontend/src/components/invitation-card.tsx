@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import ImageSlider from './image-slider'
+import FadeImageSlider from './fade-image-slider'
 import TitleLogo from './title-logo'
 import {
   GROOM,
@@ -7,14 +7,14 @@ import {
   YEAR,
   MONTH,
   DAY,
-  SLIDE_IMAGES,
+  SQUARE_IMAGES,
   LEFT_LEAVES_IMAGE,
   RIGHT_LEAVES_IMAGE,
   LINE_FLOWER_IMAGE,
 } from '../config'
 
 const InvitationCard: FC = () => (
-  <div className='relative py-16'>
+  <div className='relative pt-16'>
     <img
       className='pointer-events-none absolute top-0 left-0 z-10 h-48'
       src={LEFT_LEAVES_IMAGE}
@@ -26,13 +26,13 @@ const InvitationCard: FC = () => (
       alt='right-leaves'
     />
     <div className='relative bg-white bg-texture py-12 px-5 text-zinc-600 shadow'>
-      <ImageSlider imageArray={SLIDE_IMAGES} />
+      <FadeImageSlider imageArray={SQUARE_IMAGES} />
       <div className='relative mx-auto mt-10 mb-1 h-36 w-36 animate-appear opacity-0'>
         <TitleLogo />
       </div>
-      <div className='pt-5 text-center font-italicSerif'>
+      <div className='pt-5 text-center'>
         <h1>{`${GROOM} & ${BRIDE}`}</h1>
-        <p className='pt-2 text-sm'>{`${YEAR}.${MONTH}.${DAY}`}</p>
+        <p className='pt-2 font-italicSerif text-sm'>{`${YEAR}.${MONTH}.${DAY}`}</p>
       </div>
       <img className='mx-auto mt-3 w-20' src={LINE_FLOWER_IMAGE} alt='line-flower' />
       <p className='mt-10 text-center text-sm leading-6'>

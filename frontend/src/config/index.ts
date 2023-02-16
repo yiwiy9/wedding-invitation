@@ -1,7 +1,10 @@
 import splashVideo from '../assets/private/splash.mp4'
-import slideImage1 from '../assets/private/slide-image-1.jpeg'
-import slideImage2 from '../assets/private/slide-image-2.jpeg'
-import slideImage3 from '../assets/private/slide-image-3.jpeg'
+import squareImage1 from '../assets/private/square-image-1.jpeg'
+import squareImage2 from '../assets/private/square-image-2.jpeg'
+import squareImage3 from '../assets/private/square-image-3.jpeg'
+import horizontalImage1 from '../assets/private/horizontal-image-1.jpeg'
+import horizontalImage2 from '../assets/private/horizontal-image-2.jpeg'
+import horizontalImage3 from '../assets/private/horizontal-image-3.jpeg'
 import leftLeaves from '../assets/left-leaves.png'
 import rightLeaves from '../assets/right-leaves.png'
 import lineFlower from '../assets/line-flower.png'
@@ -23,7 +26,8 @@ export const DUE_DATE_MONTH = process.env.REACT_APP_DUE_DATE_MONTH as string
 export const DUE_DATE_DAY = process.env.REACT_APP_DUE_DATE_DAY as string
 
 export const SPLASH_VIDEO = splashVideo
-export const SLIDE_IMAGES = [slideImage1, slideImage2, slideImage3]
+export const SQUARE_IMAGES = [squareImage1, squareImage2, squareImage3]
+export const HORIZONTAL_IMAGES = [horizontalImage1, horizontalImage2, horizontalImage3]
 
 export const LEFT_LEAVES_IMAGE = leftLeaves
 export const RIGHT_LEAVES_IMAGE = rightLeaves
