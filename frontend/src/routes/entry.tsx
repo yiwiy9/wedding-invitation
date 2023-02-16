@@ -49,10 +49,10 @@ const Entry: FC = () => {
     const isCorrectFormat = await trigger('zipCode', { shouldFocus: true })
     if (isCorrectFormat) {
       const zipCode = getValues('zipCode')
-      const fullAddress = await suggestAddress(zipCode)
-      if (fullAddress) {
+      try {
+        const fullAddress = await suggestAddress(zipCode)
         setValue('address1', fullAddress)
-      } else {
+      } catch {
         setError(
           'zipCode',
           { type: 'custom', message: '住所が取得できませんでした' },
