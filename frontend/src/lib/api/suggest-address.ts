@@ -17,7 +17,7 @@ const suggestAddress = async (zipCode: string) => {
     const result = addressResponse.results[0]
     return result.address1 + result.address2 + result.address3
   }
-  throw new Error()
+  throw new Error('住所が取得できませんでした')
 }
 
 export default suggestAddress
