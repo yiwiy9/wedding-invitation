@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { GoogleMap, LoadScript, MarkerF } from '@react-google-maps/api'
+import { useJsApiLoader, GoogleMap, MarkerF } from '@react-google-maps/api'
 import { GOOGLE_MAPS_API_KEY, WEDDING_HALL_LAT, WEDDING_HALL_LNG } from '../config'
 
 const position = {
@@ -7,8 +7,12 @@ const position = {
   lng: WEDDING_HALL_LNG,
 }
 
-const Map: FC = () => (
-  <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
+const Map: FC = () => {
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: GOOGLE_MAPS_API_KEY,
+  })
+
+  return isLoaded ? (
     <GoogleMap
       mapContainerClassName='w-full before:block before:pt-[100%]'
       center={position}
@@ -16,7 +20,9 @@ const Map: FC = () => (
     >
       <MarkerF position={position} />
     </GoogleMap>
-  </LoadScript>
-)
+  ) : (
+    <div>Loading...</div>
+  )
+}
 
 export default Map

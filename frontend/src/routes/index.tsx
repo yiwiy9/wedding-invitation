@@ -15,7 +15,7 @@ const Index: FC = () => (
     <div className='pt-5'>
       <ImageSlider imageArray={HORIZONTAL_IMAGES} />
     </div>
-    <div className='py-16'>
+    <div className='pt-16 pb-32'>
       <EventDetail />
     </div>
   </>

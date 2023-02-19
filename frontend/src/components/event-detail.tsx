@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { Link } from 'react-router-dom'
 import Schedule from './schedule'
 import Map from './map'
 import {
@@ -6,6 +7,8 @@ import {
   WEDDING_HALL_URL,
   WEDDING_HALL_ADDRESS,
   WEDDING_HALL_TEL,
+  DUE_DATE_MONTH,
+  DUE_DATE_DAY,
 } from '../config'
 
 const EventDetail: FC = () => (
@@ -27,6 +30,16 @@ const EventDetail: FC = () => (
       </div>
       <div className='mt-8'>
         <Map />
+      </div>
+      <p className='mt-20 text-center text-sm leading-6'>
+        お手数ではございますが
+        <br />
+        {DUE_DATE_MONTH}月{DUE_DATE_DAY}日 までにご返信くださいますよう
+        <br />
+        お願い申し上げます
+      </p>
+      <div className='mx-auto mt-10 w-4/5 max-w-xs rounded-full border border-white bg-gradient-to-br from-stone-400 to-stone-300 py-3.5 font-sans text-white shadow-md'>
+        <Link to='/entry'>招待状に回答する</Link>
       </div>
     </div>
   </div>
