@@ -42,3 +42,5 @@ export const WEDDING_HALL_NAME = process.env.REACT_APP_WEDDING_HALL_NAME as stri
 export const WEDDING_HALL_URL = process.env.REACT_APP_WEDDING_HALL_URL as string
 export const WEDDING_HALL_ADDRESS = process.env.REACT_APP_WEDDING_HALL_ADDRESS as string
 export const WEDDING_HALL_TEL = process.env.REACT_APP_WEDDING_HALL_TEL as string
+export const WEDDING_HALL_LAT = Number(process.env.REACT_APP_WEDDING_HALL_LAT)
+export const WEDDING_HALL_LNG = Number(process.env.REACT_APP_WEDDING_HALL_LNG)

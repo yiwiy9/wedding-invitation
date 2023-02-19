@@ -32,8 +32,12 @@ const InvitationCard: FC = () => (
         <TitleLogo />
       </div>
       <div className='pt-5 text-center tracking-wide'>
-        <h1>{`${GROOM} & ${BRIDE}`}</h1>
-        <p className='pt-2 font-italicSerif text-sm'>{`${YEAR}.${MONTH}.${DAY}`}</p>
+        <h1>
+          {GROOM} & {BRIDE}
+        </h1>
+        <p className='pt-2 font-italicSerif text-sm'>
+          {YEAR}.{MONTH}.{DAY}
+        </p>
       </div>
       <img className='mx-auto mt-3 w-20' src={LINE_FLOWER_IMAGE} alt='line-flower' />
       <p className='mt-10 text-center text-sm leading-6'>

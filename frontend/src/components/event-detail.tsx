@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import Schedule from './schedule'
+import Map from './map'
 import {
   WEDDING_HALL_NAME,
   WEDDING_HALL_URL,
@@ -24,7 +25,9 @@ const EventDetail: FC = () => (
           {WEDDING_HALL_TEL}
         </a>
       </div>
-      <div />
+      <div className='mt-8'>
+        <Map />
+      </div>
     </div>
   </div>
 )

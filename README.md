@@ -721,3 +721,12 @@ xhr.send(
 - `.mp4`をインポートできるようにする
   - [Can't import video](https://github.com/facebook/create-react-app/issues/6822)
 - [useCallback はとにかく使え！　特にカスタムフックでは](https://blog.uhy.ooo/entry/2021-02-23/usecallback-custom-hooks/)
+- [Google Maps Platform](https://developers.google.com/maps/documentation/javascript/overview?hl=ja)
+  - [API キーを使用する](https://developers.google.com/maps/documentation/javascript/get-api-key?hl=ja)
+  - [請求先アカウントのクレジット](https://developers.google.com/maps/billing-credits?hl=ja)
+  - ライブラリいっぱいあるけど、[JustFly1984/react-google-maps-api](https://github.com/JustFly1984/react-google-maps-api)が一番良さそう
+    - 公式がめちゃくちゃ使いづらかった
+    - `yarn add @react-google-maps/api`
+    - [React Google Maps Api Style Guide](https://react-google-maps-api-docs.netlify.app/)
+    - [[React + Google Maps API] @react-google-maps/api を使った地図アプリをローカルで起動してみた](https://dev.classmethod.jp/articles/launching-a-map-app-using-react-google-maps-api-locally/)
+    - [`MakerFComponent`を使う必要あり](https://zenn.dev/t_kitamura/articles/423f023bffe0e1#%E3%83%9E%E3%83%BC%E3%82%AB%E3%83%BC%E3%82%92%E8%A8%AD%E7%BD%AE%E3%81%99%E3%82%8B)
