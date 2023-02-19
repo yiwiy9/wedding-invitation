@@ -16,4 +16,5 @@ const Splash: FC = () => {
     </div>
   )
 }
+
 export default Splash
