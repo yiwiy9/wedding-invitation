@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import ScrollAnimation from '../components/scroll-animation'
 import InvitationCard from '../components/invitation-card'
 import Countdown from '../components/countdown'
 import ImageSlider from '../components/image-slider'
@@ -10,12 +11,19 @@ const Index: FC = () => (
   <>
     <InvitationCard />
     <div className='pt-16'>
-      <Countdown />
+      <ScrollAnimation
+        baseClass='transition ease-in-out duration-1000'
+        beforeClass='opacity-0 translate-y-24'
+        afterClass=''
+        triggerOnce
+      >
+        <Countdown />
+      </ScrollAnimation>
     </div>
     <div className='pt-5'>
       <ImageSlider imageArray={HORIZONTAL_IMAGES} />
     </div>
-    <div className='py-16'>
+    <div className='pt-16 pb-32'>
       <EventDetail />
     </div>
   </>

@@ -531,6 +531,7 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
 `.eslintrc.json`
 
 1. `react-hook-form`の`register()`メソッドが props をスプレッド演算子で渡すことを許可する
+1. [関数コンポーネントの Props のデフォルト値を引数で定義するようにする](https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/require-default-props.md#functions)
 1. [Typescript error with form and handleSubmit](https://github.com/react-hook-form/react-hook-form/discussions/8020)
    - [feat(eslint-plugin): [no-misused-promises] add granular options within checksVoidReturns](https://github.com/typescript-eslint/typescript-eslint/pull/4623)
    - [no-misused-promises](https://typescript-eslint.io/rules/no-misused-promises/)
@@ -541,6 +542,12 @@ OpenAPI 仕様書を変更したら、確実に型定義の生成を実行する
   "rules": {
     // ...
     "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": [
+      2,
+      {
+        "functions": "defaultArguments"
+      }
+    ],
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
@@ -721,3 +728,16 @@ xhr.send(
 - `.mp4`をインポートできるようにする
   - [Can't import video](https://github.com/facebook/create-react-app/issues/6822)
 - [useCallback はとにかく使え！　特にカスタムフックでは](https://blog.uhy.ooo/entry/2021-02-23/usecallback-custom-hooks/)
+- [Google Maps Platform](https://developers.google.com/maps/documentation/javascript/overview?hl=ja)
+  - [API キーを使用する](https://developers.google.com/maps/documentation/javascript/get-api-key?hl=ja)
+  - [請求先アカウントのクレジット](https://developers.google.com/maps/billing-credits?hl=ja)
+  - ライブラリいっぱいあるけど、[JustFly1984/react-google-maps-api](https://github.com/JustFly1984/react-google-maps-api)が一番良さそう
+    - 公式がめちゃくちゃ使いづらかった
+    - `yarn add @react-google-maps/api`
+    - [React Google Maps Api Style Guide](https://react-google-maps-api-docs.netlify.app/)
+    - [[React + Google Maps API] @react-google-maps/api を使った地図アプリをローカルで起動してみた](https://dev.classmethod.jp/articles/launching-a-map-app-using-react-google-maps-api-locally/)
+    - [`MakerFComponent`を使う必要あり](https://zenn.dev/t_kitamura/articles/423f023bffe0e1#%E3%83%9E%E3%83%BC%E3%82%AB%E3%83%BC%E3%82%92%E8%A8%AD%E7%BD%AE%E3%81%99%E3%82%8B)
+    - [再レンダリングするときにエラーになる問題](https://github.com/JustFly1984/react-google-maps-api/issues/70)
+- [thebuilder/react-intersection-observer](https://github.com/thebuilder/react-intersection-observer)のインストール
+  - `yarn add react-intersection-observer`
+  - [React.js でスクロールアニメーション！Intersection Observer で「要素が見えたら」を実装する](https://akiblog10.com/react-scroll-animation/)

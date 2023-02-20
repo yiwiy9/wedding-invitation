@@ -7,6 +7,7 @@ import {
   YEAR,
   MONTH,
   DAY,
+  SENT_DATE_MONTH,
   SQUARE_IMAGES,
   LEFT_LEAVES_IMAGE,
   RIGHT_LEAVES_IMAGE,
@@ -25,14 +26,18 @@ const InvitationCard: FC = () => (
       src={RIGHT_LEAVES_IMAGE}
       alt='right-leaves'
     />
-    <div className='relative bg-white bg-texture py-12 px-5 text-zinc-600 shadow'>
+    <div className='relative bg-white bg-texture py-12 px-5 text-zinc-600 shadow-md'>
       <FadeImageSlider imageArray={SQUARE_IMAGES} />
       <div className='relative mx-auto mt-10 mb-1 h-36 w-36 animate-appear opacity-0'>
         <TitleLogo />
       </div>
       <div className='pt-5 text-center tracking-wide'>
-        <h1>{`${GROOM} & ${BRIDE}`}</h1>
-        <p className='pt-2 font-italicSerif text-sm'>{`${YEAR}.${MONTH}.${DAY}`}</p>
+        <h1>
+          {GROOM} & {BRIDE}
+        </h1>
+        <p className='pt-2 font-italicSerif text-sm'>
+          {YEAR}.{MONTH}.{DAY}
+        </p>
       </div>
       <img className='mx-auto mt-3 w-20' src={LINE_FLOWER_IMAGE} alt='line-flower' />
       <p className='mt-10 text-center text-sm leading-6'>
@@ -57,6 +62,8 @@ const InvitationCard: FC = () => (
         <br />
         <br />
         謹白
+        <br />
+        {YEAR}年{SENT_DATE_MONTH}月吉日
       </p>
     </div>
   </div>
