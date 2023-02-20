@@ -121,7 +121,7 @@ const MainForm: FC<MainFormProps> = ({
               required: { value: true, message: '必須項目です' },
               pattern: {
                 value: /^\d{7}$/,
-                message: '有効な郵便番号(ハイフン不要)を入力してください',
+                message: '有効な郵便番号(半角・ハイフン不要)を入力してください',
               },
             })}
           />
@@ -177,7 +177,7 @@ const MainForm: FC<MainFormProps> = ({
         {...register('tel', {
           pattern: {
             value: /^0\d{9,10}$/,
-            message: '有効な電話番号(ハイフン不要)を入力してください',
+            message: '有効な電話番号(半角・ハイフン不要)を入力してください',
           },
         })}
       />
