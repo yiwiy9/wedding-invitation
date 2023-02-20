@@ -742,3 +742,7 @@ xhr.send(
 - [thebuilder/react-intersection-observer](https://github.com/thebuilder/react-intersection-observer)のインストール
   - `yarn add react-intersection-observer`
   - [React.js でスクロールアニメーション！Intersection Observer で「要素が見えたら」を実装する](https://akiblog10.com/react-scroll-animation/)
+
+### トラブルシュート
+
+- iOS で video タグの自動再生をするときは、`playsinline`属性が必要
