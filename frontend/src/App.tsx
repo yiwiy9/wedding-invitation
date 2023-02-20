@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Root from './routes/root'
 import Index from './routes/index'
 import Entry from './routes/entry'
+import Thanks from './routes/thanks'
 import Sample, { loader as sampleLoader } from './routes/sample'
 import ErrorBoundary from './routes/error-boundary'
 
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Index /> },
       { path: 'entry', element: <Entry /> },
+      { path: 'thanks', element: <Thanks /> },
       { path: 'sample', element: <Sample />, loader: sampleLoader },
     ],
   },
