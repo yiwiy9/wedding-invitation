@@ -59,7 +59,7 @@ const EventDetail: FC = () => (
         </p>
         <ScrollAnimation
           baseClass='transition ease-in-out duration-1000'
-          beforeClass='opacity-0 scale-125'
+          beforeClass='opacity-0 scale-110'
           afterClass=''
         >
           <div className='mx-auto mt-10 w-4/5 max-w-xs rounded-full border border-white bg-gradient-to-br from-stone-400 to-stone-300 py-3.5 font-sans text-white shadow-md'>

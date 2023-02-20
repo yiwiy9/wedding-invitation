@@ -25,6 +25,10 @@ custom:
     dev: dev-wedding.${env:APP_DOMAIN_NAME}
     prod: wedding.${env:APP_DOMAIN_NAME}
 
+  googleSpreadsheetId:
+    dev: ${env:DEV_GOOGLE_SPREADSHEET_ID}
+    prod: ${env:PROD_GOOGLE_SPREADSHEET_ID}
+
   # serverless-domain-manager
   customDomain:
     domainName: ${self:custom.backendFQDN.${self:provider.stage}}
@@ -54,7 +58,7 @@ provider:
   versionFunctions: false
   environment:
     NODE_OPTIONS: --enable-source-maps # ソースマップを有効にする
-    GOOGLE_SPREADSHEET_ID: ${env:GOOGLE_SPREADSHEET_ID}
+    GOOGLE_SPREADSHEET_ID: ${self:custom.googleSpreadsheetId.${self:provider.stage}}
     GOOGLE_SERVICE_ACCOUNT_EMAIL: ${env:GOOGLE_SERVICE_ACCOUNT_EMAIL}
     GOOGLE_PRIVATE_KEY: ${env:GOOGLE_PRIVATE_KEY}
   httpApi:
