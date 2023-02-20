@@ -9,6 +9,7 @@ import suggestAddress from '../lib/api/suggest-address'
 import MainForm from '../components/main-form'
 import ChildrenForm from '../components/children-form'
 import TitleLogo from '../components/title-logo'
+import IconLoading from '../components/icon-loading'
 import { GROOM, BRIDE, LINE_FLOWER_IMAGE } from '../config'
 
 type FormInputs = operations['postUser']['requestBody']['content']['application/json']
@@ -54,10 +55,12 @@ const Entry: FC = () => {
       try {
         const fullAddress = await suggestAddress(zipCode)
         setValue('address1', fullAddress)
-      } catch (e) {
-        if (e instanceof Error) {
-          setError('zipCode', { type: 'custom', message: e.message }, { shouldFocus: true })
-        }
+      } catch {
+        setError(
+          'zipCode',
+          { type: 'custom', message: '住所が取得できませんでした' },
+          { shouldFocus: true },
+        )
       }
     }
     setIsLoading(false)
@@ -130,6 +133,11 @@ const Entry: FC = () => {
           </Link>
         </form>
       </div>
+      {isLoading && (
+        <div className='fixed top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2'>
+          <IconLoading classString='h-10 w-10' />
+        </div>
+      )}
     </div>
   )
 }
