@@ -1,7 +1,8 @@
-import splashVideo from '../assets/private/splash.mp4'
+import splashGif from '../assets/private/splash.gif'
 import squareImage1 from '../assets/private/square-image-1.jpeg'
 import squareImage2 from '../assets/private/square-image-2.jpeg'
 import squareImage3 from '../assets/private/square-image-3.jpeg'
+import squareImage4 from '../assets/private/square-image-4.jpeg'
 import horizontalImage1 from '../assets/private/horizontal-image-1.jpeg'
 import horizontalImage2 from '../assets/private/horizontal-image-2.jpeg'
 import horizontalImage3 from '../assets/private/horizontal-image-3.jpeg'
@@ -9,8 +10,8 @@ import leftLeaves from '../assets/left-leaves.png'
 import rightLeaves from '../assets/right-leaves.png'
 import lineFlower from '../assets/line-flower.png'
 
-export const SPLASH_VIDEO = splashVideo
-export const SQUARE_IMAGES = [squareImage1, squareImage2, squareImage3]
+export const SPLASH_GIF = splashGif
+export const SQUARE_IMAGES = [squareImage1, squareImage2, squareImage3, squareImage4]
 export const HORIZONTAL_IMAGES = [horizontalImage1, horizontalImage2, horizontalImage3]
 
 export const LEFT_LEAVES_IMAGE = leftLeaves

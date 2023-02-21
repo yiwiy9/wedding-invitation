@@ -6,6 +6,7 @@ Web App of our wedding invitation
 
 **納期やばいので、完成を第一優先に!!!**
 
+1. CORS
 1. URL 直打ちでエラー
 1. 広告入れる
 1. バックエンドと OpenAPI の空文字を弾く処理
@@ -726,8 +727,6 @@ xhr.send(
 
 - [Swiper React Components](https://swiperjs.com/react)のインストール
   - `yarn add swiper`
-- `.mp4`をインポートできるようにする
-  - [Can't import video](https://github.com/facebook/create-react-app/issues/6822)
 - [useCallback はとにかく使え！　特にカスタムフックでは](https://blog.uhy.ooo/entry/2021-02-23/usecallback-custom-hooks/)
 - [Google Maps Platform](https://developers.google.com/maps/documentation/javascript/overview?hl=ja)
   - [API キーを使用する](https://developers.google.com/maps/documentation/javascript/get-api-key?hl=ja)
@@ -746,3 +745,5 @@ xhr.send(
 ### トラブルシュート
 
 - iOS で video タグの自動再生をするときは、`playsinline`属性が必要
+  - 省電力のときはうまくいかない
+  - GIF に変更する
