@@ -19,6 +19,10 @@ Resources:
             - HEAD
           # Managed-CachingOptimized
           CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+        CustomErrorResponses:
+          - ErrorCode: 403
+            ResponseCode: 200
+            ResponsePagePath: /
         DefaultRootObject: index.html
         PriceClass: PriceClass_200
         Aliases:
