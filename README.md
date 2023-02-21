@@ -747,3 +747,6 @@ xhr.send(
 - iOS で video タグの自動再生をするときは、`playsinline`属性が必要
   - 省電力のときはうまくいかない
   - GIF に変更する
+- CORS 対応
+  - 認証がないので、しっかりオリジンを限定する
+  - [CORS Setup - Serverless Framework](https://www.serverless.com/framework/docs/providers/aws/events/http-api)

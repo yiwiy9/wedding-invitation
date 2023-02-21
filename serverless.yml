@@ -63,6 +63,21 @@ provider:
     GOOGLE_PRIVATE_KEY: ${env:GOOGLE_PRIVATE_KEY}
   httpApi:
     disableDefaultEndpoint: true
+    cors:
+      allowedOrigins:
+        - https://${self:custom.frontendFQDN.${self:provider.stage}}
+      allowedHeaders:
+        - Content-Type
+        - X-Amz-Date
+        - Authorization
+        - X-Api-Key
+        - X-Amz-Security-Token
+        - X-Amz-User-Agent
+        - X-Amzn-Trace-Id
+      allowedMethods:
+        - OPTIONS
+        - GET
+        - POST
 
 package:
   patterns:
