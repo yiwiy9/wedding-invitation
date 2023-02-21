@@ -88,13 +88,13 @@ const Entry: FC = () => {
   return (
     <div className='bg-texture px-5 py-7'>
       <div className='rounded bg-white px-4 py-7 text-center text-zinc-600 shadow-2xl'>
-        <div className='relative mx-auto mt-12 mb-8 h-56 w-56'>
+        <div className='relative mx-auto mt-8 mb-6 h-40 w-40'>
           <TitleLogo />
         </div>
-        <div className='mb-8 text-2xl tracking-wide'>
+        <div className='mb-6 text-lg tracking-wide'>
           <h1>{`${GROOM} & ${BRIDE}`}</h1>
         </div>
-        <img className='mx-auto mb-16 w-32' src={LINE_FLOWER_IMAGE} alt='line-flower' />
+        <img className='mx-auto mb-12 w-24' src={LINE_FLOWER_IMAGE} alt='line-flower' />
         <form onSubmit={handleSubmit(onSubmit)}>
           <MainForm
             register={register}
@@ -116,19 +116,19 @@ const Entry: FC = () => {
             onClick={addChildren}
             type='button'
             disabled={isLoading}
-            className='mx-auto mt-16 mb-12 block text-base'
+            className='mx-auto mt-14 mb-10 block text-sm'
           >
-            <span className='block text-sm font-light text-gray-400'>children?</span>+
+            <span className='block text-xs font-light text-gray-400'>children?</span>+
             お子様を追加する
           </button>
           <button
             type='submit'
             disabled={isLoading}
-            className='mx-auto mb-10 block w-5/6 rounded-full bg-gradient-to-r from-emerald-300 to-emerald-500 py-5 text-2xl text-white shadow-2xl'
+            className='mx-auto mb-10 block w-4/5 rounded-full border border-white bg-gradient-to-br from-stone-400 to-stone-300 py-4 text-xl text-white shadow-lg'
           >
-            回答する
+            送信する
           </button>
-          <Link className='mb-8 block' to='/'>
+          <Link className='mb-8 block text-sm' to='/'>
             &lt; 戻る
           </Link>
         </form>
