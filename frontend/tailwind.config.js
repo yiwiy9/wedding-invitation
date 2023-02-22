@@ -15,11 +15,11 @@ module.exports = {
       },
       keyframes: {
         zoomUp: {
-          to: { transform: 'scale(1.15)' },
+          to: { transform: 'scale(1.1)' },
         },
       },
       animation: {
-        zoomUp: 'zoomUp 10s linear 0s 1 normal both',
+        zoomUp: 'zoomUp 4s linear 0s 1 normal both',
       },
     },
   },

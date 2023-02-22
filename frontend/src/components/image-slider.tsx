@@ -20,7 +20,7 @@ const ImageSlider: FC<Props> = ({ imageArray }) => (
   >
     {imageArray.map((image, index) => (
       <SwiperSlide key={image}>
-        <img src={image} alt={`img-${index}`} />
+        <img className='w-full' src={image} alt={`img-${index}`} />
       </SwiperSlide>
     ))}
   </Swiper>
