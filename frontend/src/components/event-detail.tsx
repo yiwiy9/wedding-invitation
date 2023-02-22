@@ -62,7 +62,7 @@ const EventDetail: FC = () => (
           beforeClass='opacity-0 scale-110'
           afterClass=''
         >
-          <div className='mx-auto mt-10 w-4/5 max-w-xs rounded-full border border-white bg-gradient-to-br from-stone-400 to-stone-300 py-3.5 font-sans text-white shadow-md'>
+          <div className='mx-auto mt-10 w-4/5 max-w-xs rounded-full border border-white bg-gradient-to-br from-neutral-400 to-stone-300 py-3.5 font-sans text-white shadow-md'>
             <Link to='/entry'>招待状に回答する</Link>
           </div>
         </ScrollAnimation>

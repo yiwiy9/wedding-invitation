@@ -17,13 +17,9 @@ module.exports = {
         zoomUp: {
           to: { transform: 'scale(1.15)' },
         },
-        appear: {
-          to: { opacity: 1 },
-        },
       },
       animation: {
         zoomUp: 'zoomUp 10s linear 0s 1 normal both',
-        appear: 'appear 3s ease-in-out 4s forwards',
       },
     },
   },

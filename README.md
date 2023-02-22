@@ -6,11 +6,12 @@ Web App of our wedding invitation
 
 **納期やばいので、完成を第一優先に!!!**
 
-1. URL 直打ちでエラー
 1. 広告入れる
 1. バックエンドと OpenAPI の空文字を弾く処理
 1. Frontend 異常系エラー制御とエラーページの精査
    - フロントの`NotFound`は綺麗なエラーが出る
+1. YAML プラグインを CloudFormation, OpenAPI 用にカスタマイズする
+1. yarn で aws cli 実行して、デプロイと同時にキャッシュ削除が出来るようにする
 1. ユーザー登録成功と 500 エラーの Slack 通知
    - 肩書きなどをすぐに埋められるようにする
    - 迅速なエラー対応、招待者の完了の把握
@@ -726,8 +727,6 @@ xhr.send(
 
 - [Swiper React Components](https://swiperjs.com/react)のインストール
   - `yarn add swiper`
-- `.mp4`をインポートできるようにする
-  - [Can't import video](https://github.com/facebook/create-react-app/issues/6822)
 - [useCallback はとにかく使え！　特にカスタムフックでは](https://blog.uhy.ooo/entry/2021-02-23/usecallback-custom-hooks/)
 - [Google Maps Platform](https://developers.google.com/maps/documentation/javascript/overview?hl=ja)
   - [API キーを使用する](https://developers.google.com/maps/documentation/javascript/get-api-key?hl=ja)
@@ -742,3 +741,19 @@ xhr.send(
 - [thebuilder/react-intersection-observer](https://github.com/thebuilder/react-intersection-observer)のインストール
   - `yarn add react-intersection-observer`
   - [React.js でスクロールアニメーション！Intersection Observer で「要素が見えたら」を実装する](https://akiblog10.com/react-scroll-animation/)
+
+### トラブルシュート
+
+- iOS で video タグの自動再生をするときは、`playsinline`属性が必要
+  - 省電力のときはうまくいかない
+  - GIF に変更する
+- CORS 対応
+  - 認証がないので、しっかりオリジンを限定する
+  - [CORS Setup - Serverless Framework](https://www.serverless.com/framework/docs/providers/aws/events/http-api)
+- index 以外でリロードすると、`Access Denied`になる問題
+  - [CloudFront+S3 構成の SPA Web アプリでルートページ以外に直で行ったときに AccessDenied になった件について](https://zenn.dev/redgosho/articles/13b93d2a8eac0f)
+- index でもたまに真っ白になって何も読み込めなくなる問題
+  - `index.html`のキャッシュが Cloudfront に残っていて、JS のファイル名がクァってるのが問題
+  - デプロイ後、`index.html`のキャッシュを消す必要がある
+  - TODO: yarn で aws cli 実行して、デプロイと同時にキャッシュ削除が出来るようにする
+    - [ビルドパイプラインでやってる例](https://zenn.dev/keita_hino/articles/04d85004ba007e)

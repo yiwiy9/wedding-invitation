@@ -28,7 +28,7 @@ const InvitationCard: FC = () => (
     />
     <div className='relative bg-white bg-texture py-12 px-5 text-zinc-600 shadow-md'>
       <FadeImageSlider imageArray={SQUARE_IMAGES} />
-      <div className='relative mx-auto mt-10 mb-1 h-36 w-36 animate-appear opacity-0'>
+      <div className='relative mx-auto mt-10 mb-1 h-36 w-36'>
         <TitleLogo />
       </div>
       <div className='pt-5 text-center tracking-wide'>
