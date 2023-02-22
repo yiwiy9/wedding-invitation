@@ -87,7 +87,7 @@ const Entry: FC = () => {
 
   return (
     <div className='bg-texture px-5 py-7'>
-      <div className='rounded bg-white px-4 py-7 text-center font-serif text-zinc-600 shadow-2xl'>
+      <div className='rounded bg-white px-4 py-7 text-center text-zinc-600 shadow-2xl'>
         <div className='relative mx-auto mt-8 mb-6 h-40 w-40'>
           <TitleLogo />
         </div>
@@ -95,7 +95,7 @@ const Entry: FC = () => {
           <h1>{`${GROOM} & ${BRIDE}`}</h1>
         </div>
         <img className='mx-auto mb-12 w-24' src={LINE_FLOWER_IMAGE} alt='line-flower' />
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className='font-sans'>
           <MainForm
             register={register}
             errors={errors}
@@ -124,7 +124,7 @@ const Entry: FC = () => {
           <button
             type='submit'
             disabled={isLoading}
-            className='mx-auto mb-10 block w-4/5 rounded-full border border-white bg-gradient-to-br from-stone-400 to-stone-300 py-4 text-xl text-white shadow-lg'
+            className='mx-auto mb-10 block w-4/5 rounded-full border border-white bg-gradient-to-br from-stone-400 to-stone-300 py-4 text-lg text-white shadow-lg'
           >
             送信する
           </button>

@@ -18,7 +18,7 @@ const MainForm: FC<MainFormProps> = ({
 }) => (
   <div>
     <div>
-      <p className='mb-4'>いずれかをお選びください</p>
+      <p className='mb-4 text-sm'>いずれかをお選びください</p>
       <div className='flex items-end justify-center'>
         <input
           type='radio'
@@ -29,8 +29,8 @@ const MainForm: FC<MainFormProps> = ({
           })}
         />
         <div className='ml-3'>
-          <p className='text-right text-sm font-light text-gray-400'>ACCEPTS</p>
-          <p className='text-xl'>ご出席</p>
+          <p className='text-right text-xs font-light text-gray-400'>ACCEPTS</p>
+          <p className='text-lg'>ご出席</p>
         </div>
         <input
           type='radio'
@@ -39,84 +39,84 @@ const MainForm: FC<MainFormProps> = ({
           {...register('isAttend')}
         />
         <div className='ml-2'>
-          <p className='text-right text-sm font-light text-gray-400'>DECLINES</p>
-          <p className='text-xl'>ご欠席</p>
+          <p className='text-right text-xs font-light text-gray-400'>DECLINES</p>
+          <p className='text-lg'>ご欠席</p>
         </div>
       </div>
-      <p className='text-sm text-red-600'>{errors.isAttend?.message}</p>
+      <p className='text-xs text-red-600'>{errors.isAttend?.message}</p>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Name</p>
-      <p className='mb-1.5'>お名前</p>
+      <p className='text-xs font-light text-gray-400'>Name</p>
+      <p className='mb-1.5 text-sm'>お名前</p>
       <div className='flex'>
         <div className='w-full'>
           <input
             type='text'
             autoComplete='family-name'
             placeholder='姓'
-            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('familyNameKanji', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-sm text-red-600'>{errors.familyNameKanji?.message}</p>
+          <p className='text-xs text-red-600'>{errors.familyNameKanji?.message}</p>
         </div>
         <div className='ml-1.5 w-full'>
           <input
             type='text'
             autoComplete='given-name'
             placeholder='名'
-            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('givenNameKanji', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-sm text-red-600'>{errors.givenNameKanji?.message}</p>
+          <p className='text-xs text-red-600'>{errors.givenNameKanji?.message}</p>
         </div>
       </div>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Name (Kana)</p>
-      <p className='mb-1.5'>お名前（ふりがな）</p>
+      <p className='text-xs font-light text-gray-400'>Name (Kana)</p>
+      <p className='mb-1.5 text-sm'>お名前（ふりがな）</p>
       <div className='flex'>
         <div className='w-full'>
           <input
             type='text'
             placeholder='やまだ'
-            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('familyNameKana', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-sm text-red-600'>{errors.familyNameKana?.message}</p>
+          <p className='text-xs text-red-600'>{errors.familyNameKana?.message}</p>
         </div>
         <div className='ml-1.5 w-full'>
           <input
             type='text'
             placeholder='たろう'
-            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('givenNameKana', {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
             })}
           />
-          <p className='text-sm text-red-600'>{errors.givenNameKana?.message}</p>
+          <p className='text-xs text-red-600'>{errors.givenNameKana?.message}</p>
         </div>
       </div>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Postcode</p>
-      <p className='mb-1.5'>郵便番号</p>
+      <p className='text-xs font-light text-gray-400'>Postcode</p>
+      <p className='mb-1.5 text-sm'>郵便番号</p>
       <div className='flex'>
         <div className='w-full'>
           <input
             type='text'
             autoComplete='postal-code'
             placeholder='1234567'
-            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('zipCode', {
               required: { value: true, message: '必須項目です' },
               pattern: {
@@ -125,55 +125,55 @@ const MainForm: FC<MainFormProps> = ({
               },
             })}
           />
-          <p className='text-sm text-red-600'>{errors.zipCode?.message}</p>
+          <p className='text-xs text-red-600'>{errors.zipCode?.message}</p>
         </div>
         <button
           onClick={suggestAddressFromZipCode}
           type='button'
           disabled={isLoading}
-          className='block h-10 w-1/4 rounded border border-white bg-gradient-to-br from-stone-400 to-stone-300 text-sm text-white shadow-md'
+          className='block h-8 w-1/4 rounded border border-white bg-gradient-to-br from-stone-400 to-stone-300 text-xs text-white shadow-md'
         >
           住所検索
         </button>
       </div>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Address</p>
-      <p className='mb-1.5'>ご住所</p>
+      <p className='text-xs font-light text-gray-400'>Address</p>
+      <p className='mb-1.5 text-sm'>ご住所</p>
       <input
         type='text'
         autoComplete='address-line1'
         placeholder='東京都ｘｘ区ｘｘｘ 1-1-1'
-        className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('address1', {
           required: { value: true, message: '必須項目です' },
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
       />
-      <p className='text-sm text-red-600'>{errors.address1?.message}</p>
+      <p className='text-xs text-red-600'>{errors.address1?.message}</p>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Building</p>
-      <p className='mb-1.5'>建物名・部屋番号等（任意）</p>
+      <p className='text-xs font-light text-gray-400'>Building</p>
+      <p className='mb-1.5 text-sm'>建物名・部屋番号等（任意）</p>
       <input
         type='text'
         autoComplete='address-line2'
         placeholder='ｘｘマンション 101号室'
-        className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('address2', {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
       />
-      <p className='text-sm text-red-600'>{errors.address2?.message}</p>
+      <p className='text-xs text-red-600'>{errors.address2?.message}</p>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Phone number</p>
-      <p className='mb-1.5'>電話番号（任意）</p>
+      <p className='text-xs font-light text-gray-400'>Phone number</p>
+      <p className='mb-1.5 text-sm'>電話番号（任意）</p>
       <input
         type='tel'
         autoComplete='tel'
         placeholder='09012345678'
-        className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('tel', {
           pattern: {
             value: /^0\d{9,10}$/,
@@ -181,16 +181,16 @@ const MainForm: FC<MainFormProps> = ({
           },
         })}
       />
-      <p className='text-sm text-red-600'>{errors.tel?.message}</p>
+      <p className='text-xs text-red-600'>{errors.tel?.message}</p>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Email</p>
-      <p className='mb-1.5'>メールアドレス</p>
+      <p className='text-xs font-light text-gray-400'>Email</p>
+      <p className='mb-1.5 text-sm'>メールアドレス</p>
       <input
         type='email'
         autoComplete='email'
         placeholder='yamada@example.com'
-        className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('email', {
           required: { value: true, message: '必須項目です' },
           pattern: {
@@ -200,32 +200,32 @@ const MainForm: FC<MainFormProps> = ({
           },
         })}
       />
-      <p className='text-sm text-red-600'>{errors.email?.message}</p>
+      <p className='text-xs text-red-600'>{errors.email?.message}</p>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Allergy</p>
-      <p className='mb-1.5'>アレルギー（任意）</p>
+      <p className='text-xs font-light text-gray-400'>Allergy</p>
+      <p className='mb-1.5 text-sm'>アレルギー（任意）</p>
       <input
         type='text'
         placeholder='卵'
-        className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('allergy', {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
       />
-      <p className='text-sm text-red-600'>{errors.allergy?.message}</p>
+      <p className='text-xs text-red-600'>{errors.allergy?.message}</p>
     </div>
     <div className='mt-10'>
-      <p className='text-sm font-light text-gray-400'>Message</p>
-      <p className='mb-1.5'>メッセージ（任意）</p>
+      <p className='text-xs font-light text-gray-400'>Message</p>
+      <p className='mb-1.5 text-sm'>メッセージ（任意）</p>
       <textarea
         placeholder='ご自由にご入力ください'
-        className='h-24 w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+        className='h-24 w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('message', {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
       />
-      <p className='text-sm text-red-600'>{errors.message?.message}</p>
+      <p className='text-xs text-red-600'>{errors.message?.message}</p>
     </div>
   </div>
 )

@@ -12,7 +12,7 @@ const Thanks: FC = () => (
         <h1>{`${GROOM} & ${BRIDE}`}</h1>
       </div>
       <img className='mx-auto mb-12 w-24' src={LINE_FLOWER_IMAGE} alt='line-flower' />
-      <p className='mb-12'>ご回答ありがとうございました</p>
+      <p className='mb-12 font-sans'>ご回答ありがとうございました</p>
     </div>
   </div>
 )
