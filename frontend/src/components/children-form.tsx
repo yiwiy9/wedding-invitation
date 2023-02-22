@@ -18,19 +18,19 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
   removeChildren,
   isLoading,
 }) => (
-  <div className='text-lg'>
+  <div>
     <p className='mt-9 text-xs font-light text-gray-400'>children</p>
-    <p className='text-base'>-お子様-</p>
+    <p>-お子様-</p>
     <p className='text-sm text-red-600'>{errors.children?.message}</p>
     <div className='mt-7'>
       <p className='text-sm font-light text-gray-400'>Name</p>
-      <p className='mb-1.5 text-base'>お名前</p>
+      <p className='mb-1.5'>お名前</p>
       <div className='flex'>
         <div className='w-full'>
           <input
             type='text'
             placeholder='山田'
-            className='w-full border-b p-1.5 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.familyNameKanji`, {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -44,7 +44,7 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
           <input
             type='text'
             placeholder='太郎'
-            className='w-full border-b p-1.5 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.givenNameKanji`, {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -58,13 +58,13 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
     </div>
     <div className='mt-10'>
       <p className='text-sm font-light text-gray-400'>Name (Kana)</p>
-      <p className='mb-1.5 text-base'>お名前（ふりがな）</p>
+      <p className='mb-1.5'>お名前（ふりがな）</p>
       <div className='flex'>
         <div className='w-full'>
           <input
             type='text'
             placeholder='やまだ'
-            className='w-full border-b p-1.5 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.familyNameKana`, {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -78,7 +78,7 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
           <input
             type='text'
             placeholder='たろう'
-            className='w-full border-b p-1.5 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+            className='w-full border-b p-1.5  text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.givenNameKana`, {
               required: { value: true, message: '必須項目です' },
               maxLength: { value: 255, message: '255文字以下にしてください' },
@@ -92,11 +92,11 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
     </div>
     <div className='mt-10'>
       <p className='text-sm font-light text-gray-400'>Allergy</p>
-      <p className='mb-1.5 text-base'>アレルギー（任意）</p>
+      <p className='mb-1.5'>アレルギー（任意）</p>
       <input
         type='text'
         placeholder='卵'
-        className='w-full border-b p-1.5 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
+        className='w-full border-b p-1.5 text-center text-lg focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register(`children.${childrenIndex}.allergy`, {
           maxLength: { value: 255, message: '255文字以下にしてください' },
         })}
