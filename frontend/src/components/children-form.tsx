@@ -33,7 +33,7 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.familyNameKanji`, {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>
@@ -47,7 +47,7 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.givenNameKanji`, {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>
@@ -67,7 +67,7 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.familyNameKana`, {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>
@@ -81,7 +81,7 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register(`children.${childrenIndex}.givenNameKana`, {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>
@@ -98,7 +98,7 @@ const ChildrenForm: FC<ChildrenFormProps> = ({
         placeholder='卵'
         className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register(`children.${childrenIndex}.allergy`, {
-          maxLength: { value: 255, message: '255文字以下にしてください' },
+          maxLength: { value: 150, message: '150文字以下にしてください' },
         })}
       />
       <p className='text-xs text-red-600'>{errors.children?.[childrenIndex]?.allergy?.message}</p>

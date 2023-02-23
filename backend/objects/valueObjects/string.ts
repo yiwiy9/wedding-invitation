@@ -1,7 +1,7 @@
 import type { Result } from 'neverthrow'
 import { ok, err } from 'neverthrow'
 
-const MAX_LENGTH = 255
+const MAX_LENGTH = 150
 
 const validateString =
   <T extends string>(maxLength: number = MAX_LENGTH) =>

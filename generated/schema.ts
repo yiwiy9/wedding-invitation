@@ -3,214 +3,203 @@
  * Do not make direct changes to the file.
  */
 
-export type paths = {
-  '/users': {
-    /** 新規ユーザーの作成 */
-    post: operations['postUser']
-  }
-  '/samples': {
-    /** サンプル：メールの一覧を取得 */
-    get: operations['getSamples']
-    /** サンプル：新規メールの作成 */
-    post: operations['postSample']
-  }
-}
 
-export type webhooks = Record<string, never>
+export type paths = {
+  "/users": {
+    /** 新規ユーザーの作成 */
+    post: operations["postUser"];
+  };
+  "/samples": {
+    /** サンプル：メールの一覧を取得 */
+    get: operations["getSamples"];
+    /** サンプル：新規メールの作成 */
+    post: operations["postSample"];
+  };
+};
+
+export type webhooks = Record<string, never>;
 
 export type components = {
   schemas: {
     UserBase: {
       /** @example 山田 */
-      familyNameKanji: string
+      familyNameKanji: string;
       /** @example 太郎 */
-      givenNameKanji: string
+      givenNameKanji: string;
       /** @example やまだ */
-      familyNameKana: string
+      familyNameKana: string;
       /** @example たろう */
-      givenNameKana: string
+      givenNameKana: string;
       /** @example 卵 */
-      allergy?: string
-    }
-    UserWithoutIsAttend: components['schemas']['UserBase'] & {
+      allergy?: string;
+    };
+    UserWithoutIsAttend: components["schemas"]["UserBase"] & {
       /** @example 1234567 */
-      zipCode: string
+      zipCode: string;
       /** @example 東京都ｘｘ区ｘｘｘ 1-1-1 */
-      address1: string
+      address1: string;
       /** @example ｘｘマンション 101号室 */
-      address2: string
+      address2: string;
       /**
-       * Format: email
+       * Format: email 
        * @example yamada@example.com
        */
-      email: string
+      email: string;
       /**
-       * Format: ^0\d{9,10}$
+       * Format: ^0\d{9,10}$ 
        * @example 9012345678
        */
-      tel?: string
+      tel?: string;
       /** @example おめでとう！ */
-      message?: string
-    }
-    User: components['schemas']['UserWithoutIsAttend'] & {
+      message?: string;
+    };
+    User: components["schemas"]["UserWithoutIsAttend"] & {
       /** @example true */
-      isAttend: boolean
-    }
-    CreateUserInput: components['schemas']['UserWithoutIsAttend'] & {
+      isAttend: boolean;
+    };
+    CreateUserInput: components["schemas"]["UserWithoutIsAttend"] & ({
       /**
-       * @example true
+       * @example true 
        * @enum {string}
        */
-      isAttend: 'true' | 'false'
-      children: components['schemas']['UserBase'][]
-    }
-    CreateUserValidationError: {
-      /**
-       * @example email
-       * @enum {string}
-       */
-      name:
-        | 'familyNameKanji'
-        | 'givenNameKanji'
-        | 'familyNameKana'
-        | 'givenNameKana'
-        | 'allergy'
-        | 'isAttend'
-        | 'zipCode'
-        | 'address1'
-        | 'address2'
-        | 'email'
-        | 'tel'
-        | 'message'
-        | 'children'
-      /** @example email is invalid. */
-      reason: string
-    }[]
+      isAttend: "true" | "false";
+      children: (components["schemas"]["UserBase"])[];
+    });
+    CreateUserValidationError: ({
+        /**
+         * @example email 
+         * @enum {string}
+         */
+        name: "familyNameKanji" | "givenNameKanji" | "familyNameKana" | "givenNameKana" | "allergy" | "isAttend" | "zipCode" | "address1" | "address2" | "email" | "tel" | "message" | "children";
+        /** @example email is invalid. */
+        reason: string;
+      })[];
     Sample: {
       /**
-       * Format: email
+       * Format: email 
        * @example yamada@example.com
        */
-      sampleEmail: string
-    }
-    CreateSampleInput: components['schemas']['Sample']
-    CreateSampleValidationError: {
-      /**
-       * @example sampleEmail
-       * @enum {string}
-       */
-      name: 'sampleEmail'
-      /** @example sampleEmail is invalid. */
-      reason: string
-    }[]
+      sampleEmail: string;
+    };
+    CreateSampleInput: components["schemas"]["Sample"];
+    CreateSampleValidationError: ({
+        /**
+         * @example sampleEmail 
+         * @enum {string}
+         */
+        name: "sampleEmail";
+        /** @example sampleEmail is invalid. */
+        reason: string;
+      })[];
     Error: {
       /** @example Not found. */
-      message: string
-    }
-    BadRequest: components['schemas']['Error']
-    NotFound: components['schemas']['Error']
-    InternalServerError: components['schemas']['Error']
-  }
+      message: string;
+    };
+    BadRequest: components["schemas"]["Error"];
+    NotFound: components["schemas"]["Error"];
+    InternalServerError: components["schemas"]["Error"];
+  };
   responses: {
     /** @description 複数ユーザーのレスポンスボディ */
     Users: {
       content: {
-        'application/json': components['schemas']['User'][]
-      }
-    }
+        "application/json": (components["schemas"]["User"])[];
+      };
+    };
     /** @description ユーザーバリデーションエラーのレスポンスボディ */
     UserValidationError: {
       content: {
-        'application/json': components['schemas']['CreateUserValidationError']
-      }
-    }
+        "application/json": components["schemas"]["CreateUserValidationError"];
+      };
+    };
     /** @description 単一サンプルのレスポンスボディ */
     Sample: {
       content: {
-        'application/json': components['schemas']['Sample']
-      }
-    }
+        "application/json": components["schemas"]["Sample"];
+      };
+    };
     /** @description 複数サンプルのレスポンスボディ */
     Samples: {
       content: {
-        'application/json': components['schemas']['Sample'][]
-      }
-    }
+        "application/json": (components["schemas"]["Sample"])[];
+      };
+    };
     /** @description サンプルバリデーションエラーのレスポンスボディ */
     SampleValidationError: {
       content: {
-        'application/json': components['schemas']['CreateSampleValidationError']
-      }
-    }
+        "application/json": components["schemas"]["CreateSampleValidationError"];
+      };
+    };
     /** @description 共通の400エラーレスポンスボディ */
     BadRequest: {
       content: {
-        'application/json': components['schemas']['BadRequest']
-      }
-    }
+        "application/json": components["schemas"]["BadRequest"];
+      };
+    };
     /** @description 共通の404エラーレスポンスボディ */
     NotFound: {
       content: {
-        'application/json': components['schemas']['NotFound']
-      }
-    }
+        "application/json": components["schemas"]["NotFound"];
+      };
+    };
     /** @description 共通の500エラーレスポンスボディ */
     InternalServerError: {
       content: {
-        'application/json': components['schemas']['InternalServerError']
-      }
-    }
-  }
-  parameters: never
+        "application/json": components["schemas"]["InternalServerError"];
+      };
+    };
+  };
+  parameters: never;
   requestBodies: {
     /** @description 新規ユーザーの作成用リクエストボディ */
     PostUser: {
       content: {
-        'application/json': components['schemas']['CreateUserInput']
-      }
-    }
+        "application/json": components["schemas"]["CreateUserInput"];
+      };
+    };
     /** @description サンプル：新規メールの作成用リクエストボディ */
     PostSample: {
       content: {
-        'application/json': components['schemas']['CreateSampleInput']
-      }
-    }
-  }
-  headers: never
-  pathItems: never
-}
+        "application/json": components["schemas"]["CreateSampleInput"];
+      };
+    };
+  };
+  headers: never;
+  pathItems: never;
+};
 
-export type external = Record<string, never>
+export type external = Record<string, never>;
 
 export type operations = {
+
   postUser: {
     /** 新規ユーザーの作成 */
-    requestBody: components['requestBodies']['PostUser']
+    requestBody: components["requestBodies"]["PostUser"];
     responses: {
-      201: components['responses']['Users']
-      400: components['responses']['BadRequest']
-      404: components['responses']['NotFound']
-      422: components['responses']['UserValidationError']
-      500: components['responses']['InternalServerError']
-    }
-  }
+      201: components["responses"]["Users"];
+      400: components["responses"]["BadRequest"];
+      404: components["responses"]["NotFound"];
+      422: components["responses"]["UserValidationError"];
+      500: components["responses"]["InternalServerError"];
+    };
+  };
   getSamples: {
     /** サンプル：メールの一覧を取得 */
     responses: {
-      200: components['responses']['Samples']
-      404: components['responses']['NotFound']
-      500: components['responses']['InternalServerError']
-    }
-  }
+      200: components["responses"]["Samples"];
+      404: components["responses"]["NotFound"];
+      500: components["responses"]["InternalServerError"];
+    };
+  };
   postSample: {
     /** サンプル：新規メールの作成 */
-    requestBody: components['requestBodies']['PostSample']
+    requestBody: components["requestBodies"]["PostSample"];
     responses: {
-      201: components['responses']['Sample']
-      400: components['responses']['BadRequest']
-      404: components['responses']['NotFound']
-      422: components['responses']['SampleValidationError']
-      500: components['responses']['InternalServerError']
-    }
-  }
-}
+      201: components["responses"]["Sample"];
+      400: components["responses"]["BadRequest"];
+      404: components["responses"]["NotFound"];
+      422: components["responses"]["SampleValidationError"];
+      500: components["responses"]["InternalServerError"];
+    };
+  };
+};

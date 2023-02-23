@@ -57,7 +57,7 @@ const MainForm: FC<MainFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('familyNameKanji', {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>{errors.familyNameKanji?.message}</p>
@@ -70,7 +70,7 @@ const MainForm: FC<MainFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('givenNameKanji', {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>{errors.givenNameKanji?.message}</p>
@@ -88,7 +88,7 @@ const MainForm: FC<MainFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('familyNameKana', {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>{errors.familyNameKana?.message}</p>
@@ -100,7 +100,7 @@ const MainForm: FC<MainFormProps> = ({
             className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
             {...register('givenNameKana', {
               required: { value: true, message: '必須項目です' },
-              maxLength: { value: 255, message: '255文字以下にしてください' },
+              maxLength: { value: 150, message: '150文字以下にしてください' },
             })}
           />
           <p className='text-xs text-red-600'>{errors.givenNameKana?.message}</p>
@@ -147,7 +147,7 @@ const MainForm: FC<MainFormProps> = ({
         className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('address1', {
           required: { value: true, message: '必須項目です' },
-          maxLength: { value: 255, message: '255文字以下にしてください' },
+          maxLength: { value: 150, message: '150文字以下にしてください' },
         })}
       />
       <p className='text-xs text-red-600'>{errors.address1?.message}</p>
@@ -161,7 +161,7 @@ const MainForm: FC<MainFormProps> = ({
         placeholder='ｘｘマンション 101号室'
         className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('address2', {
-          maxLength: { value: 255, message: '255文字以下にしてください' },
+          maxLength: { value: 150, message: '150文字以下にしてください' },
         })}
       />
       <p className='text-xs text-red-600'>{errors.address2?.message}</p>
@@ -210,7 +210,7 @@ const MainForm: FC<MainFormProps> = ({
         placeholder='卵'
         className='w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('allergy', {
-          maxLength: { value: 255, message: '255文字以下にしてください' },
+          maxLength: { value: 150, message: '150文字以下にしてください' },
         })}
       />
       <p className='text-xs text-red-600'>{errors.allergy?.message}</p>
@@ -222,7 +222,7 @@ const MainForm: FC<MainFormProps> = ({
         placeholder='ご自由にご入力ください'
         className='h-24 w-full border-b p-1 text-center focus:border-blue-500 focus:bg-neutral-100 focus:outline-none'
         {...register('message', {
-          maxLength: { value: 255, message: '255文字以下にしてください' },
+          maxLength: { value: 500, message: '500文字以下にしてください' },
         })}
       />
       <p className='text-xs text-red-600'>{errors.message?.message}</p>

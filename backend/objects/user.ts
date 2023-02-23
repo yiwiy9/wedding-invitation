@@ -38,7 +38,7 @@ export const validateUserTel = validateTel<UserTel>()
 export const noUserTel = '' as UserTel
 
 export type Message = string & { readonly brand: unique symbol }
-export const validateMessage = validateString<Message>()
+export const validateMessage = validateString<Message>(500)
 export const noMessage = '' as Message
 
 export type IsAttend = boolean & { readonly brand: unique symbol }
