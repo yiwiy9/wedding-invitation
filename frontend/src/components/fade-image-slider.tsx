@@ -21,7 +21,13 @@ const FadeImageSlider: FC<Props> = ({ imageArray }) => (
   >
     {imageArray.map((image, index) => (
       <SwiperSlide key={image}>
-        <img className='w-full animate-zoomUp' src={image} alt={`fade-img-${index}`} />
+        {({ isActive, isPrev }) => (
+          <img
+            className={`${isActive || isPrev ? 'animate-zoomUp' : ''} w-full`}
+            src={image}
+            alt={`fade-img-${index}`}
+          />
+        )}
       </SwiperSlide>
     ))}
   </Swiper>
