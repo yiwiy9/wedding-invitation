@@ -759,6 +759,8 @@ xhr.send(
   - デプロイ後、`index.html`のキャッシュを消す必要がある
   - TODO: yarn で aws cli 実行して、デプロイと同時にキャッシュ削除が出来るようにする
     - [ビルドパイプラインでやってる例](https://zenn.dev/keita_hino/articles/04d85004ba007e)
+- [バケットを作成してから 24 時間以上経っているかどうか](https://qiita.com/sakuraya/items/add2cb7ced954215fb03#%E3%83%90%E3%82%B1%E3%83%83%E3%83%88%E3%82%92%E4%BD%9C%E6%88%90%E3%81%97%E3%81%A6%E3%81%8B%E3%82%8924%E6%99%82%E9%96%93%E4%BB%A5%E4%B8%8A%E7%B5%8C%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%81%8B%E3%81%A9%E3%81%86%E3%81%8B)
+  - これに引っかかったので、`.s3.amazonaws.com`=>`.s3-ap-northeast-1.amazonaws.com`に変更
 
 ### 本番環境のデプロイ
 
