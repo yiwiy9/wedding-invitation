@@ -22,6 +22,7 @@ const Entry: FC = () => {
     handleSubmit,
     getValues,
     setValue,
+    setFocus,
     setError,
     trigger,
     formState: { errors },
@@ -55,6 +56,7 @@ const Entry: FC = () => {
       try {
         const fullAddress = await suggestAddress(zipCode)
         setValue('address1', fullAddress)
+        setFocus('address1')
       } catch {
         setError(
           'zipCode',

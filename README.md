@@ -8,6 +8,9 @@ Web App of our wedding invitation
 
 1. 広告入れる
 1. バックエンドと OpenAPI の空文字を弾く処理
+   - address2 が required になってるけど、空文字許容のおかげで通ってる
+   - 直す必要ああり
+   - CORS で localhost も cdpn.io も動かない
 1. Frontend 異常系エラー制御とエラーページの精査
    - フロントの`NotFound`は綺麗なエラーが出る
 1. YAML プラグインを CloudFormation, OpenAPI 用にカスタマイズする
