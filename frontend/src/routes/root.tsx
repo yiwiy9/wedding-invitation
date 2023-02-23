@@ -6,8 +6,10 @@ const Root: FC = () => (
   <main className='font-serif'>
     <Splash />
     <div className='bg-gradient-to-b from-zinc-200 via-zinc-100 to-zinc-400'>
-      <div className='my-0 mx-auto max-w-xl'>
-        <Outlet />
+      <div className='bg-texture'>
+        <div className='my-0 mx-auto max-w-xl'>
+          <Outlet />
+        </div>
       </div>
     </div>
     <ScrollRestoration />

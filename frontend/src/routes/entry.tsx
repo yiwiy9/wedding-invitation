@@ -86,7 +86,7 @@ const Entry: FC = () => {
   }
 
   return (
-    <div className='bg-texture px-5 py-7'>
+    <div className='px-5 py-7'>
       <div className='rounded bg-white px-4 py-7 text-center text-zinc-600 shadow-2xl'>
         <div className='relative mx-auto mt-8 mb-6 h-40 w-40'>
           <TitleLogo />
@@ -124,7 +124,7 @@ const Entry: FC = () => {
           <button
             type='submit'
             disabled={isLoading}
-            className='mx-auto mb-10 block w-4/5 rounded-full border border-white bg-gradient-to-br from-stone-400 to-stone-300 py-4 text-lg text-white shadow-lg'
+            className='mx-auto mb-10 block w-4/5 rounded-full border border-white bg-gradient-to-br from-neutral-400 to-stone-300 py-4 text-lg text-white shadow-lg'
           >
             送信する
           </button>

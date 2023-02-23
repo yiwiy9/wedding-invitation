@@ -131,7 +131,7 @@ const MainForm: FC<MainFormProps> = ({
           onClick={suggestAddressFromZipCode}
           type='button'
           disabled={isLoading}
-          className='block h-8 w-1/4 rounded border border-white bg-gradient-to-br from-stone-400 to-stone-300 text-xs text-white shadow-md'
+          className='block h-8 w-1/4 rounded border border-white bg-gradient-to-br from-neutral-400 to-stone-300 text-xs text-white shadow-md'
         >
           住所検索
         </button>

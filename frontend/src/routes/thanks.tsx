@@ -3,7 +3,7 @@ import TitleLogo from '../components/title-logo'
 import { GROOM, BRIDE, LINE_FLOWER_IMAGE } from '../config'
 
 const Thanks: FC = () => (
-  <div className='h-screen bg-texture px-5 py-7'>
+  <div className='h-screen px-5 py-7'>
     <div className='rounded bg-white px-4 py-7 text-center text-zinc-600 shadow-2xl'>
       <div className='relative mx-auto mt-8 mb-6 h-40 w-40'>
         <TitleLogo />
