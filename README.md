@@ -6,7 +6,6 @@ Web App of our wedding invitation
 
 **納期やばいので、完成を第一優先に!!!**
 
-1. 広告入れる
 1. バックエンドと OpenAPI の空文字を弾く処理
    - address2 が required になってるけど、空文字許容のおかげで通ってる
    - 直す必要ああり
@@ -760,3 +759,11 @@ xhr.send(
   - デプロイ後、`index.html`のキャッシュを消す必要がある
   - TODO: yarn で aws cli 実行して、デプロイと同時にキャッシュ削除が出来るようにする
     - [ビルドパイプラインでやってる例](https://zenn.dev/keita_hino/articles/04d85004ba007e)
+
+### 本番環境のデプロイ
+
+1. `frontend/.env.production`を本番用にする
+   - dev で本番の URL を叩くことになる可能性あるので要改善
+1. `yarn build`を実行
+1. `sls deploy --stage prod --verbose`を実行
+1. あれば、`/index.html`の Cloudfront キャッシュ削除
