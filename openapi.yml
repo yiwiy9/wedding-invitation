@@ -159,7 +159,7 @@ components:
             zipCode:
               type: string
               pattern: ^\d{7}$
-              example: 1234567
+              example: '1234567'
             address1:
               type: string
               maxLength: 150
@@ -175,7 +175,7 @@ components:
             tel:
               type: string
               format: ^0\d{9,10}$
-              example: 09012345678
+              example: '09012345678'
             message:
               type: string
               maxLength: 500

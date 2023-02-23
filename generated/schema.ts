@@ -47,7 +47,7 @@ export type components = {
       email: string;
       /**
        * Format: ^0\d{9,10}$ 
-       * @example 9012345678
+       * @example 09012345678
        */
       tel?: string;
       /** @example おめでとう！ */
