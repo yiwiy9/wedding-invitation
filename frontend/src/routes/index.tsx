@@ -4,6 +4,7 @@ import InvitationCard from '../components/invitation-card'
 import Countdown from '../components/countdown'
 import ImageSlider from '../components/image-slider'
 import EventDetail from '../components/event-detail'
+import Banner from '../components/banner'
 
 import { HORIZONTAL_IMAGES } from '../config'
 
@@ -26,6 +27,7 @@ const Index: FC = () => (
     <div className='pt-16 pb-32'>
       <EventDetail />
     </div>
+    <Banner />
   </>
 )
 

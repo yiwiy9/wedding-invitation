@@ -1,4 +1,5 @@
 import splashGif from '../assets/private/splash.gif'
+import bannerImage from '../assets/private/banner.png'
 import squareImage1 from '../assets/private/square-image-1.jpeg'
 import squareImage2 from '../assets/private/square-image-2.jpeg'
 import squareImage3 from '../assets/private/square-image-3.jpeg'
@@ -14,6 +15,7 @@ import rightLeaves from '../assets/right-leaves.png'
 import lineFlower from '../assets/line-flower.png'
 
 export const SPLASH_GIF = splashGif
+export const BANNER_IMAGE = bannerImage
 export const SQUARE_IMAGES = [squareImage1, squareImage2, squareImage3, squareImage4, squareImage5]
 export const HORIZONTAL_IMAGES = [
   horizontalImage1,
@@ -54,3 +56,5 @@ export const WEDDING_HALL_ADDRESS = process.env.REACT_APP_WEDDING_HALL_ADDRESS a
 export const WEDDING_HALL_TEL = process.env.REACT_APP_WEDDING_HALL_TEL as string
 export const WEDDING_HALL_LAT = Number(process.env.REACT_APP_WEDDING_HALL_LAT)
 export const WEDDING_HALL_LNG = Number(process.env.REACT_APP_WEDDING_HALL_LNG)
+
+export const BANNER_URL = process.env.REACT_APP_BANNER_URL as string
