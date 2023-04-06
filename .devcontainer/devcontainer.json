@@ -3,6 +3,12 @@
 
   "build": { "dockerfile": "Dockerfile" },
 
+  "mounts": [
+    "source=${localWorkspaceFolderBasename}-backend-node_modules,target=${containerWorkspaceFolder}/node_modules,type=volume",
+    "source=${localWorkspaceFolderBasename}-frontend-node_modules,target=${containerWorkspaceFolder}/frontend/node_modules,type=volume",
+    "source=${localWorkspaceFolderBasename}-frontend-build,target=${containerWorkspaceFolder}/frontend/build,type=volume"
+  ],
+
   "runArgs": ["--env-file", ".devcontainer/.env"],
 
   "forwardPorts": [3000, 4010],

@@ -769,3 +769,8 @@ xhr.send(
 1. `yarn build`を実行
 1. `sls deploy --stage prod --verbose`を実行
 1. あれば、`/index.html`の Cloudfront キャッシュ削除
+
+### リリース後の改善
+
+- `node_modules/`を volume マウントして、ビルドを高速化する
+  - 参考：[Use a targeted named volume](https://code.visualstudio.com/remote/advancedcontainers/improve-performance#_use-a-targeted-named-volume)
