@@ -4,16 +4,26 @@ Web App of our wedding invitation
 
 ## Backlog
 
-**納期やばいので、完成を第一優先に!!!**
-
+1. YAML プラグインを CloudFormation, OpenAPI 用にカスタマイズする
 1. バックエンドと OpenAPI の空文字を弾く処理
    - address2 が required になってるけど、空文字許容のおかげで通ってる
-   - 直す必要ああり
+   - 直す必要あり
    - CORS で localhost も cdpn.io も動かない
+1. 回答期限後、結婚式後の UI を考える
+1. フロントエンドをリファクタする
 1. Frontend 異常系エラー制御とエラーページの精査
    - フロントの`NotFound`は綺麗なエラーが出る
-1. YAML プラグインを CloudFormation, OpenAPI 用にカスタマイズする
+1. 完了後 E メール送信機能の導入
+1. jest の導入（frontend/backend）
+   - [サーバーレスでもユニットテスト – TypeScript 製 AWS Lambda を Jest でテストする](https://dev.classmethod.jp/articles/serverless-unit-test-with-jest/)
+   - [jest-openapi](https://github.com/openapi-library/OpenAPIValidators/tree/master/packages/jest-openapi)
+   - [Serverless - Testing](https://www.serverless.com/framework/docs/providers/aws/guide/testing)
+1. Github Actions で単体テスト、全体の ESLint 実行（とりあえず、デプロイはコメントアウト）
+   - [Require status checks before merging](https://docs.github.com/ja/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
 1. yarn で aws cli 実行して、デプロイと同時にキャッシュ削除が出来るようにする
+
+### 機能追加
+
 1. ユーザー登録成功と 500 エラーの Slack 通知
    - 肩書きなどをすぐに埋められるようにする
    - 迅速なエラー対応、招待者の完了の把握
@@ -22,13 +32,6 @@ Web App of our wedding invitation
    - email が正しいものとして扱えるので、今後に認証用ページを用意できる
    - ユーザー情報の更新が可能になる（登録時に重複 email のレコードを削除）
    - 嘘の email を入れられる危険がなくなる
-1. jest の導入（frontend/backend）
-   - [サーバーレスでもユニットテスト – TypeScript 製 AWS Lambda を Jest でテストする](https://dev.classmethod.jp/articles/serverless-unit-test-with-jest/)
-   - [jest-openapi](https://github.com/openapi-library/OpenAPIValidators/tree/master/packages/jest-openapi)
-   - [Serverless - Testing](https://www.serverless.com/framework/docs/providers/aws/guide/testing)
-1. Github Actions で単体テスト、全体の ESLint 実行（とりあえず、デプロイはコメントアウト）
-   - [Require status checks before merging](https://docs.github.com/ja/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches)
-1. 回答期限後、結婚式後の UI を考える
 
 ## 環境構築
 
@@ -755,7 +758,7 @@ xhr.send(
 - index 以外でリロードすると、`Access Denied`になる問題
   - [CloudFront+S3 構成の SPA Web アプリでルートページ以外に直で行ったときに AccessDenied になった件について](https://zenn.dev/redgosho/articles/13b93d2a8eac0f)
 - index でもたまに真っ白になって何も読み込めなくなる問題
-  - `index.html`のキャッシュが Cloudfront に残っていて、JS のファイル名がクァってるのが問題
+  - `index.html`のキャッシュが Cloudfront に残っていて、JS のファイル名が変わってるのが問題
   - デプロイ後、`index.html`のキャッシュを消す必要がある
   - TODO: yarn で aws cli 実行して、デプロイと同時にキャッシュ削除が出来るようにする
     - [ビルドパイプラインでやってる例](https://zenn.dev/keita_hino/articles/04d85004ba007e)
