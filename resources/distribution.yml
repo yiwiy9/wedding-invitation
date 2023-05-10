@@ -1,7 +1,6 @@
 Resources:
   CloudFrontDistribution:
     Type: AWS::CloudFront::Distribution
-    DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
     Properties:
       DistributionConfig:
         Origins:

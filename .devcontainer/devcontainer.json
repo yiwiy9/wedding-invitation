@@ -35,6 +35,7 @@
         "bierner.markdown-preview-github-styles",
         "DavidAnson.vscode-markdownlint",
         "mikestead.dotenv",
+        "redhat.vscode-yaml",
         "42Crunch.vscode-openapi"
       ],
       "settings": {
@@ -43,7 +44,30 @@
         "editor.codeActionsOnSave": {
           "source.fixAll.eslint": true
         },
-        "eslint.workingDirectories": ["./", "./frontend"]
+        "eslint.workingDirectories": ["./", "./frontend"],
+        "yaml.schemas": {
+          "https://raw.githubusercontent.com/lalcebo/json-schema/master/serverless/reference.json": "serverless.yml",
+          "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": "resources/*.yml",
+          "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json": "openapi.yml"
+        },
+        "yaml.customTags": [
+          "!And sequence",
+          "!If sequence",
+          "!Not sequence",
+          "!Equals sequence",
+          "!Or sequence",
+          "!FindInMap sequence",
+          "!Base64 scalar",
+          "!Cidr sequence",
+          "!Ref scalar",
+          "!Sub scalar",
+          "!GetAtt scalar",
+          "!GetAZs scalar",
+          "!ImportValue scalar",
+          "!Select sequence",
+          "!Split sequence",
+          "!Join sequence"
+        ]
       }
     }
   }

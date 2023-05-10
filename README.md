@@ -4,7 +4,6 @@ Web App of our wedding invitation
 
 ## Backlog
 
-1. YAML プラグインを CloudFormation, OpenAPI 用にカスタマイズする
 1. バックエンドと OpenAPI の空文字を弾く処理
    - address2 が required になってるけど、空文字許容のおかげで通ってる
    - 直す必要あり
@@ -777,3 +776,46 @@ xhr.send(
 
 - `node_modules/`を volume マウントして、ビルドを高速化する
   - 参考：[Use a targeted named volume](https://code.visualstudio.com/remote/advancedcontainers/improve-performance#_use-a-targeted-named-volume)
+- `redhat.vscode-yaml`拡張機能をカスタマイズ
+  - vscode の設定を確認すると、ほとんどデフォルトで ON になっているので、特定のファイルに Specification.json をマッピングする
+  - Cloudformation はなぜか[公式](https://docs.aws.amazon.com/ja_jp/AWSCloudFormation/latest/UserGuide/cfn-resource-specification.html)のものだと上手く動かなかったので、[こちら](https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json)を使用する
+  - [JSON Schema Store](https://www.schemastore.org/json/)で適用したい Specification.json を探す
+
+`.devcontainer/devcontainer.json`
+
+```json
+{
+  // ...
+  "customizations": {
+    "vscode": {
+      // ...
+      "settings": {
+        // ...
+        "yaml.schemas": {
+          "https://raw.githubusercontent.com/lalcebo/json-schema/master/serverless/reference.json": "serverless.yml",
+          "https://raw.githubusercontent.com/awslabs/goformation/master/schema/cloudformation.schema.json": "resources/*.yml",
+          "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json": "openapi.yml"
+        },
+        "yaml.customTags": [
+          "!And sequence",
+          "!If sequence",
+          "!Not sequence",
+          "!Equals sequence",
+          "!Or sequence",
+          "!FindInMap sequence",
+          "!Base64 scalar",
+          "!Cidr sequence",
+          "!Ref scalar",
+          "!Sub scalar",
+          "!GetAtt scalar",
+          "!GetAZs scalar",
+          "!ImportValue scalar",
+          "!Select sequence",
+          "!Split sequence",
+          "!Join sequence"
+        ]
+      }
+    }
+  }
+}
+```

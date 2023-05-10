@@ -13,10 +13,6 @@ custom:
   appName: wedding-invitation-app
   defaultStage: dev
 
-  deletionPolicy:
-    dev: Delete
-    prod: Delete #Retain
-
   backendFQDN:
     dev: dev-api-wedding.${env:APP_DOMAIN_NAME}
     prod: api-wedding.${env:APP_DOMAIN_NAME}

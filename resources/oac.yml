@@ -1,7 +1,6 @@
 Resources:
   CloudFrontOAC:
     Type: AWS::CloudFront::OriginAccessControl
-    DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
     Properties:
       OriginAccessControlConfig:
         Name: ${self:provider.stage}-${self:custom.appName}
@@ -11,7 +10,6 @@ Resources:
 
   S3BucketPolicy:
     Type: AWS::S3::BucketPolicy
-    DeletionPolicy: ${self:custom.deletionPolicy.${self:provider.stage}}
     Properties:
       Bucket: !Ref S3Bucket
       PolicyDocument:
