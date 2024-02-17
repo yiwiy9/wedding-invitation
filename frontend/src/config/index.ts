@@ -58,3 +58,6 @@ export const WEDDING_HALL_LAT = Number(process.env.REACT_APP_WEDDING_HALL_LAT)
 export const WEDDING_HALL_LNG = Number(process.env.REACT_APP_WEDDING_HALL_LNG)
 
 export const BANNER_URL = process.env.REACT_APP_BANNER_URL as string
+
+export const ALREADY_SUBMITTED_PARAM = 'submitted'
+export const NO_AD_PARAM = 'no-ad'

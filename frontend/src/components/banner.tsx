@@ -1,9 +1,7 @@
 import type { FC } from 'react'
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { BANNER_IMAGE, BANNER_URL } from '../config'
-
-const NO_AD_PARAM = 'no-ad'
+import { BANNER_IMAGE, BANNER_URL, NO_AD_PARAM } from '../config'
 
 const Banner: FC = () => {
   const [isDisplayed, setIsDisplayed] = useState(false)
