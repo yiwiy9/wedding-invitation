@@ -21,6 +21,10 @@ custom:
     dev: dev-wedding.${env:APP_DOMAIN_NAME}
     prod: wedding.${env:APP_DOMAIN_NAME}
 
+  corsOrigin:
+    dev: '*' # serverless-offlineでもAPIを叩けるようにする
+    prod: https://${self:custom.frontendFQDN.prod}
+
   googleSpreadsheetId:
     dev: ${env:DEV_GOOGLE_SPREADSHEET_ID}
     prod: ${env:PROD_GOOGLE_SPREADSHEET_ID}
@@ -61,7 +65,7 @@ provider:
     disableDefaultEndpoint: true
     cors:
       allowedOrigins:
-        - https://${self:custom.frontendFQDN.${self:provider.stage}}
+        - ${self:custom.corsOrigin.${self:provider.stage}}
       allowedHeaders:
         - Content-Type
         - X-Amz-Date

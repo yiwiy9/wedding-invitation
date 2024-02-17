@@ -4,10 +4,6 @@ Web App of our wedding invitation
 
 ## Backlog
 
-1. バックエンドと OpenAPI の空文字を弾く処理
-   - address2 が required になってるけど、空文字許容のおかげで通ってる
-   - 直す必要あり
-   - CORS で localhost も cdpn.io も動かない
 1. 回答期限後、結婚式後の UI を考える
 1. フロントエンドをリファクタする
 1. Frontend 異常系エラー制御とエラーページの精査
@@ -819,3 +815,7 @@ xhr.send(
   }
 }
 ```
+
+- [serverless-offline で HTTP API だと CORS の origin を別途指定できない](https://github.com/dherault/serverless-offline?tab=readme-ov-file#cors)ので、dev の場合は`'*'`とする
+  - dev だと serverless でデプロイした場合も適用されるので注意が必要
+  - localhost や cdpn.io からも叩けるようになる
