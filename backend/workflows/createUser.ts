@@ -31,6 +31,7 @@ import {
   validateMessage,
   validateIsAttend,
   noAllergy,
+  noAddress2,
   noUserTel,
   noMessage,
 } from '../objects/user'
@@ -74,9 +75,11 @@ const validateUser: ValidateUser = (model) => {
     Err<never, CreateUserValidationError[number]>
   >((e) => err({ name: 'address1', reason: e.message }))
 
-  const address2Result = validateAddress2(model.address2).orElse<
-    Err<never, CreateUserValidationError[number]>
-  >((e) => err({ name: 'address2', reason: e.message }))
+  const address2Result = model.address2
+    ? validateAddress2(model.address2).orElse<Err<never, CreateUserValidationError[number]>>((e) =>
+        err({ name: 'address2', reason: e.message }),
+      )
+    : ok(noAddress2)
 
   const emailResult = validateUserEmail(model.email).orElse<
     Err<never, CreateUserValidationError[number]>

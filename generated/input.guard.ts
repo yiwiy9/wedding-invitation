@@ -16,7 +16,7 @@ export function isPostUserInput(obj: unknown): obj is PostUserInput {
     ((typedObj !== null && typeof typedObj === 'object') || typeof typedObj === 'function') &&
     typeof typedObj['zipCode'] === 'string' &&
     typeof typedObj['address1'] === 'string' &&
-    typeof typedObj['address2'] === 'string' &&
+    (typeof typedObj['address2'] === 'undefined' || typeof typedObj['address2'] === 'string') &&
     typeof typedObj['email'] === 'string' &&
     (typeof typedObj['tel'] === 'undefined' || typeof typedObj['tel'] === 'string') &&
     (typeof typedObj['message'] === 'undefined' || typeof typedObj['message'] === 'string') &&

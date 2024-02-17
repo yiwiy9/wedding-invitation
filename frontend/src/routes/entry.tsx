@@ -55,7 +55,7 @@ const Entry: FC = () => {
       const zipCode = getValues('zipCode')
       try {
         const fullAddress = await suggestAddress(zipCode)
-        setValue('address1', fullAddress)
+        setValue('address1', fullAddress, { shouldValidate: true })
         setFocus('address1')
       } catch {
         setError(

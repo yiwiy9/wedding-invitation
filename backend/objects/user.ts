@@ -29,6 +29,7 @@ export const validateAddress1 = validateString<Address1>()
 
 export type Address2 = string & { readonly brand: unique symbol }
 export const validateAddress2 = validateString<Address2>()
+export const noAddress2 = '' as Address2
 
 export type UserEmail = string & { readonly brand: unique symbol }
 export const validateUserEmail = validateEmail<UserEmail>()

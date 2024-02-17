@@ -183,7 +183,6 @@ components:
           required:
             - zipCode
             - address1
-            - address2
             - email
     User:
       allOf:
