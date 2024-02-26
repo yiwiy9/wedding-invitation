@@ -9,7 +9,6 @@ import horizontalImage1 from '../assets/private/horizontal-image-1.jpeg'
 import horizontalImage2 from '../assets/private/horizontal-image-2.jpeg'
 import horizontalImage3 from '../assets/private/horizontal-image-3.jpeg'
 import horizontalImage4 from '../assets/private/horizontal-image-4.jpeg'
-import horizontalImage5 from '../assets/private/horizontal-image-5.jpeg'
 import leftLeaves from '../assets/left-leaves.png'
 import rightLeaves from '../assets/right-leaves.png'
 import lineFlower from '../assets/line-flower.png'
@@ -22,7 +21,6 @@ export const HORIZONTAL_IMAGES = [
   horizontalImage2,
   horizontalImage3,
   horizontalImage4,
-  horizontalImage5,
 ]
 
 export const LEFT_LEAVES_IMAGE = leftLeaves
